@@ -6,4 +6,11 @@
 ## Overview
 The Chemical Tracker and Exposure Assessor in Publicly Owned Treatment Works (ChemTEAPOTW) model integrates frameworks for conventional treatment processes, chemical fate and transport across treatment stages, and occupational exposures (dermal and inhalation). The model employs a steady-state open-loop approach to predict chemical partitioning across unit processes like leading to emissions to air, water discharges, or land application of byproducts.
 
+## Requirements
+1. Python
+2. numpy
+3. scipy
+4. pandas
+5. math
+
 ##
