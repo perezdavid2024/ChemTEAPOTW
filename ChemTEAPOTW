@@ -755,38 +755,37 @@ def myFunction(x):
     a6 = 600/vol2
     a7 = 600/vol2
     
-    
-    toxreac1 = -kbio*XBH_5/1.3072*(SCH_5)*0.6
-    toxreac2 = -(ks*a3)*SCH_5 
-    toxreac3 = -kbio*XBH_6/1.3072*(SCH_6)*0.6
-    toxreac4 = -(ks*a4)*SCH_6
-    toxreac5 = -kbio*SCH_7*XBH_7/1.3072#*0.75*TSS_7
-    toxreac6 = -(ks*a5)*SCH_7
-    toxreac7 = -Qa*(Hc*SCH_7*f)/vol2#vol2*KLa_temp3
-    toxreac8 = -kbio*(SCH_8)*XBH_8/1.3072#*0.75*TSS_8
-    toxreac9 = -(ks*a6)*SCH_8
-    toxreac10 = -Qa2*(Hc*SCH_8*f2)/vol2#vol2*KLa_temp3
-    toxreac11 = -kbio*(SCH_9)*XBH_10/1.3072  #biodegradation term*0.75*TSS_10
-    toxreac12 = -(ks*a7)*SCH_9 #surface volatization term
-    toxreac13 = -Qa3*(Hc*SCH_9*f3)/vol2  #diffused air volatization term#vol2*KLa_temp5
-    
-    
-
-    # toxreac1 = -kbio*(SCH_5)
-    # toxreac2 = -(ks*a3)*SCH_5 
-    # toxreacm1 = 90
-    # toxreac3 = -kbio*(SCH_6)
-    # toxreac4 = -(ks*a4)*SCH_6
-    # toxreacm2 = 90
-    # toxreac5 = -kbio*SCH_7#*0.75*TSS_7
-    # toxreac6 = -(ks*a5)*SCH_7
-    # toxreac7 = -Qa*(Hc*SCH_7*f)/vol2#vol2*KLa_temp3
-    # toxreac8 = -kbio*(SCH_8)#*0.75*TSS_8
-    # toxreac9 = -(ks*a6)*SCH_8
-    # toxreac10 = -Qa2*(Hc*SCH_8*f2)/vol2#vol2*KLa_temp3
-    # toxreac11 = -kbio*(SCH_10) #biodegradation term*0.75*TSS_10
-    # toxreac12 = -(ks*a7)*SCH_10 #surface volatization term
-    # toxreac13 = -Qa3*(Hc*SCH_10*f3)/vol2  #diffu5
+    #If chemical is consodered "biologically degradable" bio = 1. Biological degradability determined from Comptox platform
+    if bio == 1 :
+        toxreac1 = -kbio*XBH_5/1.3072*(SCH_5)*0.6
+        toxreac2 = -(ks*a3)*SCH_5
+        toxreac3 = -kbio*XBH_6/1.3072*(SCH_6)*0.6
+        toxreac4 = -(ks*a4)*SCH_6
+        toxreac5 = -kbio*SCH_7*XBH_7/1.3072#*0.75*TSS_7
+        toxreac6 = -(ks*a5)*SCH_7
+        toxreac7 = -Qa*(Hc*SCH_7*f)/vol2#vol2*KLa_temp3
+        toxreac8 = -kbio*(SCH_8)*XBH_8/1.3072#*0.75*TSS_8
+        toxreac9 = -(ks*a6)*SCH_8
+        toxreac10 = -Qa2*(Hc*SCH_8*f2)/vol2#vol2*KLa_temp3
+        toxreac11 = -kbio*(SCH_9)*XBH_10/1.3072  #biodegradation term*0.75*TSS_10
+        toxreac12 = -(ks*a7)*SCH_9 #surface volatization term
+        toxreac13 = -Qa3*(Hc*SCH_9*f3)/vol2  #diffused air volatization term#vol2*KLa_temp5
+   
+   
+    else :
+        toxreac1 = -kbio*(SCH_5)
+        toxreac2 = -(ks*a3)*SCH_5
+        toxreac3 = -kbio*(SCH_6)
+        toxreac4 = -(ks*a4)*SCH_6
+        toxreac5 = -kbio*SCH_7#*0.75*TSS_7
+        toxreac6 = -(ks*a5)*SCH_7
+        toxreac7 = -Qa*(Hc*SCH_7*f)/vol2#vol2*KLa_temp3
+        toxreac8 = -kbio*(SCH_8)#*0.75*TSS_8
+        toxreac9 = -(ks*a6)*SCH_8
+        toxreac10 = -Qa2*(Hc*SCH_8*f2)/vol2#vol2*KLa_temp3
+        toxreac11 = -kbio*(SCH_10) #biodegradation term*0.75*TSS_10
+        toxreac12 = -(ks*a7)*SCH_10 #surface volatization term
+        toxreac13 = -Qa3*(Hc*SCH_10*f3)/vol2  #diffu5
 
     proc1as = mu_H*(SS_5/(K_S+SS_5))*(SO_5/(K_OH+SO_5))*XBH_5;
     proc2as = mu_H*(SS_5/(K_S+SS_5))*(K_OH/(K_OH+SO_5))*(SNO_5/(K_NO+SNO_5))*ny_g*XBH_5;
