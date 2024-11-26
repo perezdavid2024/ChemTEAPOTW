@@ -13,4 +13,8 @@ The Chemical Tracker and Exposure Assessor in Publicly Owned Treatment Works (Ch
 4. pandas
 5. math
 
-##
+## Model Use
+1. Input chemical concentration (SCH_inf 0 [mg/L] on Line 30
+2. Remove commented status from chemical list, or add chemical to list using Comptox info for henry's constant, Octanol Partition Coefficient, Molar Mass, Density.
+3. Indicated whether a chemical is biodegradable using bio = 1 for yes or 0 for no.
+4. Run the model.
