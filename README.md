@@ -1,6 +1,6 @@
 # ChemTEAPOTW
 
-![image](https://github.com/user-attachments/assets/6e8bc267-effa-4165-a5eb-7382fde270e6)
+      ![image](https://github.com/user-attachments/assets/6e8bc267-effa-4165-a5eb-7382fde270e6)
 
 
 ## Overview
