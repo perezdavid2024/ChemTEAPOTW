@@ -22,18 +22,19 @@ def myFunction(x):
     Q_19 = x[16]
     Q_20 = x[17]
     Q_21 = x[18]
-    
-    
+   
+    rt = 1
+   
     #5#
     Q_inf = 20648.3361
 #
     SCH_inf = 0.1
     Qex = 2
-    thickratio = 0.095
-    
+    thickratio = 0.1
+   
     Q_7 = Q_6
     Q_8 = Q_7
-    
+   
     F = empty((19))
     F[0] = Q_1-Q_inf-Q_16-Q_21
     F[1] = Q_1*0.007-Q_2;
@@ -54,13 +55,12 @@ def myFunction(x):
     F[16] = Q_18*0.055-Q_19;
     F[17] = Q_18-Q_19-Q_20;
     F[18] = Q_20-Q_21;
-    
+   
     return F
 
 zGuess = array([0.00000,0.000,0.000,0.000,0.000,0.000,0.000,0.000,0.000,0.000,0.000,0.000, 0.000,0.000, 0.000,0.000,0.000, 0.000,0.000])
 z = fsolve(myFunction, zGuess, full_output=True)
 
-import numpy
 import numpy as np
 from numpy import *
 import pandas as pd
@@ -68,9 +68,13 @@ import math
 import scipy.integrate
 from scipy import integrate
 from scipy.integrate import solve_ivp
+def custom_min(a, b):
+    return a if a < b else b
+def custom_max(a, b):
+    return a if a > b else b
 def myFunction(x):
-    global IR_1, IR_2, IR_3, IR_4, IR_5, IR_6, IR_7, IR_8, DER_1, DER_2, DER_3, DER_4, DER_5, DER_6, DER_7, DER_8, LADD, GCH_Max_1, GCH_Max_2, GCH_Max_3, GCH_Max_4, GCH_Max_5, GCH_Max_6, GCH_Max_7, Bio_Flow_1, Bio_Flow_2, Bio_Flow_3, Bio_Flow_4, Bio_Flow_5, GCH_3, GCH_12, Mass_Flow_1, Mass_Flow_2, Mass_Flow_3, Mass_Flow_4, Mass_Flow_5, Mass_Flow_6, Mass_Flow_7, Mass_Flow_8, FtoM, q, q2, area_of_pc, area_of_SC, Vpc, volK, vol, vol2, HRT_as, SRT_AD, Ntot, Eff_lim, TSS_el, HRT_pc, HRT_sc, AI, CODe, SRT, toxreac1, toxreac2, toxreac3, toxreac4, toxreac5, toxreac6, toxreac7, toxreac8, toxreac9, toxreac10, toxreac11, toxreac12, toxreac13,  Sinf, Pass_perc, Removal_percent,Total, Removal_perc, Bio_perc, Soil_perc, Volat_perc,  XCH_AD,  XCH_19, XCH_1, XCH_2, XCH_3, XCH_4, XCH_5, XCH_6, XCH_7, XCH_8, XCH_9, XCH_10, XCH_11, XCH_12, XCH_13, XCH_14, XCH_15, XCH_16, XCH_17, XCH_18, XCH_19, XCH_20, SCH_AD, SCH_1, SCH_2, SCH_3, SCH_4, SCH_5, SCH_6, SCH_7, SCH_8, SCH_9, SCH_10, SCH_11, SCH_12, SCH_13, SCH_14, SCH_15, SCH_16, SCH_17, SCH_18, SCH_19, SCH_20, TSS_1, TSS_2, TSS_3, TSS_4, TSS_5, TSS_6, TSS_7, TSS_8, TSS_9, TSS_10, TSS_11, TSS_12, TSS_13, TSS_14, TSS_15, TSS_16, TSS_17, TSS_18, TSS_19, TSS_20, SH, XP_19,XBA_20, XP_18, Ssu0,Saa0,Sfa0, Sva0, Sbu0, Spro0, Sac0, Sh20,  Sch40, SIC0, SIN0, SI0, Xc0, Xch0, Xpr0, Xli0, Xsu0, Xaa0, Xfa0, Xc40, Xpro0, Xac0, Xh20, XI0, Scat0, San0, XBA_17, SI_1, SS_1, XI_1, XS_1, XBH_1, XBA_1, XP_1, SO_1, SNO_1, SNH_1, SND_1, XND_1, SALK_1, SI_9, SS_9, XI_9, XS_9, XBH_9, XBA_9, XP_9, SO_9, SNO_9, SNH_9, SND_9, XND_9, SALK_9, SI_21, SS_21, XI_21, XS_21, XBH_21, XBA_21, XP_21, SO_21, SNO_21, SNH_21, SND_21, XND_21, SALK_21, SI_12, SS_12, XI_12, XS_12, XBH_12, XBA_12, XP_12, SO_12, SNO_12, SNH_12, SND_12, XND_12, SALK_12, SI_13, SS_13, XI_13, XS_13, XBH_13, XBA_13, XP_13, SO_13, SNO_13, SNH_13, SND_13, XND_13, SALK_13, SI_14, SS_14, XI_14, XS_14, XBH_14, XBA_14, XP_14, SO_14, SNO_14, SNH_14, SND_14, XND_14, SALK_14, SI_15, SS_15, XI_15, XS_15, XBH_15, XBA_15, XP_15, SO_15, SNO_15, SNH_15, SND_15, XND_15, SALK_15, SI_16, SS_16, XI_16, XS_16, XBH_16, XBA_16, XP_16, SO_16, SNO_16, SNH_16, SND_16, XND_16, SALK_16, XI_3, XS_3, XBH_3, XBA_3, XP_3, XND_3, XBA_18, SI_16, XS_19, XI_19, XBH_19, XBA_19, XP_19, Q_1, Q_2, Q_3, Q_4, Q_5, Q_6, Q_9, Q_10, Q_11, Q_12, Q_13, Q_14, Q_15, Q_16, Q_17, Q_18, Q_19, Q_20, Q_21,SNO_20, SI_20, SS_20, XI_20, XS_20,  XBH_20,  XP_20,  SO_20, SNH_20, SND_20,  XND_20,  SALK_20,  SI_19, SS_19,  XI_19,  XS_19,  XBH_19,  XP_19,  SO_19,  SNO_19,  SNH_19, SND_19,  XND_19,  SALK_19, SI_18, SS_18,  XI_18,  XS_18, XBH_18,  XP_18, SO_18, SNO_18, SNH_18,  SND_18, XND_18, SALK_18, Ssu,Saa,Sfa, Sva, Sbu, Spro, Sac, Sh2,  Sch4, SIC, SIN, SI, Xc, Xch, Xpr, Xli, Xsu, Xaa, Xfa, Xc4, Xpro, Xac, Xh2, XI, Scat, San,Svaan, Sbuan, Sproan, Sacan, Shco3an, Snh3, Sgash2, Sgasch4, Sgasco2, XND_15, Q_15,Q_17,SI_17, SS_17, XS_17,XI_17,XBH_17, XP_17, SO_17, SNO_17,SNH_17, SND_17, XND_17, SALK_17 , S_su,S_aa,	S_fa,	S_va,	S_bu,	S_pro,	S_ac,	S_h2,	S_ch4,	S_IC,	S_IN,	S_I,	X_xc,	X_ch,	X_pr,	X_li,	X_su,	X_aa,	X_fa,	X_c4,	X_pro,	X_ac,	X_h2,	X_I,	S_cation,	S_anion, X_I, X_xc, SI_2, SS_2, XS_2, XI_2, XBH_2, XBA_2, XP_2,XND_2,XS_3, SO_2, SNH_2, SND_2, SALK_2, SNO_2, SI_3, SS_3, XS_3, XI_3, XBH_3, XBA_3, XP_3,XND_3,XS_3, SO_3, SNH_3, SND_3, SALK_3, SNO_3,SI_4, SS_4, XS_4, XI_4, XBH_4, XBA_4, XP_4,XND_4,XS_4, SO_4, SNH_4, SND_4, SALK_4, SNO_4,Q_12xtcarbon, Q_12xt, Q_3 , Q_2, Q_13, Xf, SI_11,SS_11,XS_11,XI_11,XBH_11,XBA_11,XP_11,SO_11,SNO_11,SNH_11,SND_11,XND_11,SALK_11,SI_2,SS_2,XS_2,XI_2,XBH_2,XBA_2,XP_2,SO_2,SNO_2,SNH_2,SND_2,XND_2,SALK_2,SS_5,XS_5,XBH_5,XBA_5,XP_5,SO_5,SNO_5,SNH_5,SND_5,XND_5,SALK_5,S_I,X_I,SS_6,XS_6,XBH_6,XBA_6,XP_6,SO_6,SNO_6,SNH_6,SND_6,XND_6,SALK_6,SI_6,XI_6,SS_7,XS_7,XBH_7,XBA_7,XP_7,SO_7,SNO_7,SNH_7,SND_7,XND_7,SALK_7,SI_7,XI_7,SS_8,XS_8,XBH_8,XBA_8,XP_8,SO_8,SNO_8,SNH_8,SND_8,XND_8,SALK_8,SI_8,XI_8,SS_10,XS_10,XBH_10,XBA_10,XP_10,SO_10,SNO_10,SNH_10,SND_10,XND_10,SALK_10,SI_10,XI_10,Xsc10,Xsc9,Xsc8,Xsc7,Xsc6,Xsc5,Xsc4,Xsc3,Xsc2,Xsc1,S_su,	S_aa,	S_fa,	S_va,	S_bu,	S_pro,	S_ac,	S_h2,	S_ch4,	S_IC,	S_IN,	S_I,	X_c,	X_ch,	X_pr,	X_li,	X_su,	X_aa,	X_fa,	X_c4,	X_pro,	X_ac,	X_h2,	X_I,	Scat,	San, XI_5, SI_5,SI_4, SS_4, XS_4, XI_4, XBH_4, XBA_4, XP_4,XND_4,XS_4, SO_4, SNH_4, SND_4, SALK_4, SNO_4, SS_5,XS_5,XBH_5,XBA_5,XP_5,SO_5,SNO_5,SNH_5,SND_5,XND_5,SALK_5,SI_5,XI_5,SS_6,XS_6,XBH_6,XBA_6,XP_6,SO_6,SNO_6,SNH_6,SND_6,XND_6,SALK_6,SI_6,XI_6,SS_7,XS_7,XBH_7,XBA_7,XP_7,SO_7,SNO_7,SNH_7,SND_7,XND_7,SALK_7,SI_7,XI_7,SS_8,XS_8,XBH_8,XBA_8,XP_8,SO_8,SNO_8,SNH_8,SND_8,XND_8,SALK_8,SI_8,XI_8,SS_10,XS_10,XBH_10,XBA_10,XP_10,SO_10,SNO_10,SNH_10,SND_10,XND_10,SALK_10,SI_10,XI_10, SI_11, SS_11, XS_11, XI_11, XBH_11, XBA_11, XP_11,XND_11,XS_3, SO_11, SNH_11, SND_11, SALK_11, SNO_11, Q_14, Xsc10, Xsc9, Xsc8, Xsc7, Xsc6, Xsc5, Xsc4, Xsc3, Xsc2, Xsc1, Q_inf,Q_1, Q_2, Q_3, Q_4, Q_5, Q_6, Q_9, Q_10, Q_11, Q_12, Q_13, Q_14, Q_15, Q_16, Q_17, Q_18, Q_19, Q_20, Q_21, Qex
-    
+    global Mass_Flow, GCH_3, GCH_12, Mass_Flow_1, Mass_Flow_2, Mass_Flow_3, Mass_Flow_4, Mass_Flow_5, Mass_Flow_6, Mass_Flow_7, FtoM, q, q2, area_of_pc, area_of_SC, Vpc, volK, vol, vol2, HRT_as, SRT_AD, Ntot, Eff_lim, TSS_el, HRT_pc, HRT_sc, AI, CODe, SRT, toxreac1, toxreac2, toxreac3, toxreac4, toxreac5, toxreac6, toxreac7, toxreac8, toxreac9, toxreac10, toxreac11, toxreac12, toxreac13,  Sinf, Pass_perc, Removal_percent,Total, Removal_perc, Bio_perc, Soil_perc, Volat_perc,  XCH_AD,  XCH_19, XCH_1, XCH_2, XCH_3, XCH_4, XCH_5, XCH_6, XCH_7, XCH_8, XCH_9, XCH_10, XCH_11, XCH_12, XCH_13, XCH_14, XCH_15, XCH_16, XCH_17, XCH_18, XCH_19, XCH_20, SCH_AD, SCH_1, SCH_2, SCH_3, SCH_4, SCH_5, SCH_6, SCH_7, SCH_8, SCH_9, SCH_10, SCH_11, SCH_12, SCH_13, SCH_14, SCH_15, SCH_16, SCH_17, SCH_18, SCH_19, SCH_20, TSS_1, TSS_2, TSS_3, TSS_4, TSS_5, TSS_6, TSS_7, TSS_8, TSS_9, TSS_10, TSS_11, TSS_12, TSS_13, TSS_14, TSS_15, TSS_16, TSS_17, TSS_18, TSS_19, TSS_20, SH, XP_19,XBA_20, XP_18, Ssu0,Saa0,Sfa0, Sva0, Sbu0, Spro0, Sac0, Sh20,  Sch40, SIC0, SIN0, SI0, Xc0, Xch0, Xpr0, Xli0, Xsu0, Xaa0, Xfa0, Xc40, Xpro0, Xac0, Xh20, XI0, Scat0, San0, XBA_17, SI_1, SS_1, XI_1, XS_1, XBH_1, XBA_1, XP_1, SO_1, SNO_1, SNH_1, SND_1, XND_1, SALK_1, SI_9, SS_9, XI_9, XS_9, XBH_9, XBA_9, XP_9, SO_9, SNO_9, SNH_9, SND_9, XND_9, SALK_9, SI_21, SS_21, XI_21, XS_21, XBH_21, XBA_21, XP_21, SO_21, SNO_21, SNH_21, SND_21, XND_21, SALK_21, SI_12, SS_12, XI_12, XS_12, XBH_12, XBA_12, XP_12, SO_12, SNO_12, SNH_12, SND_12, XND_12, SALK_12, SI_13, SS_13, XI_13, XS_13, XBH_13, XBA_13, XP_13, SO_13, SNO_13, SNH_13, SND_13, XND_13, SALK_13, SI_14, SS_14, XI_14, XS_14, XBH_14, XBA_14, XP_14, SO_14, SNO_14, SNH_14, SND_14, XND_14, SALK_14, SI_15, SS_15, XI_15, XS_15, XBH_15, XBA_15, XP_15, SO_15, SNO_15, SNH_15, SND_15, XND_15, SALK_15, SI_16, SS_16, XI_16, XS_16, XBH_16, XBA_16, XP_16, SO_16, SNO_16, SNH_16, SND_16, XND_16, SALK_16, XI_3, XS_3, XBH_3, XBA_3, XP_3, XND_3, XBA_18, SI_16, XS_19, XI_19, XBH_19, XBA_19, XP_19, Q_1, Q_2, Q_3, Q_4, Q_5, Q_6, Q_9, Q_10, Q_11, Q_12, Q_13, Q_14, Q_15, Q_16, Q_17, Q_18, Q_19, Q_20, Q_21,SNO_20, SI_20, SS_20, XI_20, XS_20,  XBH_20,  XP_20,  SO_20, SNH_20, SND_20,  XND_20,  SALK_20,  SI_19, SS_19,  XI_19,  XS_19,  XBH_19,  XP_19,  SO_19,  SNO_19,  SNH_19, SND_19,  XND_19,  SALK_19, SI_18, SS_18,  XI_18,  XS_18, XBH_18,  XP_18, SO_18, SNO_18, SNH_18,  SND_18, XND_18, SALK_18, Ssu,Saa,Sfa, Sva, Sbu, Spro, Sac, Sh2,  Sch4, SIC, SIN, SI, Xc, Xch, Xpr, Xli, Xsu, Xaa, Xfa, Xc4, Xpro, Xac, Xh2, XI, Scat, San,Svaan, Sbuan, Sproan, Sacan, Shco3an, Snh3, Sgash2, Sgasch4, Sgasco2, XND_15, Q_15,Q_17,SI_17, SS_17, XS_17,XI_17,XBH_17, XP_17, SO_17, SNO_17,SNH_17, SND_17, XND_17, SALK_17 , S_su,S_aa,S_fa, S_va, S_bu, S_pro, S_ac, S_h2, S_ch4, S_IC, S_IN, S_I,X_xc, X_ch, X_pr, X_li, X_su, X_aa, X_fa, X_c4, X_pro, X_ac, X_h2, X_I,S_cation,S_anion, X_I, X_xc, SI_2, SS_2, XS_2, XI_2, XBH_2, XBA_2, XP_2,XND_2,XS_3, SO_2, SNH_2, SND_2, SALK_2, SNO_2, SI_3, SS_3, XS_3, XI_3, XBH_3, XBA_3, XP_3,XND_3,XS_3, SO_3, SNH_3, SND_3, SALK_3, SNO_3,SI_4, SS_4, XS_4, XI_4, XBH_4, XBA_4, XP_4,XND_4,XS_4, SO_4, SNH_4, SND_4, SALK_4, SNO_4,Q_12xtcarbon, Q_12xt, Q_3 , Q_2, Q_13, Xf, SI_11,SS_11,XS_11,XI_11,XBH_11,XBA_11,XP_11,SO_11,SNO_11,SNH_11,SND_11,XND_11,SALK_11,SI_2,SS_2,XS_2,XI_2,XBH_2,XBA_2,XP_2,SO_2,SNO_2,SNH_2,SND_2,XND_2,SALK_2,SS_5,XS_5,XBH_5,XBA_5,XP_5,SO_5,SNO_5,SNH_5,SND_5,XND_5,SALK_5,S_I,X_I,SS_6,XS_6,XBH_6,XBA_6,XP_6,SO_6,SNO_6,SNH_6,SND_6,XND_6,SALK_6,SI_6,XI_6,SS_7,XS_7,XBH_7,XBA_7,XP_7,SO_7,SNO_7,SNH_7,SND_7,XND_7,SALK_7,SI_7,XI_7,SS_8,XS_8,XBH_8,XBA_8,XP_8,SO_8,SNO_8,SNH_8,SND_8,XND_8,SALK_8,SI_8,XI_8,SS_10,XS_10,XBH_10,XBA_10,XP_10,SO_10,SNO_10,SNH_10,SND_10,XND_10,SALK_10,SI_10,XI_10,Xsc10,Xsc9,Xsc8,Xsc7,Xsc6,Xsc5,Xsc4,Xsc3,Xsc2,Xsc1,S_su,S_aa, S_fa, S_va, S_bu, S_pro, S_ac, S_h2, S_ch4, S_IC, S_IN, S_I,X_c,X_ch, X_pr, X_li, X_su, X_aa, X_fa, X_c4, X_pro, X_ac, X_h2, X_I,Scat, San, XI_5, SI_5,SI_4, SS_4, XS_4, XI_4, XBH_4, XBA_4, XP_4,XND_4,XS_4, SO_4, SNH_4, SND_4, SALK_4, SNO_4, SS_5,XS_5,XBH_5,XBA_5,XP_5,SO_5,SNO_5,SNH_5,SND_5,XND_5,SALK_5,SI_5,XI_5,SS_6,XS_6,XBH_6,XBA_6,XP_6,SO_6,SNO_6,SNH_6,SND_6,XND_6,SALK_6,SI_6,XI_6,SS_7,XS_7,XBH_7,XBA_7,XP_7,SO_7,SNO_7,SNH_7,SND_7,XND_7,SALK_7,SI_7,XI_7,SS_8,XS_8,XBH_8,XBA_8,XP_8,SO_8,SNO_8,SNH_8,SND_8,XND_8,SALK_8,SI_8,XI_8,SS_10,XS_10,XBH_10,XBA_10,XP_10,SO_10,SNO_10,SNH_10,SND_10,XND_10,SALK_10,SI_10,XI_10, SI_11, SS_11, XS_11, XI_11, XBH_11, XBA_11, XP_11,XND_11,XS_3, SO_11, SNH_11, SND_11, SALK_11, SNO_11, Q_14, Xsc10, Xsc9, Xsc8, Xsc7, Xsc6, Xsc5, Xsc4, Xsc3, Xsc2, Xsc1, Q_inf,Q_1, Q_2, Q_3, Q_4, Q_5, Q_6, Q_9, Q_10, Q_11, Q_12, Q_13, Q_14, Q_15, Q_16, Q_17, Q_18, Q_19, Q_20, Q_21, Qex
+   
     SI_1 = x[0]
     SS_1 = x[1]
     XI_1 = x[2]
@@ -85,183 +89,183 @@ def myFunction(x):
     XND_1 = x[11]
     SALK_1 = x[12]
     TSS_1 = x[13]
-    
-    SI_2	=	x[14]
-    SS_2	=	x[15]
-    XI_2	=	x[16]
-    XS_2	=	x[17]
-    XBH_2	=	x[18]
-    XBA_2	=	x[19]
-    XP_2	=	x[20]
-    SO_2	=	x[21]
-    SNO_2	=	x[22]
-    SNH_2	=	x[23]
-    SND_2	=	x[24]
-    XND_2	=	x[25]
-    SALK_2	=	x[26]
-    TSS_2	=	x[27]
    
-    SI_3	=	x[28]
-    SS_3	=	x[29]
-    XI_3	=	x[30]
-    XS_3	=	x[31]
-    XBH_3	=	x[32]
-    XBA_3	=	x[33]
-    XP_3	=	x[34]
-    SO_3	=	x[35]
-    SNO_3	=	x[36]
-    SNH_3	=	x[37]
-    SND_3	=	x[38]
-    XND_3	=	x[39]
-    SALK_3	=	x[40]
-    TSS_3	=	x[41]
+    SI_2 = x[14]
+    SS_2 = x[15]
+    XI_2 = x[16]
+    XS_2 = x[17]
+    XBH_2 = x[18]
+    XBA_2 = x[19]
+    XP_2 = x[20]
+    SO_2 = x[21]
+    SNO_2 = x[22]
+    SNH_2 = x[23]
+    SND_2 = x[24]
+    XND_2 = x[25]
+    SALK_2 = x[26]
+    TSS_2 = x[27]
+   
+    SI_3 = x[28]
+    SS_3 = x[29]
+    XI_3 = x[30]
+    XS_3 = x[31]
+    XBH_3 = x[32]
+    XBA_3 = x[33]
+    XP_3 = x[34]
+    SO_3 = x[35]
+    SNO_3 = x[36]
+    SNH_3 = x[37]
+    SND_3 = x[38]
+    XND_3 = x[39]
+    SALK_3 = x[40]
+    TSS_3 = x[41]
 
-    SI_4	=	x[42]
-    SS_4	=	x[43]
-    XI_4	=	x[44]
-    XS_4	=	x[45]
-    XBH_4	=	x[46]
-    XBA_4	=	x[47]
-    XP_4	=	x[48]
-    SO_4	=	x[49]
-    SNO_4	=	x[50]
-    SNH_4	=	x[51]
-    SND_4	=	x[52]
-    XND_4	=	x[53]
-    SALK_4	=	x[54]
-    TSS_4	=	x[55]
-    
-    SI_5	=	x[56]
-    SS_5	=	x[57]
-    XI_5	=	x[58]
-    XS_5	=	x[59]
-    XBH_5	=	x[60]
-    XBA_5	=	x[61]
-    XP_5	=	x[62]
-    SO_5	=	x[63]
-    SNO_5	=	x[64]
-    SNH_5	=	x[65]
-    SND_5	=	x[66]
-    XND_5	=	x[67]
-    SALK_5	=	x[68]
-    TSS_5	=	x[69]
-    
-    SI_6	=	x[70]
-    SS_6	=	x[71]
-    XI_6	=	x[72]
-    XS_6	=	x[73]
-    XBH_6	=	x[74]
-    XBA_6	=	x[75]
-    XP_6	=	x[76]
-    SO_6	=	x[77]
-    SNO_6	=	x[78]
-    SNH_6	=	x[79]
-    SND_6	=	x[80]
-    XND_6	=	x[81]
-    SALK_6	=	x[82]
-    TSS_6	=	x[83]
-    
-    SI_7	=	x[84]
-    SS_7	=	x[85]
-    XI_7	=	x[86]
-    XS_7	=	x[87]
-    XBH_7	=	x[88]
-    XBA_7	=	x[89]
-    XP_7	=	x[90]
-    SO_7	=	x[91]
-    SNO_7	=	x[92]
-    SNH_7	=	x[93]
-    SND_7	=	x[94]
-    XND_7	=	x[95]
-    SALK_7	=	x[96]
-    TSS_7	=	x[97]
-    
-    SI_8	=	x[98]
-    SS_8	=	x[99]
-    XI_8	=	x[100]
-    XS_8	=	x[101]
-    XBH_8	=	x[102]
-    XBA_8	=	x[103]
-    XP_8	=	x[104]
-    SO_8	=	x[105]
-    SNO_8	=	x[106]
-    SNH_8	=	x[107]
-    SND_8	=	x[108]
-    XND_8	=	x[109]
-    SALK_8	=	x[110]
-    TSS_8	=	x[111]
-    
-    SI_9	=	x[112]
-    SS_9	=	x[113]
-    XI_9	=	x[114]
-    XS_9	=	x[115]
-    XBH_9	=	x[116]
-    XBA_9	=	x[117]
-    XP_9	=	x[118]
-    SO_9	=	x[119]
-    SNO_9	=	x[120]
-    SNH_9	=	x[121]
-    SND_9	=	x[122]
-    XND_9	=	x[123]
-    SALK_9	=	x[124]
-    TSS_9	=	x[125]
-    
-    SI_10	=	x[126]
-    SS_10	=	x[127]
-    XI_10	=	x[128]
-    XS_10	=	x[129]
-    XBH_10	=	x[130]
-    XBA_10	=	x[131]
-    XP_10	=	x[132]
-    SO_10	=	x[133]
-    SNO_10	=	x[134]
-    SNH_10	=	x[135]
-    SND_10	=	x[136]
-    XND_10	=	x[137]
-    SALK_10	=	x[138]
-    TSS_10	=	x[139]
-    
-    Xsc10	=	x[140]
-    Xsc9	=	x[141]
-    Xsc8	=	x[142]
-    Xsc7	=	x[143]
-    Xsc6	=	x[144]
-    Xsc5	=	x[145]
-    Xsc4	=	x[146]
-    Xsc3	=	x[147]
-    Xsc2	=	x[148]
-    Xsc1	=	x[149]
-    
-    SI_16	=	x[150]
-    SS_16	=	x[151]
-    XI_16	=	x[152]
-    XS_16	=	x[153]
-    XBH_16	=	x[154]
-    XBA_16	=	x[155]
-    XP_16	=	x[156]
-    SO_16	=	x[157]
-    SNO_16	=	x[158]
-    SNH_16	=	x[159]
-    SND_16	=	x[160]
-    XND_16	=	x[161]
-    SALK_16	=	x[162]
-    TSS_16	=	x[163]
-    
-    SI_17	=	x[164]
-    SS_17	=	x[165]
-    XI_17	=	x[166]
-    XS_17	=	x[167]
-    XBH_17	=	x[168]
-    XBA_17	=	x[169]
-    XP_17	=	x[170]
-    SO_17	=	x[171]
-    SNO_17	=	x[172]
-    SNH_17	=	x[173]
-    SND_17	=	x[174]
-    XND_17	=	x[175]
-    SALK_17	=	x[176]
-    TSS_17	=	x[177]
-    
+    SI_4 = x[42]
+    SS_4 = x[43]
+    XI_4 = x[44]
+    XS_4 = x[45]
+    XBH_4 = x[46]
+    XBA_4 = x[47]
+    XP_4 = x[48]
+    SO_4 = x[49]
+    SNO_4 = x[50]
+    SNH_4 = x[51]
+    SND_4 = x[52]
+    XND_4 = x[53]
+    SALK_4 = x[54]
+    TSS_4 = x[55]
+   
+    SI_5 = x[56]
+    SS_5 = x[57]
+    XI_5 = x[58]
+    XS_5 = x[59]
+    XBH_5 = x[60]
+    XBA_5 = x[61]
+    XP_5 = x[62]
+    SO_5 = x[63]
+    SNO_5 = x[64]
+    SNH_5 = x[65]
+    SND_5 = x[66]
+    XND_5 = x[67]
+    SALK_5 = x[68]
+    TSS_5 = x[69]
+   
+    SI_6 = x[70]
+    SS_6 = x[71]
+    XI_6 = x[72]
+    XS_6 = x[73]
+    XBH_6 = x[74]
+    XBA_6 = x[75]
+    XP_6 = x[76]
+    SO_6 = x[77]
+    SNO_6 = x[78]
+    SNH_6 = x[79]
+    SND_6 = x[80]
+    XND_6 = x[81]
+    SALK_6 = x[82]
+    TSS_6 = x[83]
+   
+    SI_7 = x[84]
+    SS_7 = x[85]
+    XI_7 = x[86]
+    XS_7 = x[87]
+    XBH_7 = x[88]
+    XBA_7 = x[89]
+    XP_7 = x[90]
+    SO_7 = x[91]
+    SNO_7 = x[92]
+    SNH_7 = x[93]
+    SND_7 = x[94]
+    XND_7 = x[95]
+    SALK_7 = x[96]
+    TSS_7 = x[97]
+   
+    SI_8 = x[98]
+    SS_8 = x[99]
+    XI_8 = x[100]
+    XS_8 = x[101]
+    XBH_8 = x[102]
+    XBA_8 = x[103]
+    XP_8 = x[104]
+    SO_8 = x[105]
+    SNO_8 = x[106]
+    SNH_8 = x[107]
+    SND_8 = x[108]
+    XND_8 = x[109]
+    SALK_8 = x[110]
+    TSS_8 = x[111]
+   
+    SI_9 = x[112]
+    SS_9 = x[113]
+    XI_9 = x[114]
+    XS_9 = x[115]
+    XBH_9 = x[116]
+    XBA_9 = x[117]
+    XP_9 = x[118]
+    SO_9 = x[119]
+    SNO_9 = x[120]
+    SNH_9 = x[121]
+    SND_9 = x[122]
+    XND_9 = x[123]
+    SALK_9 = x[124]
+    TSS_9 = x[125]
+   
+    SI_10 = x[126]
+    SS_10 = x[127]
+    XI_10 = x[128]
+    XS_10 = x[129]
+    XBH_10 = x[130]
+    XBA_10 = x[131]
+    XP_10 = x[132]
+    SO_10 = x[133]
+    SNO_10 = x[134]
+    SNH_10 = x[135]
+    SND_10 = x[136]
+    XND_10 = x[137]
+    SALK_10 = x[138]
+    TSS_10 = x[139]
+   
+    Xsc10 = x[140]
+    Xsc9 = x[141]
+    Xsc8 = x[142]
+    Xsc7 = x[143]
+    Xsc6 = x[144]
+    Xsc5 = x[145]
+    Xsc4 = x[146]
+    Xsc3 = x[147]
+    Xsc2 = x[148]
+    Xsc1 = x[149]
+   
+    SI_16 = x[150]
+    SS_16 = x[151]
+    XI_16 = x[152]
+    XS_16 = x[153]
+    XBH_16 = x[154]
+    XBA_16 = x[155]
+    XP_16 = x[156]
+    SO_16 = x[157]
+    SNO_16 = x[158]
+    SNH_16 = x[159]
+    SND_16 = x[160]
+    XND_16 = x[161]
+    SALK_16 = x[162]
+    TSS_16 = x[163]
+   
+    SI_17 = x[164]
+    SS_17 = x[165]
+    XI_17 = x[166]
+    XS_17 = x[167]
+    XBH_17 = x[168]
+    XBA_17 = x[169]
+    XP_17 = x[170]
+    SO_17 = x[171]
+    SNO_17 = x[172]
+    SNH_17 = x[173]
+    SND_17 = x[174]
+    XND_17 = x[175]
+    SALK_17 = x[176]
+    TSS_17 = x[177]
+   
     Ssu     =   x[178]
     Saa     =   x[179]
     Sfa     =   x[180]
@@ -298,7 +302,7 @@ def myFunction(x):
     Sgash2  =   x[211]
     Sgasch4 =   x[212]
     Sgasco2 =   x[213]
-    
+   
     SI_20 = x[214]
     SS_20 = x[215]
     XI_20 = x[216]
@@ -309,47 +313,47 @@ def myFunction(x):
     XND_20 = x[221]
     SALK_20 = x[222]
     TSS_20 = x[223]
-    
-    SCH_1	=	x[224]
-    XCH_1	=	x[225]
-    SCH_2	=	x[226]
-    XCH_2	=	x[227]
-    SCH_3	=	x[228]
-    XCH_3	=	x[229]
-    GCH_3	=	x[230]
-    SCH_4	=	x[231]
-    XCH_4	=	x[232]
-    SCH_5	=	x[233]
-    XCH_5	=	x[234]
-    SCH_6	=	x[235]
-    XCH_6	=	x[236]
-    SCH_7	=	x[237]
-    XCH_7	=	x[238]
-    SCH_8	=	x[239]
-    XCH_8	=	x[240]
-    SCH_10	=	x[241]
-    XCH_10	=	x[242]
-    SCH_9	=	x[243]
-    XCH_9	=	x[244]
-    SCH_11	=	x[245]
-    XCH_11	=	x[246]
-    SCH_12	=	x[247]
-    XCH_12	=	x[248]
-    GCH_12	=	x[249]
-    SCH_13	=	x[250]
-    XCH_13	=	x[251]
-    SCH_14	=	x[252]
-    XCH_14	=	x[253]
-    SCH_15	=	x[254]
-    XCH_15	=	x[255]
-    SCH_16	=	x[256]
-    XCH_16	=	x[257]
-    SCH_17	=	x[258]
-    XCH_17	=	x[259]
-    SCH_AD	=	x[260]
-    XCH_AD	=	x[261]
-    SCH_20	=	x[262]
-    XCH_20	=	x[263]
+   
+    SCH_1 = x[224]
+    XCH_1 = x[225]
+    SCH_2 = x[226]
+    XCH_2 = x[227]
+    SCH_3 = x[228]
+    XCH_3 = x[229]
+    GCH_3 = x[230]
+    SCH_4 = x[231]
+    XCH_4 = x[232]
+    SCH_5 = x[233]
+    XCH_5 = x[234]
+    SCH_6 = x[235]
+    XCH_6 = x[236]
+    SCH_7 = x[237]
+    XCH_7 = x[238]
+    SCH_8 = x[239]
+    XCH_8 = x[240]
+    SCH_10 = x[241]
+    XCH_10 = x[242]
+    SCH_9 = x[243]
+    XCH_9 = x[244]
+    SCH_11 = x[245]
+    XCH_11 = x[246]
+    SCH_12 = x[247]
+    XCH_12 = x[248]
+    GCH_12 = x[249]
+    SCH_13 = x[250]
+    XCH_13 = x[251]
+    SCH_14 = x[252]
+    XCH_14 = x[253]
+    SCH_15 = x[254]
+    XCH_15 = x[255]
+    SCH_16 = x[256]
+    XCH_16 = x[257]
+    SCH_17 = x[258]
+    XCH_17 = x[259]
+    SCH_AD = x[260]
+    XCH_AD = x[261]
+    SCH_20 = x[262]
+    XCH_20 = x[263]
 
     #Influent Charachteristics
     SI_inf =  27.2262;
@@ -365,37 +369,38 @@ def myFunction(x):
     SND_inf = 5.6516;
     XND_inf = 16.1298;
     SALK_inf = 7.0;
-    
+   
     ##POTW specific Parameters##
     h = 100# #elevation above sea level, m
     Tc = 15 #temperature, C
-    T = Tc + 273.15 #temperature, K 
+    T = Tc + 273.15 #temperature, K
 
     ##Chemical Parameters##
-    Theta = 1.044; #Henrys Law coefficient temperature correcture factor
-    Theta_2 = 1.04; #Henrys Law coefficient temperature correcture factor   
-    
-    #n-hexane
-    Hc_25 = 20.02824913
+    Theta = 1.044; #Henrys Law coefficient temperature correction factor
+   
+   
+    #MMA
+    bio = 1
+    Hc_25 = 3.99E-03
     Hc = Hc_25*Theta**(Tc-25)
-    Mw = 86.2  #molecular weight of compound, g/mol
-    dc = 0.66 #density of compound at the compound normal boiling point, g/cm3
-    kp = 0.002523481 #Soprtion partition coefficient for volatile solids L/mg
-    kbio_20 = 0.098298074#0.077#0.035241024#First order kinetic biodegradation rate, d-1
-    kbio = kbio_20*Theta_2**(Tc-20)
+    Mw = 100.1  #molecular weight of compound, g/mol
+    dc = 0.922 #density of compound at the compound normal boiling point, g/cm3
+    kp = 8.71766E-05 #Soprtion partition coefficient for volatile solids L/mg
+    kbio_20 = 0.010837897#0.077#0.035241024#First order kinetic biodegradation rate, d-1
+    kbio = kbio_20*Theta**(Tc-20)
     fnon = 1 #pH dependent non-dissociated fraction of a contaminant
-    HcAD = 30.80689807 #Temperature corrected Henry's constant, @ 35 degrees Celcius, L liq/L gas
-    
+    HcAD = 6.14E-03 #Temperature corrected Henry's constant, @ 35 degrees Celcius, L liq/L gas
+
     #carbon tetrachloride
     # Hc_25 = 1.128121788
     # Hc = Hc_25*Theta**(Tc-25)
     # Mw = 153.8 #molecular weight of compound, g/mol
     # dc = 1.59 #density of compound at the compound normal boiling point, g/cm3
     # kp = 0.000604505 #Soprtion partition coefficient for volatile solids L/mg
-    # kbio = 0.03465#kbio_20*Theta_2**(Tc-20)
+    # kbio = 0.03465#kbio_20*Theta**(Tc-20)
     # fnon = 1 #pH dependent non-dissociated fraction of a contaminant
     # HcAD = 1.735245687 #Temperature corrected Henry's constant, @ 35 degrees Celcius, L liq/L gas
-    
+   
 
     #Vinyl Chloride
     # Hc_25 = 1.066810821
@@ -406,29 +411,29 @@ def myFunction(x):
     # kbio = 0.087279597
     # fnon = 1 #pH dependent non-dissociated fraction of a contaminant
     # HcAD =  1.640938856#Temperature corrected Henry's constant, @ 35 degrees Celcius, L liq/L gas
-    
+   
     #toluene
-    Hc_25 = 0.271403213
-    Hc = Hc_25*Theta**(Tc-25)
-    Mw = 92.14  #molecular weight of compound, g/mol
-    dc = 0.867 #density of compound at the compound normal boiling point, g/cm3
-    kp = 0.000528932192048721 #Soprtion partition coefficient for volatile solids L/mg
-    kbio_20 = 0.035313845#0.077#0.035241024#First order kinetic biodegradation rate, d-1
-    kbio = kbio_20*Theta_2**(Tc-20)
-    fnon = 1 #pH dependent non-dissociated fraction of a contaminant
-    HcAD = 0.417464904404533 #Temperature corrected Henry's constant, @ 35 degrees Celcius, L liq/L gas
-    
+    # Hc_25 = 0.271403213
+    # Hc = Hc_25*Theta**(Tc-25)
+    # Mw = 92.14  #molecular weight of compound, g/mol
+    # dc = 0.867 #density of compound at the compound normal boiling point, g/cm3
+    # kp = 0.000528932192048721 #Soprtion partition coefficient for volatile solids L/mg
+    # kbio_20 = 0.035313845#0.077#0.035241024#First order kinetic biodegradation rate, d-1
+    # kbio = kbio_20*Theta**(Tc-20)
+    # fnon = 1 #pH dependent non-dissociated fraction of a contaminant
+    # HcAD = 0.417464904404533 #Temperature corrected Henry's constant, @ 35 degrees Celcius, L liq/L gas
+   
     #etyhlbenzene
-    Hc_25 = 0.322086945
-    Hc = Hc_25*Theta**(Tc-25)
-    Mw = 106.2  #molecular weight of compound, g/mol
-    dc = 0.87 #density of compound at the compound normal boiling point, g/cm3
-    kp = 0.00092683 #Soprtion partition coefficient for volatile solids L/mg
-    kbio_20 = 0.050997045#0.077#0.035241024#First order kinetic biodegradation rate, d-1
-    kbio = kbio_20*Theta_2**(Tc-20)
-    fnon = 1 #pH dependent non-dissociated fraction of a contaminant
-    HcAD = 0.495425217877669 #Temperature corrected Henry's constant, @ 35 degrees Celcius, L liq/L gas
-    
+    # Hc_25 = 0.322086945
+    # Hc = Hc_25*Theta**(Tc-25)
+    # Mw = 106.2  #molecular weight of compound, g/mol
+    # dc = 0.87 #density of compound at the compound normal boiling point, g/cm3
+    # kp = 0.00092683 #Soprtion partition coefficient for volatile solids L/mg
+    # kbio_20 = 0.050997045#0.077#0.035241024#First order kinetic biodegradation rate, d-1
+    # kbio = kbio_20*Theta**(Tc-20)
+    # fnon = 1 #pH dependent non-dissociated fraction of a contaminant
+    # HcAD = 0.495425217877669 #Temperature corrected Henry's constant, @ 35 degrees Celcius, L liq/L gas
+   
     #1,1,2-Trichloroethane
     # Hc_25 = 0.033680158
     # Hc = Hc_25*Theta**(Tc-25)
@@ -438,7 +443,7 @@ def myFunction(x):
     # kbio = 0.15164113785558
     # fnon = 1 #pH dependent non-dissociated fraction of a contaminant
     # HcAD =  0.0518058857273096#Temperature corrected Henry's constant, @ 35 degrees Celcius, L liq/L gas
-    
+   
     # #methyl Chloride
     # Hc_25 = 0.132840428
     # Hc = Hc_25*Theta**(Tc-25)
@@ -446,11 +451,11 @@ def myFunction(x):
     # dc = 1.33 #density of compound at the compound normal boiling point, g/cm3
     # kp = 0.0000732824533138904 #Soprtion partition coefficient for volatile solids L/mg
     # kbio_20 = 0.00967264#0.077#0.035241024#First order kinetic biodegradation rate, d-1
-    # kbio = kbio_20*Theta_2**(Tc-20)
+    # kbio = kbio_20*Theta**(Tc-20)
     # fnon = 1 #pH dependent non-dissociated fraction of a contaminant
     # HcAD =  0.204331467#Temperature corrected Henry's constant, @ 35 degrees Celcius, L liq/L gas
-    
-    # #Perchloroethylene
+   
+    #Perchloroethylene
     # Hc_25 = 0.723469407
     # Hc = Hc_25*Theta**(Tc-25)
     # Mw = 133.4 #molecular weight of compound, g/mol
@@ -459,7 +464,7 @@ def myFunction(x):
     # kbio = 0.033157895
     # fnon = 1 #pH dependent non-dissociated fraction of a contaminant
     # HcAD =  1.11282060360847 #Temperature corrected Henry's constant, @ 35 degrees Celcius, L liq/L gas
-    
+   
     #Trichloroethylene
     # Hc_25 = 0.402608681
     # Hc = Hc_25*Theta**(Tc-25)
@@ -469,7 +474,7 @@ def myFunction(x):
     # kbio = 0.112317666
     # fnon = 1 #pH dependent non-dissociated fraction of a contaminant
     # HcAD =  0.619281522347087
-    
+   
     #1,2-Dichloroethane
     # Hc_25 = 0.048231294
     # Hc = Hc_25*Theta**(Tc-25)
@@ -479,7 +484,7 @@ def myFunction(x):
     # kbio = 0.011828918#0.0693
     # fnon = 1 #pH dependent non-dissociated fraction of a contaminant
     # HcAD =  0.07418804
-    
+   
     #Chlorobenzene
     # Hc_25 = 0.127118071
     # Hc = Hc_25*Theta**(Tc-25)
@@ -487,119 +492,108 @@ def myFunction(x):
     # dc = 1.11 #density of compound at the compound normal boiling point, g/cm3
     # kp = 0.000612632454443864 #Soprtion partition coefficient for volatile solids L/mg
     # kbio_20 = 0.038881679 #First order kinetic biodegradation rate, d-1
-    # kbio = kbio_20*Theta_2**(Tc-20)
+    # kbio = kbio_20*Theta**(Tc-20)
     # fnon = 1 #pH dependent non-dissociated fraction of a contaminant
     # HcAD =  0.195529495888268
-    
+   
     # #1,4-dioxane
     # Hc = 1.2755E-04 #0.000128467986848519#0.000147204 #Temperature corrected Henry's constant, L liq/L gas
     # Mw = 88.11  #molecular weight of compound, g/mol
     # dc = 1.03  #density of compound at the compound normal boiling point, g/cm3
     # kp = 9.62498E-06#.0000704392#9.62498E-06 #Soprtion partition coefficient for volatile solids L/mg
     # kbio_20 = 0.002558262 #First order kinetic biodegradation rate, d-1
-    # kbio = kbio_20*Theta_2**(Tc-20)
+    # kbio = kbio_20*Theta**(Tc-20)
     # fnon = 1 #pH dependent non-dissociated fraction of a contaminant
     # HcAD = 3.0178E-04 #0.000345781 #temperature corrected Henry's Law
     # Theta = 1.044
    
-
-    # Chloroform
-    # Hc_25 = 0.150007499
-    # Hc = Hc_25*Theta**(Tc-25)
-    # Mw = 119 #molecular weight of compound, g/mol
-    # dc = 1.48 #density of compound at the compound normal boiling point, g/cm3
-    # kp = 0.000191690239501113 #Soprtion partition coefficient for volatile solids L/mg
-    # kbio = 0.0257620817843866
-    # fnon = 1 #pH dependent non-dissociated fraction of a contaminant
-    # HcAD =  0.230737379392265 #Temperature corrected Henry's constant, @ 35 degrees Celcius, L liq/L gas
-    
     ##Non-reacion/change variable relationships for recyle flow##
-    SI_11	    = SI_10
+    SI_11 = SI_10
     SS_11       = SS_10
-    XI_11     	= XI_10*Xsc1/TSS_10
+    XI_11      = XI_10*Xsc1/TSS_10
     XS_11       = XS_10*Xsc1/TSS_10
-    XBH_11	    = XBH_10*Xsc1/TSS_10 
-    XBA_11	    = XBA_10*Xsc1/TSS_10 
-    XP_11	    = XP_10*Xsc1/TSS_10
-    SO_11       = SO_10 
-    SNO_11	    = SNO_10
-    SNH_11	    = SNH_10 
-    SND_11	    = SND_10 
-    XND_11	    = XND_10*Xsc1/TSS_10 
-    SALK_11   	= SALK_10 
-    TSS_11	    = Xsc1
+    XBH_11 = XBH_10*Xsc1/TSS_10
+    XBA_11 = XBA_10*Xsc1/TSS_10
+    XP_11 = XP_10*Xsc1/TSS_10
+    SO_11       = SO_10
+    SNO_11 = SNO_10
+    SNH_11 = SNH_10
+    SND_11 = SND_10
+    XND_11 = XND_10*Xsc1/TSS_10
+    SALK_11    = SALK_10
+    TSS_11 = Xsc1
 
-    SI_12	    = SI_10
+    SI_12 = SI_10
     SS_12       = SS_10
-    XI_12     	= XI_10*Xsc10/TSS_10
+    XI_12      = XI_10*Xsc10/TSS_10
     XS_12       = XS_10*Xsc10/TSS_10
-    XBH_12	    = XBH_10*Xsc10/TSS_10 
-    XBA_12	    = XBA_10*Xsc10/TSS_10 
-    XP_12	    = XP_10*Xsc10/TSS_10
-    SO_12       = SO_10 
-    SNO_12	    = SNO_10
-    SNH_12	    = SNH_10 
-    SND_12	    = SND_10 
-    XND_12	    = XND_10*Xsc10/TSS_10 
-    SALK_12   	= SALK_10 
-    TSS_12	    = Xsc10
+    XBH_12 = XBH_10*Xsc10/TSS_10
+    XBA_12 = XBA_10*Xsc10/TSS_10
+    XP_12 = XP_10*Xsc10/TSS_10
+    SO_12       = SO_10
+    SNO_12 = SNO_10
+    SNH_12 = SNH_10
+    SND_12 = SND_10
+    XND_12 = XND_10*Xsc10/TSS_10
+    SALK_12    = SALK_10
+    TSS_12 = Xsc10
 
-    SI_13	    = SI_11
+    SI_13 = SI_11
     SS_13       = SS_11
-    XI_13     	= XI_11
+    XI_13      = XI_11
     XS_13       = XS_11
-    XBH_13	    =  XBH_11
-    XBA_13	    =  XBA_11
-    XP_13	    =  XP_11
+    XBH_13 =  XBH_11
+    XBA_13 =  XBA_11
+    XP_13 =  XP_11
     SO_13       =  SO_11
-    SNO_13	    =  SNO_11
-    SNH_13	    =  SNH_11
-    SND_13	    =  SND_11
-    XND_13	    =  XND_11
-    SALK_13   	=  SALK_11
-    TSS_13	    = TSS_11
-    
-    SI_14	    = SI_13
+    SNO_13 =  SNO_11
+    SNH_13 =  SNH_11
+    SND_13 =  SND_11
+    XND_13 =  XND_11
+    SALK_13    =  SALK_11
+    TSS_13 = TSS_11
+   
+    SI_14 = SI_13
     SS_14       = SS_13
-    XI_14     	= XI_13
+    XI_14      = XI_13
     XS_14       = XS_13
-    XBH_14	    =  XBH_13
-    XBA_14	    =  XBA_13
-    XP_14	    =  XP_13
+    XBH_14 =  XBH_13
+    XBA_14 =  XBA_13
+    XP_14 =  XP_13
     SO_14       =  SO_13
-    SNO_14	    =  SNO_13
-    SNH_14	    =  SNH_13
-    SND_14	    =  SND_13
-    XND_14	    =  XND_13
-    SALK_14   	=  SALK_13
-    TSS_14	    = TSS_13
+    SNO_14 =  SNO_13
+    SNH_14 =  SNH_13
+    SND_14 =  SND_13
+    XND_14 =  XND_13
+    SALK_14    =  SALK_13
+    TSS_14 = TSS_13
 
     ##Thickener Parameter##
     pthi = 7 # % of suspended solids in underflow of thickener
     TSSrem = 98 #% of suspended solids removed in thickener
     fthick = pthi*10000/TSS_14#Xsc1;
     fqtu = TSSrem/(100*fthick);
-    fthin = (1-TSSrem/100)/(1-fqtu); 
-    
-    SI_15	    = SI_14
+    fthin = (1-TSSrem/100)/(1-fqtu);
+   
+    SI_15 = SI_14
     SS_15       = SS_14
-    XI_15     	= XI_14*fthick
+    XI_15      = XI_14*fthick
     XS_15       = XS_14*fthick
-    XBH_15	    =  XBH_14*fthick
-    XBA_15	    =  XBA_14*fthick
-    XP_15	    =  XP_14*fthick
+    XBH_15 =  XBH_14*fthick
+    XBA_15 =  XBA_14*fthick
+    XP_15 =  XP_14*fthick
     SO_15       =  SO_14
-    SNO_15	    =  SNO_14
-    SNH_15	    =  SNH_14
-    SND_15	    =  SND_14
-    XND_15	    =  XND_14*fthick
-    SALK_15   	=  SALK_14
-    TSS_15	    = TSS_14*fthick
-    
-    XBH_20	= 0.0 
-    XBA_20	= 0.0 
-    SO_20	= 0 
-    SNO_20	= 0
+    SNO_15 =  SNO_14
+    SNH_15 =  SNH_14
+    SND_15 =  SND_14
+    XND_15 =  XND_14*fthick
+    SALK_15    =  SALK_14
+    TSS_15 = TSS_14*fthick
+   
+    XBH_20 = 0.0
+    XBA_20 = 0.0
+    SO_20 = 0
+    SNO_20 = 0
 
     ##Volatile Suspended Solids (VSS) calculations##
     VSS_inf = (XI_inf/1.5686 + XS_inf/1.5686 + XBH_inf/1.3072 + XBA_inf/1.3072 + XP_inf/1.9608)
@@ -642,29 +636,29 @@ def myFunction(x):
     S16 = kp*VSS_16
     S17 = kp*VSS_17
     S20 = kp*VSS_20
-    
+   
     ##Primary Clarifier Parameters##
-    Vpc= 900; # Volume of the primary clarifier m3 
+    Vpc= rt*900; # Volume of the primary clarifier m3
     fcorr = 0.65;# _Efficiency Correction factor
     fX = 0.85;# CODpart/CODtot ratio (mean value)
     th = Vpc/(Q_1 + 0.001);
     nCOD = fcorr * (2.88 * fX - 0.118)*(1.45 + 6.15 * np.log(th * 24 * 60));
     nCODp = nCOD/fX
     fk = (1-nCODp/100)
-    area_of_pc = 300
-    
+    area_of_pc = 300*rt**0.5
+   
 
     ##Activated Sludge Tank Parameters##
-    vol2 = 3000 #area*dep #volume of aerated tanks, m3
+    vol2 = rt*3000 #area*dep #volume of aerated tanks, m3
     OTE = 0.1 #Oxygen Transfer efficiency
     U10 = 2.778 #wind velocity 10 m above water surface, m/s
-    
+   
     #Oxygen and water constants
     Yoxy = 0.209  #mole fraction of oxygen in air, moles of oxygen/mole of air
     woxy = 0.2316 #mass fraction of oxygen in atmosphere
     va = 1.8 * 10**-4 #viscosity of air, g/cm/s
     dw = 0.9982 #density of water, g/cm3
-    
+   
     #Diffused air volatization variable equations
     vw = (2.1482*((Tc-8.435)+(8078.4+(Tc-8.435)**2)**0.5)-120)**(-1) #viscosity of water, g/cm/s
     Dc = 5.06*10**-9*T*dc**0.6/(Mw**0.6*vw) #diffusion coefficient of compound in water, cm2/s
@@ -676,7 +670,7 @@ def myFunction(x):
     C =  24.4526
     KTk = 56.12*math.exp(A+B/(T/100)+C*math.log(T/100))
     SO_sat_temp = 0.9997743214*(8/10.5)*6791.5*KTk#8#Csat#;
-    Csat = SO_sat_temp #equilibrium oxygen concentration in water at mid-depth, mg/L   
+    Csat = SO_sat_temp #equilibrium oxygen concentration in water at mid-depth, mg/L  
     Qa = 120*(Csat-SO_7)*vol2/doxy/(Yoxy*OTE) #Diffused air flow rate, m3/d
     Qa2 = 120*(Csat-SO_8)*vol2/doxy/(Yoxy*OTE) #Diffused air flow rate, m3/d
     Qa3 = 60*(Csat-SO_9)*vol2/doxy/(Yoxy*OTE)
@@ -693,30 +687,30 @@ def myFunction(x):
     KLa2 = KLa2_15*1.024**(Tc-15)#temperature corrected overall mass transfer coefficient in Tank 4, m/h
     KLa3 = KLa3_15*1.024**(Tc-15)#temperature corrected overall mass transfer coefficient in Tank 5, m/h
     f = 1-math.exp(-KLa*vol2/(Qa*Hc)) #fractional saturation of gas bubbles in Tank 3
-    f2 = 1-math.exp(-KLa2*vol2/(Qa2*Hc)) #fractional saturation of gas bubbles in Tank 4   
-    f3 = 1-math.exp(-KLa3*vol2/(Qa3*Hc)) #fractional saturation of gas bubbles in Tank 5   
+    f2 = 1-math.exp(-KLa2*vol2/(Qa2*Hc)) #fractional saturation of gas bubbles in Tank 4  
+    f3 = 1-math.exp(-KLa3*vol2/(Qa3*Hc)) #fractional saturation of gas bubbles in Tank 5  
     ##Surface volatization variable equations##
     DG =0.0067*T**1.5*((0.034+1/Mw)**0.5/(Mw**0.17*((Mw/(2.5*dc))**0.33+1.81)**2)) #diffusion coefficient of compound in air, cm2/s
     ScG = va/(DG*da) #gas phase Schmidt number
     ScL = vw/(Dc*dw) #liquid phase Schmidt number
     U = 10**-2*(6.1+0.63*U10)**0.5*U10 #air side friction velocity, m/s
     kG = 10**-3+46.2*10**-3*U*ScG**-0.67 #gas film mass transfer coefficient, m/s
-    if U < 0.3 : 
+    if U < 0.3 :
         kL = 10**-6 + 144*10**-4*U**2.2*ScL**(-0.5) #liquid film mass transfer coefficient, m/s
     if U>0.3:
         kL = 10**-6+34.1*10**-4*U*ScL**(-0.5) #liquid film mass transfer coefficient, m/s
     ks = (1/(3600*24*kL)+1/(Hc*kG*3600*24))**-1 #overall surface mass transfer coefficient, m/d
     r = (area_of_pc/3.14)**0.5 # radius of circular primary clarifier
     q = Q_3/(area_of_pc)/24 # weir loading rate, m3/d/m
-    
-    
-    volK = 6000
-    area_of_SC = 1500
+   
+   
+    volK = 6000*rt
+    area_of_SC = 1500*rt**0.5
     h1 = 0.2 #, m
     r_2 = (area_of_SC/3.14)**0.5
     q2 = Q_12/(area_of_SC)/24#, m3/h/m
-    A2 = 0.077*h1**(0.623)*q2**0.66   
-    
+    A2 = 0.077*h1**(0.623)*q2**0.66  
+   
     #Activated Sludge Compartments Parameters
     mu_H = 4*math.exp((math.log(4/3.0)/5.0)*(Tc-15.0))#mu_H = 4.0; # %6.0;Temperatrure corrected parameter
     K_S = 10.0; # %20;
@@ -725,7 +719,7 @@ def myFunction(x):
     b_H = 0.3*math.exp((math.log(0.3/0.2)/5.0)*(Tc-15.0)); #b_H = 0.3;  #%0.62;Temperatrure corrected parameter
     mu_A = 0.5*math.exp((math.log(0.5/0.3)/5.0)*(Tc-15.0)); #mu_A = 0.5; # %0.8;Temperatrure corrected parameter
     K_NH = 1.0;
-    
+   
     K_OA = 0.4;
     b_A = 0.05*math.exp((math.log(0.05/0.03)/5.0)*(Tc-15.0));#b_A = 0.05; # %0.2;Temperatrure corrected parameter
     ny_g = 0.8;
@@ -744,16 +738,16 @@ def myFunction(x):
     # KLa_temp3 = 120#*Q_inf/20648.3361#KLaoxy #120#120;
     # KLa_temp4 = 120#*Q_inf/20648.3361#KLaoxy2#
     # KLa_temp5 = 60#*Q_inf/20648.3361#KLaoxy3 # #60;
-    
-    vol  = 1500;
-    vol2 = 3000;
-    SSextcarbon = 400000
-    
-    a3 = 300/vol
-    a4 = 300/vol
-    a5 = 600/vol2
-    a6 = 600/vol2
-    a7 = 600/vol2
+   
+    vol  = rt*1500;
+    vol2 = rt*3000;
+    SSextcarbon = 400000*rt
+   
+    a3 = 300*rt**0.5/vol
+    a4 = 300*rt**0.5/vol
+    a5 = 600*rt**0.5/vol2
+    a6 = 600*rt**0.5/vol2
+    a7 = 600*rt**0.5/vol2
     
     #If chemical is consodered "biologically degradable" bio = 1. Biological degradability determined from Comptox platform
     if bio == 1 :
@@ -834,9 +828,9 @@ def myFunction(x):
     reac211 = -proc26+proc28;
     reac212 = (i_XB-f_P*i_XP)*(proc24+proc25)-proc28;
     reac213 = -i_XB/14.0*proc21+((1.0-Y_H)/(14.0*2.86*Y_H)-(i_XB/14.0))*proc22-((i_XB/14.0)+1.0/(7.0*Y_A))*proc23+proc26/14.0;
-    
+   
 
-    
+   
     proc31 = mu_H*(SS_7/(K_S+SS_7))*(SO_7/(K_OH+SO_7))*XBH_7;
     proc32 = mu_H*(SS_7/(K_S+SS_7))*(K_OH/(K_OH+SO_7))*(SNO_7/(K_NO+SNO_7))*ny_g*XBH_7;
     proc33 = mu_A*(SNH_7/(K_NH+SNH_7))*(SO_7/(K_OA+SO_7))*XBA_7;
@@ -859,7 +853,7 @@ def myFunction(x):
     reac311 = -proc36+proc38;
     reac312 = (i_XB-f_P*i_XP)*(proc34+proc35)-proc38;
     reac313 = -i_XB/14.0*proc31+((1.0-Y_H)/(14.0*2.86*Y_H)-(i_XB/14.0))*proc32-((i_XB/14.0)+1.0/(7.0*Y_A))*proc33+proc36/14.0;
-    
+   
 
 
     proc41 = mu_H*(SS_8/(K_S+SS_8))*(SO_8/(K_OH+SO_8))*XBH_8;
@@ -884,9 +878,9 @@ def myFunction(x):
     reac411 = -proc46+proc48;
     reac412 = (i_XB-f_P*i_XP)*(proc44+proc45)-proc48;
     reac413 = -i_XB/14.0*proc41+((1.0-Y_H)/(14.0*2.86*Y_H)-(i_XB/14.0))*proc42-((i_XB/14.0)+1.0/(7.0*Y_A))*proc43+proc46/14.0;
-    
-  
-    
+   
+ 
+   
     proc51 = mu_H*(SS_9/(K_S+SS_9))*(SO_9/(K_OH+SO_9))*XBH_9;
     proc52 = mu_H*(SS_9/(K_S+SS_9))*(K_OH/(K_OH+SO_9))*(SNO_9/(K_NO+SNO_9))*ny_g*XBH_9;
     proc53 = mu_A*(SNH_9/(K_NH+SNH_9))*(SO_9/(K_OA+SO_9))*XBA_9;
@@ -909,42 +903,45 @@ def myFunction(x):
     reac511 = -proc56+proc58;
     reac512 = (i_XB-f_P*i_XP)*(proc54+proc55)-proc58;
     reac513 = -i_XB/14.0*proc51+((1.0-Y_H)/(14.0*2.86*Y_H)-(i_XB/14.0))*proc52-((i_XB/14.0)+1.0/(7.0*Y_A))*proc53+proc56/14.0;
-    
-    
+   
+   
     #defined parameter
     Xf = TSS_10
     Xt = 3000;  #threshold suspended solid concentration, mg/L
     fns = 0.00228; #non-settleable fraction
-    vmax = 250; #maximum practical settling velocity m/d
-    Xmin = fns*TSS_10 #minimum attainable suspended solids concentration in the effluent, mg/L
-    rh = 0.000576; #settling parameter associated with the hindered settling component of settling velocity equation 
+    vmax = 250.0; #maximum practical settling velocity m/d
+    Xmin = fns*Xf #minimum attainable suspended solids concentration in the effluent, mg/L
+    rh = 0.000576; #settling parameter associated with the hindered settling component of settling velocity equation
     rp = 0.00286; # settling parameter associated with the low concentration and slowly settling component of the suspension
-    v0 = 474; #maximum theoretical settling velocity m/d
-    zm = 0.4#; #height of each layer, m
-    A_sc= 1500 #area, m2;
-    
+    v0 = 474.0; #maximum theoretical settling velocity m/d
+    zm = 0.4#*rt**0.5; #height of each layer, m
+    A_sc= 1500*rt**0.5 #area, m2;
+   
+
+
 #Jsc(x) is the solidssolid flux due to gravity (m/d)*mg/L
     if Xsc6 > Xt:
-        Jsc7 = (min(max(0,min(vmax,v0*(math.exp(-rh*(Xsc7-Xmin))-math.exp(-rp*(Xsc7-Xmin)))))*Xsc7,max(0,min(vmax,v0*(math.exp(-rh*(Xsc6-Xmin))-math.exp(-rp*(Xsc6-Xmin)))))*Xsc6))
+        Jsc7 = (custom_min(custom_max(0,custom_min(vmax,v0*(math.exp(-rh*(Xsc7-Xmin))-math.exp(-rp*(Xsc7-Xmin)))))*Xsc7,custom_max(0,custom_min(vmax,v0*(math.exp(-rh*(Xsc6-Xmin))-math.exp(-rp*(Xsc6-Xmin)))))*Xsc6))
     else :
-        Jsc7 = (max(0,min(vmax,v0*(math.exp(-rh*(Xsc7-Xmin))-math.exp(-rp*(Xsc7-Xmin))))))*Xsc7 
+        #Jsc7 = max(0, min(vmax,v0*(math.exp(-rh*(Xsc7-Xmin))-math.exp(-rp*(Xsc7-Xmin)))))*Xsc7
+        Jsc7 = custom_max(0, custom_min(vmax, v0*(math.exp(-rh*float(Xsc7-Xmin)) - math.exp(-rp*float(Xsc7-Xmin)))))*Xsc7
                
-        
+       
     if Xsc7 > Xt:
         Jsc8 = (min(max(0,min(vmax,v0*(math.exp(-rh*(Xsc8-Xmin))-math.exp(-rp*(Xsc8-Xmin)))))*Xsc8,max(0,min(vmax,v0*(math.exp(-rh*(Xsc7-Xmin))-math.exp(-rp*(Xsc7-Xmin)))))*Xsc7))
     else :
-        Jsc8 = (max(0,min(vmax,v0*(math.exp(-rh*(Xsc8-Xmin))-math.exp(-rp*(Xsc8-Xmin))))))*Xsc8   
+        Jsc8 = (custom_max(0, custom_min(vmax,v0*(math.exp(-rh*(Xsc8-Xmin))-math.exp(-rp*(Xsc8-Xmin))))))*Xsc8  
 
     if Xsc8 > Xt:
         Jsc9 = (min(max(0,min(vmax,v0*(math.exp(-rh*(Xsc9-Xmin))-math.exp(-rp*(Xsc9-Xmin)))))*Xsc9,max(0,min(vmax,v0*(math.exp(-rh*(Xsc8-Xmin)-math.exp(-rp*(Xsc8-Xmin))))))*Xsc8))
     else :
-        Jsc9 = (max(0,min(vmax,v0*(math.exp(-rh*(Xsc9-Xmin))-math.exp(-rp*(Xsc9-Xmin))))))*Xsc9   
+        Jsc9 = (custom_max(0, custom_min(vmax,v0*(math.exp(-rh*(Xsc9-Xmin))-math.exp(-rp*(Xsc9-Xmin))))))*Xsc9  
 
     if Xsc9 > Xt:
         Jsc10 = (min(max(0,min(vmax,v0*(math.exp(-rh*(Xsc10-Xmin))-math.exp(-rp*(Xsc10-Xmin)))))*Xsc10,max(0,min(vmax,v0*(math.exp(-rh*(Xsc9-Xmin))-math.exp(-rp*(Xsc9-Xmin)))))*Xsc9))
     else :
-        Jsc10 = (max(0,min(vmax,v0*(math.exp(-rh*(Xsc10-Xmin))-math.exp(-rp*(Xsc10-Xmin))))))*Xsc10 
-    
+        Jsc10 = (custom_max(0, custom_min(vmax,v0*(math.exp(-rh*(Xsc10-Xmin))-math.exp(-rp*(Xsc10-Xmin))))))*Xsc10
+   
     ##Thickener Parameter##
     pthi = 7 # % of suspended solids in underflow of thickener
     TSSrem = 98 #% of suspended solids removed in thickener
@@ -1012,8 +1009,8 @@ def myFunction(x):
     k_dec_Xpro = 0.02; #decay rate for propionate degrading bacteria, [d−1]
     k_dec_Xac = 0.02; #decay rate for acetate degrading bacteria, [d−1]
     k_dec_Xh2 = 0.02; #decay rate for hydrogen degrading bacteria, [d−1]
-    
-    
+   
+   
     K_S_IN = 0.00011; #half saturation value for inorganic nitrogen, [kg COD ⋅ m−3]
     K_S_su = 0.5; #half saturation value for sugars, [kg COD ⋅ m−3]
     K_S_aa = 0.3; #half saturation value for amino acid, [kg COD ⋅ m−3]
@@ -1026,7 +1023,7 @@ def myFunction(x):
     K_Ih2_c4 = .000011; #50% inhibitory concentration of hydrogen inhibitor on valerate and butyrate process [kg COD ⋅m−3]
     K_I_nh3 = 0.0018; #50% inhibitory concentration on fatty acid process [kg COD ⋅m−3]
     K_Ih2_pro = 0.0000035; #50% inhibitory concentration of hydrogen inhibitor on propionate process [kg COD ⋅m−3]
-    
+   
    
     pH_UL_ac = 7; #upper limit acetate pH inhibition term,-
     pH_LL_ac = 6; #lower limit acetate pH inhibition term,-
@@ -1034,7 +1031,7 @@ def myFunction(x):
     pH_LL_aa = 4; #lower limit amino acid pH inhibition term,-
     pH_UL_h2 = 6; #upper limit hydrogen pH inhibition term,-
     pH_LL_h2 = 5; #lower limit hydrogen pH inhibition term,-
-    
+   
     R = 0.083145; #Gas law constant [bar m3 kmole–1 K–1]
     T_base = 298.15; #Temperature [K]
     T_op = 308.15; #Operating Temperature [K]
@@ -1044,7 +1041,7 @@ def myFunction(x):
 
    
     k_P = 5.0e4; #mxGetPr(PAR(S))[99];
-    
+   
     pK_w_base = 14.0;
     pK_a_va_base = 4.86;
     pK_a_bu_base = 4.82;
@@ -1052,7 +1049,7 @@ def myFunction(x):
     pK_a_ac_base = 4.76;
     pK_a_co2_base = 6.35;
     pK_a_IN_base = 9.25;
-    
+   
     factor = (1.0/T_base - 1.0/T_op)/(100.0*R);
     pK_w = pK_w_base - np.log(math.exp(55900.0*factor));
     pK_a_co2 = pK_a_co2_base - np.log(math.exp(7646.0*factor));
@@ -1066,7 +1063,7 @@ def myFunction(x):
     alfa_ac = 1.0/64.0*(-1.0/(1.0 + pow(10, pK_a_ac_base - pH_adm)));#
     alfa_co2 = -1.0/(1.0 + pow(10, pK_a_co2 - pH_adm));#
     alfa_IN = (pow(10, pK_a_IN - pH_adm))/(1.0 + pow(10, pK_a_IN - pH_adm));#
-    
+   
     CODequiv = 40.0/14.0;#
     fnaa = N_aa*14.0;    # fraction of N in amino acids and Xpr as in ADM1 report
     fnxc = N_xc*14.0;    # N content of composite material based on BSM2
@@ -1074,32 +1071,32 @@ def myFunction(x):
     fxni = N_I*14.0;     # N content of inerts XI and XP, same in AS and AD
     fsni = 0.0;          # N content of SI, assumed zero in ASM1 and BSM1
     fsni_adm = N_I*14.0; # N content of SI in the AD system
-        
+       
     frlixs = 0.7;           # lipid fraction of non-nitrogenous XS in BSM2
     frlibac = 0.4;          # lipid fraction of non-nitrogenous biomass in BSM2
     frxs_adm = 0.68;        # anaerobically degradable fraction of AS biomass in BSM2
-    fdegrade_adm = 0;	    # amount of AS XI and XP degradable in AD, zero in BSM2
+    fdegrade_adm = 0;   # amount of AS XI and XP degradable in AD, zero in BSM2
     # frxs_as = 0.79;         # aerobically degradable fraction of AD biomass in BSM2
     # fdegrade_as = 0;
-    
-    V_liq = 3400; #Anaerobic Digester Volume [m3]
-    V_gas = 100; #Anaerobic Digester Head Space Volume [m3]
-    
+   
+    V_liq = rt*3400; #Anaerobic Digester Volume [m3]
+    V_gas = rt*100; #Anaerobic Digester Head Space Volume [m3]
+   
     #Temperature dependent parameter and physiochemical parameter values
     K_w = (10**-14)*math.exp(55900/(100*R)*(1/T_base-1/T_op))
-    
-    K_a_va = 10**-4.86; 
+   
+    K_a_va = 10**-4.86;
     K_a_bu = 10**-4.82;
     K_a_pro = 10**-4.88;
     K_a_ac = 10**-4.76;
-    K_A_Bva = 1.0e10; 
-    K_A_Bbu = 1.0e10;     
+    K_A_Bva = 1.0e10;
+    K_A_Bbu = 1.0e10;    
     K_A_Bpro = 1.0e10;    
-    K_A_Bac = 1.0e10;     
+    K_A_Bac = 1.0e10;    
     K_A_Bco2 = 1.0e10;    
     K_A_BIN = 1.0e10;
     K_a_co2 = (10**-6.35)*math.exp(7646/(100*R)*(1/T_base-1/T_op))
-    
+   
     K_a_IN = (10**-9.25)*math.exp(51965/(100*R)*(1/T_base-1/T_op))
     K_H_h2 = (7.8*10**-4)*math.exp(-4180/(100*R)*(1/T_base-1/T_op))
     K_H_ch4 = 0.0014*math.exp(-14240/(100*R)*(1/T_base-1/T_op))
@@ -1110,21 +1107,21 @@ def myFunction(x):
     p_gas_ch4 = Sgasch4*R*T_op/64
     p_gas_co2 = Sgasco2*R*T_op
     p_gas_h20 = 0.0557
-    
+   
     P_gas = p_gas_h2 + p_gas_ch4 + p_gas_co2 + p_gas_h20
     #pH algebraic equations
     Snh4 = SIN - Snh3;
     Sco2 = SIC - Shco3an;
-    
+   
     shdelta = Scat + (Snh4) + SH - Shco3an - Sacan / 64.0 - Sproan / 112.0 - Sbuan / 160.0 - Svaan / 208.0 - K_w / SH - San
     shgradeq = 1 + K_a_IN * SIN / ((K_a_IN + SH) * (K_a_IN + SH)) + K_a_co2 * SIC / ((K_a_co2 + SH) * (K_a_co2 + SH))  + 1 / 64.0 * K_a_ac * Sac / ((K_a_ac + SH) * (K_a_ac + SH)) +1 / 112.0 * K_a_pro * Spro / ((K_a_pro + SH) * (K_a_pro + SH))  + 1 / 160.0 * K_a_bu * Sbu / ((K_a_bu + SH) * (K_a_bu + SH))  + 1 / 208.0 * K_a_va * Sva / ((K_a_va + SH) * (K_a_va + SH))  + K_w / (SH * SH)
     #Ot = Scat + Snh4 - Shco3an - Sacan/64 - Sproan/112 - Sbuan/160 - Svaan/208 - San ;
-    # SH =5.4562e-08#0.0000000342344# 
+    # SH =5.4562e-08#0.0000000342344#
     #-Ot/2 + 1/2*math.sqrt(Ot**2 + 4*K_w);
-    
-    
-    
-    
+   
+   
+   
+   
     F = empty((264))
     F[0] = Q_inf*SI_inf + Q_16*SI_16 + Q_21*SI_20 - Q_1*SI_1
     F[1] = Q_inf*SS_inf + Q_16*SS_16 + Q_21*SS_20 - Q_1*SS_1
@@ -1141,152 +1138,163 @@ def myFunction(x):
     F[12] = Q_inf*SALK_inf + Q_16*SALK_16 + Q_21*SALK_20 - Q_1*SALK_1
     F[13] = TSS_1 - 0.75*(XI_1 + XS_1 + XBH_1 + XBA_1 + XP_1)
 
-    F[14]	=	SI_1	-	SI_2								
-    F[15]	=	SS_1	-	SS_2								
-    F[16]	=	XI_1*((1-fk)*1/.007+fk)	-	XI_2								
-    F[17]	=	XS_1*((1-fk)*1/.007+fk)	-	XS_2								
-    F[18]	=	XBH_1*((1-fk)*1/.007+fk)	-	XBH_2								
-    F[19]	=	XBA_1*((1-fk)*1/.007+fk)	-	XBA_2								
-    F[20]	=	XP_1*((1-fk)*1/.007+fk)	-	XP_2								
-    F[21]	=	SO_1	-	SO_2								
-    F[22]	=	SNO_1	-	SNO_2								
-    F[23]	=	SNH_1	-	SNH_2								
-    F[24]	=	SND_1	-	SND_2								
-    F[25]	=	XND_1*((1-fk)*1/.007+fk)	-	XND_2								
-    F[26]	=	SALK_1	-	SALK_2								
-    F[27]	=	TSS_2	-	0.75*(XI_2	+	XS_2	+	XBH_2	+	XBA_2	+	XP_2)
+    F[14] =SI_1 - SI_2
+    F[15] =SS_1 - SS_2
+    F[16] = XI_1*((1-fk)*1/.007+fk) - XI_2
+    F[17] = XS_1*((1-fk)*1/.007+fk) - XS_2
+    F[18] = XBH_1*((1-fk)*1/.007+fk) - XBH_2
+    F[19] = XBA_1*((1-fk)*1/.007+fk) - XBA_2
+    F[20] = XP_1*((1-fk)*1/.007+fk) - XP_2
+    F[21] =SO_1 - SO_2
+    F[22] =SNO_1 - SNO_2
+    F[23] =SNH_1 - SNH_2
+    F[24] =SND_1 - SND_2
+    F[25] = XND_1*((1-fk)*1/.007+fk) - XND_2
+    F[26] =SALK_1 - SALK_2
+    F[27] =TSS_2 - 0.75*(XI_2+XS_2+XBH_2+XBA_2+XP_2)
    
-    F[28]	=	Q_1*SI_1	-	Q_2*SI_2	-	Q_3*SI_3						
-    F[29]	=	Q_1*SS_1	-	Q_2*SS_2	-	Q_3*SS_3						
-    F[30]	=	Q_1*XI_1	-	Q_2*XI_2	-	Q_3*XI_3						
-    F[31]	=	Q_1*XS_1	-	Q_2*XS_2	-	Q_3*XS_3						
-    F[32]	=	Q_1*XBH_1	-	Q_2*XBH_2	-	Q_3*XBH_3						
-    F[33]	=	Q_1*XBA_1	-	Q_2*XBA_2	-	Q_3*XBA_3						
-    F[34]	=	Q_1*XP_1	-	Q_2*XP_2	-	Q_3*XP_3						
-    F[35]	=	Q_1*SO_1	-	Q_2*SO_2	-	Q_3*SO_3						
-    F[36]	=	Q_1*SNO_1	-	Q_2*SNO_2	-	Q_3*SNO_3						
-    F[37]	=	Q_1*SNH_1	-	Q_2*SNH_2	-	Q_3*SNH_3						
-    F[38]	=	Q_1*SND_1	-	Q_2*SND_2	-	Q_3*SND_3						
-    F[39]	=	Q_1*XND_1	-	Q_2*XND_2	-	Q_3*XND_3						
-    F[40]	=	Q_1*SALK_1	-	Q_2*SALK_2	-	Q_3*SALK_3						
-    F[41]	=	TSS_3	-	0.75*(XI_3	+	XS_3	+	XBH_3	+	XBA_3	+	XP_3)
-    
-    F[42]	=	Q_4*SI_4	-	Q_3*SI_3	-	Q_9*SI_9	-	Q_13*SI_13;				
-    F[43]	=	Q_4*SS_4	-	Q_3*SS_3	-	Q_9*SS_10	-	Q_13*SS_13;				
-    F[44]	=	Q_4*XI_4	-	Q_3*XI_3	-	Q_9*XI_9	-	Q_13*XI_13;				
-    F[45]	=	Q_4*XS_4	-	Q_3*XS_3	-	Q_9*XS_9	-	Q_13*XS_13;				
-    F[46]	=	Q_4*XBH_4	-	Q_3*XBH_3	-	Q_9*XBH_9	-	Q_13*XBH_13;				
-    F[47]	=	Q_4*XBA_4	-	Q_3*XBA_3	-	Q_9*XBA_10	-	Q_13*XBA_13;				
-    F[48]	=	Q_4*XP_4	-	Q_3*XP_3	-	Q_9*XP_9	-	Q_13*XP_13;				
-    F[49]	=	Q_4*SO_4	-	Q_3*SO_3	-	Q_9*SO_10	-	Q_13*SO_13;				
-    F[50]	=	Q_4*SNO_4	-	Q_3*SNO_3	-	Q_9*SNO_9	-	Q_13*SNO_13;				
-    F[51]	=	Q_4*SNH_4	-	Q_3*SNH_3	-	Q_9*SNH_9	-	Q_13*SNH_13;				
-    F[52]	=	Q_4*SND_4	-	Q_3*SND_3	-	Q_9*SND_9	-	Q_13*SND_13;				
-    F[53]	=	Q_4*XND_4	-	Q_3*XND_3	-	Q_9*XND_9	-	Q_13*XND_13;				
-    F[54]	=	Q_4*SALK_4	-	Q_3*SALK_3	-	Q_9*SALK_9	-	Q_13*SALK_13;				
-    F[55]	=	TSS_4	-	0.75*(XI_4	+	XS_4	+	XBH_4	+	XBA_4	+	XP_4)
-    
-    F[56]	=	(Q_5*(SI_4-SI_5))+vol*reac1as;										
-    F[57]	=	(Q_5*(SS_4-SS_5)	+	Qex*SSextcarbon)+vol*reac2as;								
-    F[58]	=	(Q_5*(XI_4-XI_5))+vol*reac3as;										
-    F[59]	=	(Q_5*(XS_4-XS_5))+vol*reac4as;										
-    F[60]	=	(Q_5*(XBH_4-XBH_5))+vol*reac5as;										
-    F[61]	=	(Q_5*(XBA_4-XBA_5))+vol*reac6as;										
-    F[62]	=	(Q_5*(XP_4-XP_5))+vol*reac7as;										
-    F[63]	=	(Q_5*(SO_4-SO_5))+vol*reac8as+vol*KLa_temp*(SO_sat_temp-SO_5);										
-    F[64]	=	(Q_5*(SNO_4-SNO_5))+vol*reac9as;										
-    F[65]	=	(Q_5*(SNH_4-SNH_5))+vol*reac10as;										
-    F[66]	=	(Q_5*(SND_4-SND_5))+vol*reac11as;										
-    F[67]	=	(Q_5*(XND_4-XND_5))+vol*reac12as;										
-    F[68]	=	(Q_5*(SALK_4-SALK_5))+vol*reac13as;										
-    F[69]	=	TSS_5	-	0.75*(XI_5	+	XS_5	+	XBH_5	+	XBA_5	+	XP_5)
-    
-    F[70]	=	(Q_6*(SI_5-SI_6))+vol*reac21as;										
-    F[71]	=	(Q_6*(SS_5-SS_6))+vol*reac22as;										
-    F[72]	=	(Q_6*(XI_5-XI_6))+vol*reac23as;										
-    F[73]	=	(Q_6*(XS_5-XS_6))+vol*reac24as;										
-    F[74]	=	(Q_6*(XBH_5-XBH_6))+vol*reac25as;										
-    F[75]	=	(Q_6*(XBA_5-XBA_6))+vol*reac26as;										
-    F[76]	=	(Q_6*(XP_5-XP_6))+vol*reac27as;										
-    F[77]	=	(Q_6*(SO_5-SO_6))+vol*reac28as+vol*KLa_temp*(SO_sat_temp-SO_6);										
-    F[78]	=	(Q_6*(SNO_5-SNO_6))+vol*reac29as;										
-    F[79]	=	(Q_6*(SNH_5-SNH_6))+vol*reac210;										
-    F[80]	=	(Q_6*(SND_5-SND_6))+vol*reac211;										
-    F[81]	=	(Q_6*(XND_5-XND_6))+vol*reac212;										
-    F[82]	=	(Q_6*(SALK_5-SALK_6))+vol*reac213;										
-    F[83]	=	TSS_6	-	0.75*(XI_6	+	XS_6	+	XBH_6	+	XBA_6	+	XP_6)
-    
-    F[84]	=	(Q_7*(SI_6-SI_7))+vol2*reac31;										
-    F[85]	=	(Q_7*(SS_6-SS_7))+vol2*reac32;										
-    F[86]	=	(Q_7*(XI_6-XI_7))+vol2*reac33;										
-    F[87]	=	(Q_7*(XS_6-XS_7))+vol2*reac34;										
-    F[88]	=	(Q_7*(XBH_6-XBH_7))+vol2*reac35;										
-    F[89]	=	(Q_7*(XBA_6-XBA_7))+vol2*reac36;										
-    F[90]	=	(Q_7*(XP_6-XP_7))+vol2*reac37;										
-    F[91]	=	(Q_7*(SO_6-SO_7))+vol2*reac38+vol2*KLaoxy*(SO_sat_temp-SO_7);										
-    F[92]	=	(Q_7*(SNO_6-SNO_7))+vol2*reac39;										
-    F[93]	=	(Q_7*(SNH_6-SNH_7))+vol2*reac310;										
-    F[94]	=	(Q_7*(SND_6-SND_7))+vol2*reac311;										
-    F[95]	=	(Q_7*(XND_6-XND_7))+vol2*reac312;										
-    F[96]	=	(Q_7*(SALK_6-SALK_7))+vol2*reac313;										
-    F[97]	=	TSS_7	-	0.75*(XI_7	+	XS_7	+	XBH_7	+	XBA_7	+	XP_7)
+    F[28] =Q_1*SI_1 - Q_2*SI_2 - Q_3*SI_3
+    F[29] =Q_1*SS_1 - Q_2*SS_2 - Q_3*SS_3
+    F[30] =Q_1*XI_1 - Q_2*XI_2 - Q_3*XI_3
+    F[31] =Q_1*XS_1 - Q_2*XS_2 - Q_3*XS_3
+    F[32] =Q_1*XBH_1- Q_2*XBH_2- Q_3*XBH_3
+    F[33] =Q_1*XBA_1- Q_2*XBA_2- Q_3*XBA_3
+    F[34] =Q_1*XP_1 - Q_2*XP_2 - Q_3*XP_3
+    F[35] =Q_1*SO_1 - Q_2*SO_2 - Q_3*SO_3
+    F[36] =Q_1*SNO_1- Q_2*SNO_2- Q_3*SNO_3
+    F[37] =Q_1*SNH_1- Q_2*SNH_2- Q_3*SNH_3
+    F[38] =Q_1*SND_1- Q_2*SND_2- Q_3*SND_3
+    F[39] =Q_1*XND_1- Q_2*XND_2- Q_3*XND_3
+    F[40] =Q_1*SALK_1 - Q_2*SALK_2 - Q_3*SALK_3
+    F[41] =TSS_3 - 0.75*(XI_3+XS_3+XBH_3+XBA_3+XP_3)
    
-    F[98]	=	(Q_8*(SI_7-SI_8))+vol2*reac41;										
-    F[99]	=	(Q_8*(SS_7-SS_8))+vol2*reac42;										
-    F[100]	=	(Q_8*(XI_7-XI_8))+vol2*reac43;										
-    F[101]	=	(Q_8*(XS_7-XS_8))+vol2*reac44;										
-    F[102]	=	(Q_8*(XBH_7-XBH_8))+vol2*reac45;										
-    F[103]	=	(Q_8*(XBA_7-XBA_8))+vol2*reac46;										
-    F[104]	=	(Q_8*(XP_7-XP_8))+vol2*reac47;										
-    F[105]	=	(Q_8*(SO_7-SO_8))+vol2*reac48+vol2*KLaoxy2*(SO_sat_temp-SO_8);										
-    F[106]	=	(Q_8*(SNO_7-SNO_8))+vol2*reac49;										
-    F[107]	=	(Q_8*(SNH_7-SNH_8))+vol2*reac410;										
-    F[108]	=	(Q_8*(SND_7-SND_8))+vol2*reac411;										
-    F[109]	=	(Q_8*(XND_7-XND_8))+vol2*reac412;										
-    F[110]	=	(Q_8*(SALK_7-SALK_8))+vol2*reac413;										
-    F[111]	=	TSS_8	-	0.75*(XI_8	+	XS_8	+	XBH_8	+	XBA_8	+	XP_8)
+    F[42] =Q_4*SI_4 - Q_3*SI_3 - Q_9*SI_9 - Q_13*SI_13;
+    F[43] =Q_4*SS_4 - Q_3*SS_3 - Q_9*SS_10- Q_13*SS_13;
+    F[44] =Q_4*XI_4 - Q_3*XI_3 - Q_9*XI_9 - Q_13*XI_13;
+    F[45] =Q_4*XS_4 - Q_3*XS_3 - Q_9*XS_9 - Q_13*XS_13;
+    F[46] =Q_4*XBH_4- Q_3*XBH_3- Q_9*XBH_9- Q_13*XBH_13;
+    F[47] =Q_4*XBA_4- Q_3*XBA_3- Q_9*XBA_10 - Q_13*XBA_13;
+    F[48] =Q_4*XP_4 - Q_3*XP_3 - Q_9*XP_9 - Q_13*XP_13;
+    F[49] =Q_4*SO_4 - Q_3*SO_3 - Q_9*SO_10- Q_13*SO_13;
+    F[50] =Q_4*SNO_4- Q_3*SNO_3- Q_9*SNO_9- Q_13*SNO_13;
+    F[51] =Q_4*SNH_4- Q_3*SNH_3- Q_9*SNH_9- Q_13*SNH_13;
+    F[52] =Q_4*SND_4- Q_3*SND_3- Q_9*SND_9- Q_13*SND_13;
+    F[53] =Q_4*XND_4- Q_3*XND_3- Q_9*XND_9- Q_13*XND_13;
+    F[54] =Q_4*SALK_4 - Q_3*SALK_3 - Q_9*SALK_9 - Q_13*SALK_13;
+    F[55] =TSS_4 - 0.75*(XI_4+XS_4+XBH_4+XBA_4+XP_4)
    
-    F[112]	=	((Q_9+Q_10)*(SI_8-SI_9))+vol2*reac51;										
-    F[113]	=	((Q_9+Q_10)*(SS_8-SS_9))+vol2*reac52;										
-    F[114]	=	((Q_9+Q_10)*(XI_8-XI_9))+vol2*reac53;										
-    F[115]	=	((Q_9+Q_10)*(XS_8-XS_9))+vol2*reac54;										
-    F[116]	=	((Q_9+Q_10)*(XBH_8-XBH_9))+vol2*reac55;										
-    F[117]	=	((Q_9+Q_10)*(XBA_8-XBA_9))+vol2*reac56;										
-    F[118]	=	((Q_9+Q_10)*(XP_8-XP_9))+vol2*reac57;										
-    F[119]	=	((Q_9+Q_10)*(SO_8-SO_9))+vol2*reac58+vol2*KLaoxy3*(SO_sat_temp-SO_10);										
-    F[120]	=	((Q_9+Q_10)*(SNO_8-SNO_9))+vol2*reac59;										
-    F[121]	=	((Q_9+Q_10)*(SNH_8-SNH_9))+vol2*reac510;										
-    F[122]	=	((Q_9+Q_10)*(SND_8-SND_9))+vol2*reac511;										
-    F[123]	=	((Q_9+Q_10)*(XND_8-XND_9))+vol2*reac512;										
-    F[124]	=	((Q_9+Q_10)*(SALK_8-SALK_9))+vol2*reac513;										
-    F[125]	=	TSS_9	-	0.75*(XI_9 + XS_9 + XBH_9 + XBA_9 + XP_9)
-    
-    F[126]	=	SI_9	-	SI_10								
-    F[127]	=	SS_9	-	SS_10								
-    F[128]	=	XI_9	-	XI_10								
-    F[129]	=	XS_9	-	XS_10								
-    F[130]	=	XBH_9	-	XBH_10								
-    F[131]	=	XBA_9	-	XBA_10								
-    F[132]	=	XP_9	-	XP_10								
-    F[133]	=	SO_9	-	SO_10								
-    F[134]	=	SNO_9	-	SNO_10								
-    F[135]	=	SNH_9	-	SNH_10								
-    F[136]	=	SND_9	-	SND_10								
-    F[137]	=	XND_9	-	XND_10								
-    F[138]	=	SALK_9	-	SALK_10								
-    F[139]	=	TSS_10	-	0.75*(XI_10	+	XS_10	+	XBH_10	+	XBA_10	+	XP_10)	
+    F[56] =(Q_5*(SI_4-SI_5))+vol*reac1as;
+    F[57] =(Q_5*(SS_4-SS_5)+Qex*SSextcarbon)+vol*reac2as;
+    F[58] =(Q_5*(XI_4-XI_5))+vol*reac3as;
+    F[59] =(Q_5*(XS_4-XS_5))+vol*reac4as;
+    F[60] =(Q_5*(XBH_4-XBH_5))+vol*reac5as;
+    F[61] =(Q_5*(XBA_4-XBA_5))+vol*reac6as;
+    F[62] =(Q_5*(XP_4-XP_5))+vol*reac7as;
+    F[63] =(Q_5*(SO_4-SO_5))+vol*reac8as+vol*KLa_temp*(SO_sat_temp-SO_5);
+    F[64] =(Q_5*(SNO_4-SNO_5))+vol*reac9as;
+    F[65] =(Q_5*(SNH_4-SNH_5))+vol*reac10as;
+    F[66] =(Q_5*(SND_4-SND_5))+vol*reac11as;
+    F[67] =(Q_5*(XND_4-XND_5))+vol*reac12as;
+    F[68] =(Q_5*(SALK_4-SALK_5))+vol*reac13as;
+    F[69] =TSS_5 - 0.75*(XI_5+XS_5+XBH_5+XBA_5+XP_5)
+   
+    F[70] =(Q_6*(SI_5-SI_6))+vol*reac21as;
+    F[71] =(Q_6*(SS_5-SS_6))+vol*reac22as;
+    F[72] =(Q_6*(XI_5-XI_6))+vol*reac23as;
+    F[73] =(Q_6*(XS_5-XS_6))+vol*reac24as;
+    F[74] =(Q_6*(XBH_5-XBH_6))+vol*reac25as;
+    F[75] =(Q_6*(XBA_5-XBA_6))+vol*reac26as;
+    F[76] =(Q_6*(XP_5-XP_6))+vol*reac27as;
+    F[77] =(Q_6*(SO_5-SO_6))+vol*reac28as+vol*KLa_temp*(SO_sat_temp-SO_6);
+    F[78] =(Q_6*(SNO_5-SNO_6))+vol*reac29as;
+    F[79] =(Q_6*(SNH_5-SNH_6))+vol*reac210;
+    F[80] =(Q_6*(SND_5-SND_6))+vol*reac211;
+    F[81] =(Q_6*(XND_5-XND_6))+vol*reac212;
+    F[82] =(Q_6*(SALK_5-SALK_6))+vol*reac213;
+    F[83] =TSS_6 - 0.75*(XI_6+XS_6+XBH_6+XBA_6+XP_6)
+   
+    F[84] =(Q_7*(SI_6-SI_7))+vol2*reac31;
+    F[85] =(Q_7*(SS_6-SS_7))+vol2*reac32;
+    F[86] =(Q_7*(XI_6-XI_7))+vol2*reac33;
+    F[87] =(Q_7*(XS_6-XS_7))+vol2*reac34;
+    F[88] =(Q_7*(XBH_6-XBH_7))+vol2*reac35;
+    F[89] =(Q_7*(XBA_6-XBA_7))+vol2*reac36;
+    F[90] =(Q_7*(XP_6-XP_7))+vol2*reac37;
+    F[91] =(Q_7*(SO_6-SO_7))+vol2*reac38+vol2*KLaoxy*(SO_sat_temp-SO_7);
+    F[92] =(Q_7*(SNO_6-SNO_7))+vol2*reac39;
+    F[93] =(Q_7*(SNH_6-SNH_7))+vol2*reac310;
+    F[94] =(Q_7*(SND_6-SND_7))+vol2*reac311;
+    F[95] =(Q_7*(XND_6-XND_7))+vol2*reac312;
+    F[96] =(Q_7*(SALK_6-SALK_7))+vol2*reac313;
+    F[97] =TSS_7 - 0.75*(XI_7+XS_7+XBH_7+XBA_7+XP_7)
+   
+    F[98] =(Q_8*(SI_7-SI_8))+vol2*reac41;
+    F[99] =(Q_8*(SS_7-SS_8))+vol2*reac42;
+    F[100] =(Q_8*(XI_7-XI_8))+vol2*reac43;
+    F[101] =(Q_8*(XS_7-XS_8))+vol2*reac44;
+    F[102] =(Q_8*(XBH_7-XBH_8))+vol2*reac45;
+    F[103] =(Q_8*(XBA_7-XBA_8))+vol2*reac46;
+    F[104] =(Q_8*(XP_7-XP_8))+vol2*reac47;
+    F[105] =(Q_8*(SO_7-SO_8))+vol2*reac48+vol2*KLaoxy2*(SO_sat_temp-SO_8);
+    F[106] =(Q_8*(SNO_7-SNO_8))+vol2*reac49;
+    F[107] =(Q_8*(SNH_7-SNH_8))+vol2*reac410;
+    F[108] =(Q_8*(SND_7-SND_8))+vol2*reac411;
+    F[109] =(Q_8*(XND_7-XND_8))+vol2*reac412;
+    F[110] =(Q_8*(SALK_7-SALK_8))+vol2*reac413;
+    F[111] =TSS_8 - 0.75*(XI_8+XS_8+XBH_8+XBA_8+XP_8)
+   
+    F[112] =((Q_9+Q_10)*(SI_8-SI_9))+vol2*reac51;
+    F[113] =((Q_9+Q_10)*(SS_8-SS_9))+vol2*reac52;
+    F[114] =((Q_9+Q_10)*(XI_8-XI_9))+vol2*reac53;
+    F[115] =((Q_9+Q_10)*(XS_8-XS_9))+vol2*reac54;
+    F[116] =((Q_9+Q_10)*(XBH_8-XBH_9))+vol2*reac55;
+    F[117] =((Q_9+Q_10)*(XBA_8-XBA_9))+vol2*reac56;
+    F[118] =((Q_9+Q_10)*(XP_8-XP_9))+vol2*reac57
+    F[119] =((Q_9+Q_10)*(SO_8-SO_9))+vol2*reac58+vol2*KLaoxy3*(SO_sat_temp-SO_10);
+    F[120] =((Q_9+Q_10)*(SNO_8-SNO_9))+vol2*reac59;
+    F[121] =((Q_9+Q_10)*(SNH_8-SNH_9))+vol2*reac510;
+    F[122] =((Q_9+Q_10)*(SND_8-SND_9))+vol2*reac511;
+    F[123] =((Q_9+Q_10)*(XND_8-XND_9))+vol2*reac512;
+    F[124] =((Q_9+Q_10)*(SALK_8-SALK_9))+vol2*reac513;
+    F[125] =TSS_9 - 0.75*(XI_9 + XS_9 + XBH_9 + XBA_9 + XP_9)
+   
+    F[126] =SI_9 - SI_10
+    F[127] =SS_9 - SS_10
+    F[128] = XI_9 - XI_10
+    F[129] = XS_9 - XS_10
+    F[130] = XBH_9 - XBH_10
+    F[131] = XBA_9 - XBA_10
+    F[132] = XP_9 - XP_10
+    F[133] =SO_9 - SO_10
+    F[134] =SNO_9 - SNO_10
+    F[135] =SNH_9 - SNH_10
+    F[136] =SND_9 - SND_10
+    F[137] = XND_9 - XND_10
+    F[138] =SALK_9 - SALK_10
+    F[139] =TSS_10 - 0.75*(XI_10+XS_10+XBH_10+XBA_10+XP_10)
 
-    F[140]	=	1/zm*((Q_12/A_sc)*(Xsc9-Xsc10)-Jsc10)										
-    F[141]	=	1/zm*((Q_12/A_sc)*(Xsc8-Xsc9)+Jsc10-Jsc9)										
-    F[142]	=	1/zm*((Q_12/A_sc)*(Xsc7-Xsc8)+Jsc9-Jsc8)										
-    F[143]	=	1/zm*((Q_12/A_sc)*(Xsc6-Xsc7)+Jsc8-Jsc7)										
-    F[144]	=	1/zm*((Q_10*Xf/A_sc)+(max(0,min(vmax,v0*(math.exp(-rh*(Xsc7-Xmin))-math.exp(-rp*(Xsc7-Xmin))))))*Xsc7-((Q_13+Q_14)/A_sc+Q_12/A_sc)*Xsc6-min(((max(0,min(vmax,v0*(math.exp(-rh*(Xsc6-Xmin))-math.exp(-rp*(Xsc6-Xmin))))))*Xsc6),((max(0,min(vmax,v0*(math.exp(-rh*(Xsc5-Xmin))-math.exp(-rp*(Xsc5-Xmin))))))*Xsc5)))										
-    F[145]	=	1/zm*(((Q_11)/A_sc)*(Xsc6-Xsc5)+min((max(0,min(vmax,v0*(math.exp(-rh*(Xsc5-Xmin))-math.exp(-rp*(Xsc5-Xmin))))))*Xsc5,(max(0,min(vmax,v0*(math.exp(-rh*(Xsc6-Xmin))-math.exp(-rp*(Xsc6-Xmin))))))*Xsc6)-min((max(0,min(vmax,v0*(math.exp(-rh*(Xsc5-Xmin))-math.exp(-rp*(Xsc5-Xmin))))))*Xsc5,(max(0,min(vmax,v0*(math.exp(-rh*(Xsc4-Xmin))-math.exp(-rp*(Xsc4-Xmin))))))*Xsc4))										
-    F[146]	=	1/zm*(((Q_11)/A_sc)*(Xsc5-Xsc4)+min(((max(0,min(vmax,v0*(math.exp(-rh*(Xsc4-Xmin))-math.exp(-rp*(Xsc4-Xmin))))))*Xsc4),(max(0,min(vmax,v0*(math.exp(-rh*(Xsc5-Xmin))-math.exp(-rp*(Xsc5-Xmin))))))*Xsc5)-min((max(0,min(vmax,v0*(math.exp(-rh*(Xsc4-Xmin))-math.exp(-rp*(Xsc4-Xmin))))))*Xsc4,(max(0,min(vmax,v0*(math.exp(-rh*(Xsc3-Xmin))-math.exp(-rp*(Xsc3-Xmin))))))*Xsc3))										
-    F[147]	=	1/zm*(((Q_11)/A_sc)*(Xsc4-Xsc3)+min((max(0,min(vmax,v0*(math.exp(-rh*(Xsc3-Xmin))-math.exp(-rp*(Xsc3-Xmin))))))*Xsc3,(max(0,min(vmax,v0*(math.exp(-rh*(Xsc4-Xmin))-math.exp(-rp*(Xsc4-Xmin))))))*Xsc4)-min((max(0,min(vmax,v0*(math.exp(-rh*(Xsc3-Xmin))-math.exp(-rp*(Xsc3-Xmin))))))*Xsc3,(max(0,min(vmax,v0*(math.exp(-rh*(Xsc2-Xmin))-math.exp(-rp*(Xsc2-Xmin))))))*Xsc2))										
-    F[148]	=	1/zm*(((Q_11)/A_sc)*(Xsc3-Xsc2)+min(((max(0,min(vmax,v0*(math.exp(-rh*(Xsc2-Xmin))-math.exp(-rp*(Xsc2-Xmin))))))*Xsc2),((max(0,min(vmax,v0*(math.exp(-rh*(Xsc3-Xmin))-math.exp(-rp*(Xsc3-Xmin))))))*Xsc3))-min(((max(0,min(vmax,v0*(math.exp(-rh*(Xsc2-Xmin))-math.exp(-rp*(Xsc2-Xmin))))))*Xsc2),((max(0,min(vmax,v0*(math.exp(-rh*(Xsc1-Xmin))-math.exp(-rp*(Xsc1-Xmin))))))*Xsc1)))										
-    F[149]	=	1/zm*(((Q_11)/A_sc)*(Xsc2-Xsc1)+min((max(0,min(vmax,v0*(math.exp(-rh*(Xsc1-Xmin))-math.exp(-rp*(Xsc1-Xmin))))))*Xsc1,(max(0,min(vmax,v0*(math.exp(-rh*(Xsc2-Xmin))-math.exp(-rp*(Xsc2-Xmin))))))*Xsc2))										
-    
+    F[140] =1/zm*((Q_12/A_sc)*(Xsc9-Xsc10)-Jsc10)
+    F[141] =1/zm*((Q_12/A_sc)*(Xsc8-Xsc9)+Jsc10-Jsc9)
+    F[142] =1/zm*((Q_12/A_sc)*(Xsc7-Xsc8)+Jsc9-Jsc8)
+    F[143] =1/zm*((Q_12/A_sc)*(Xsc6-Xsc7)+Jsc8-Jsc7)
+    F[144] =1/zm*((Q_10*Xf/A_sc)+(custom_max(0, custom_min(vmax,v0*(math.exp(-rh*(Xsc7-Xmin))-math.exp(-rp*(Xsc7-Xmin))))))*Xsc7-((Q_13+Q_14)/A_sc+Q_12/A_sc)*Xsc6-custom_min(((custom_max(0, custom_min(vmax,v0*(math.exp(-rh*(Xsc6-Xmin))-math.exp(-rp*(Xsc6-Xmin))))))*Xsc6),((custom_max(0, custom_min(vmax,v0*(math.exp(-rh*(Xsc5-Xmin))-math.exp(-rp*(Xsc5-Xmin))))))*Xsc5)))
+    F[145] =1/zm*(((Q_11)/A_sc)*(Xsc6-Xsc5)+custom_min((custom_max(0, custom_min(vmax,v0*(math.exp(-rh*(Xsc5-Xmin))-math.exp(-rp*(Xsc5-Xmin))))))*Xsc5,(custom_max(0, custom_min(vmax,v0*(math.exp(-rh*(Xsc6-Xmin))-math.exp(-rp*(Xsc6-Xmin))))))*Xsc6)-custom_min((custom_max(0, custom_min(vmax,v0*(math.exp(-rh*(Xsc5-Xmin))-math.exp(-rp*(Xsc5-Xmin))))))*Xsc5,(custom_max(0, custom_min(vmax,v0*(math.exp(-rh*(Xsc4-Xmin))-math.exp(-rp*(Xsc4-Xmin))))))*Xsc4))
+    F[146] =1/zm*(((Q_11)/A_sc)*(Xsc5-Xsc4)+custom_min(((custom_max(0, custom_min(vmax,v0*(math.exp(-rh*(Xsc4-Xmin))-math.exp(-rp*(Xsc4-Xmin))))))*Xsc4),(custom_max(0, custom_min(vmax,v0*(math.exp(-rh*(Xsc5-Xmin))-math.exp(-rp*(Xsc5-Xmin))))))*Xsc5)-custom_min((custom_max(0, custom_min(vmax,v0*(math.exp(-rh*(Xsc4-Xmin))-math.exp(-rp*(Xsc4-Xmin))))))*Xsc4,(custom_max(0, custom_min(vmax,v0*(math.exp(-rh*(Xsc3-Xmin))-math.exp(-rp*(Xsc3-Xmin))))))*Xsc3))
+    F[147] =1/zm*(((Q_11)/A_sc)*(Xsc4-Xsc3)+custom_min((custom_max(0, custom_min(vmax,v0*(math.exp(-rh*(Xsc3-Xmin))-math.exp(-rp*(Xsc3-Xmin))))))*Xsc3,(custom_max(0, custom_min(vmax,v0*(math.exp(-rh*(Xsc4-Xmin))-math.exp(-rp*(Xsc4-Xmin))))))*Xsc4)-custom_min((custom_max(0, custom_min(vmax,v0*(math.exp(-rh*(Xsc3-Xmin))-math.exp(-rp*(Xsc3-Xmin))))))*Xsc3,(custom_max(0, custom_min(vmax,v0*(math.exp(-rh*(Xsc2-Xmin))-math.exp(-rp*(Xsc2-Xmin))))))*Xsc2))
+    F[148] =1/zm*(((Q_11)/A_sc)*(Xsc3-Xsc2)+custom_min(((custom_max(0, custom_min(vmax,v0*(math.exp(-rh*(Xsc2-Xmin))-math.exp(-rp*(Xsc2-Xmin))))))*Xsc2),((custom_max(0, custom_min(vmax,v0*(math.exp(-rh*(Xsc3-Xmin))-math.exp(-rp*(Xsc3-Xmin))))))*Xsc3))-custom_min(((custom_max(0, custom_min(vmax,v0*(math.exp(-rh*(Xsc2-Xmin))-math.exp(-rp*(Xsc2-Xmin))))))*Xsc2),((custom_max(0, custom_min(vmax,v0*(math.exp(-rh*(Xsc1-Xmin))-math.exp(-rp*(Xsc1-Xmin))))))*Xsc1)))
+    F[149] =1/zm*(((Q_11)/A_sc)*(Xsc2-Xsc1)+custom_min((custom_max(0, custom_min(vmax,v0*(math.exp(-rh*(Xsc1-Xmin))-math.exp(-rp*(Xsc1-Xmin))))))*Xsc1,(custom_max(0, custom_min(vmax,v0*(math.exp(-rh*(Xsc2-Xmin))-math.exp(-rp*(Xsc2-Xmin))))))*Xsc2))
+   
+    # F[140] =A_sc*((Q_12/A_sc)*(Xsc9-Xsc10)-Jsc10)
+    # F[141] =A_sc*((Q_12/A_sc)*(Xsc8-Xsc9)+Jsc10-Jsc9)
+    # F[142] =A_sc*((Q_12/A_sc)*(Xsc7-Xsc8)+Jsc9-Jsc8)
+    # F[143] =A_sc*((Q_12/A_sc)*(Xsc6-Xsc7)+Jsc8-Jsc7)
+    # F[144] =A_sc*((Q_10*Xf/A_sc)+(max(0,min(vmax,v0*(math.exp(-rh*(Xsc7-Xmin))-math.exp(-rp*(Xsc7-Xmin))))))*Xsc7-((Q_13+Q_14)/A_sc+Q_12/A_sc)*Xsc6-min(((max(0,min(vmax,v0*(math.exp(-rh*(Xsc6-Xmin))-math.exp(-rp*(Xsc6-Xmin))))))*Xsc6),((max(0,min(vmax,v0*(math.exp(-rh*(Xsc5-Xmin))-math.exp(-rp*(Xsc5-Xmin))))))*Xsc5)))
+    # F[145] =A_sc*(((Q_11)/A_sc)*(Xsc6-Xsc5)+min((max(0,min(vmax,v0*(math.exp(-rh*(Xsc5-Xmin))-math.exp(-rp*(Xsc5-Xmin))))))*Xsc5,(max(0,min(vmax,v0*(math.exp(-rh*(Xsc6-Xmin))-math.exp(-rp*(Xsc6-Xmin))))))*Xsc6)-min((max(0,min(vmax,v0*(math.exp(-rh*(Xsc5-Xmin))-math.exp(-rp*(Xsc5-Xmin))))))*Xsc5,(max(0,min(vmax,v0*(math.exp(-rh*(Xsc4-Xmin))-math.exp(-rp*(Xsc4-Xmin))))))*Xsc4))
+    # F[146] =A_sc*(((Q_11)/A_sc)*(Xsc5-Xsc4)+min(((max(0,min(vmax,v0*(math.exp(-rh*(Xsc4-Xmin))-math.exp(-rp*(Xsc4-Xmin))))))*Xsc4),(max(0,min(vmax,v0*(math.exp(-rh*(Xsc5-Xmin))-math.exp(-rp*(Xsc5-Xmin))))))*Xsc5)-min((max(0,min(vmax,v0*(math.exp(-rh*(Xsc4-Xmin))-math.exp(-rp*(Xsc4-Xmin))))))*Xsc4,(max(0,min(vmax,v0*(math.exp(-rh*(Xsc3-Xmin))-math.exp(-rp*(Xsc3-Xmin))))))*Xsc3))
+    # F[147] =A_sc*(((Q_11)/A_sc)*(Xsc4-Xsc3)+min((max(0,min(vmax,v0*(math.exp(-rh*(Xsc3-Xmin))-math.exp(-rp*(Xsc3-Xmin))))))*Xsc3,(max(0,min(vmax,v0*(math.exp(-rh*(Xsc4-Xmin))-math.exp(-rp*(Xsc4-Xmin))))))*Xsc4)-min((max(0,min(vmax,v0*(math.exp(-rh*(Xsc3-Xmin))-math.exp(-rp*(Xsc3-Xmin))))))*Xsc3,(max(0,min(vmax,v0*(math.exp(-rh*(Xsc2-Xmin))-math.exp(-rp*(Xsc2-Xmin))))))*Xsc2))
+    # F[148] =A_sc*(((Q_11)/A_sc)*(Xsc3-Xsc2)+min(((max(0,min(vmax,v0*(math.exp(-rh*(Xsc2-Xmin))-math.exp(-rp*(Xsc2-Xmin))))))*Xsc2),((max(0,min(vmax,v0*(math.exp(-rh*(Xsc3-Xmin))-math.exp(-rp*(Xsc3-Xmin))))))*Xsc3))-min(((max(0,min(vmax,v0*(math.exp(-rh*(Xsc2-Xmin))-math.exp(-rp*(Xsc2-Xmin))))))*Xsc2),((max(0,min(vmax,v0*(math.exp(-rh*(Xsc1-Xmin))-math.exp(-rp*(Xsc1-Xmin))))))*Xsc1)))
+    # F[149] =A_sc*(((Q_11)/A_sc)*(Xsc2-Xsc1)+min((max(0,min(vmax,v0*(math.exp(-rh*(Xsc1-Xmin))-math.exp(-rp*(Xsc1-Xmin))))))*Xsc1,(max(0,min(vmax,v0*(math.exp(-rh*(Xsc2-Xmin))-math.exp(-rp*(Xsc2-Xmin))))))*Xsc2))
+   
     F[150] = Q_16*SI_16 + Q_15*SI_15 - Q_14*SI_14
     F[151] = Q_16*SS_16 + Q_15*SS_15 - Q_14*SS_14
     F[152] = Q_16*XI_16 + Q_15*XI_15 - Q_14*XI_14
@@ -1301,7 +1309,7 @@ def myFunction(x):
     F[161] = Q_16*XND_16 + Q_15*XND_15 - Q_14*XND_14
     F[162] = SALK_16 - SALK_14
     F[163] = Q_16*TSS_16 + Q_15*TSS_15 - Q_14*TSS_14
-    
+   
     F[164] = Q_2*SI_2 + Q_15*SI_15 - Q_17*SI_17
     F[165] = Q_2*SS_2 + Q_15*SS_15 - Q_17*SS_17
     F[166] = Q_2*XI_2 + Q_15*XI_15 - Q_17*XI_17
@@ -1309,7 +1317,7 @@ def myFunction(x):
     F[168] = Q_2*XBH_2 + Q_15*XBH_15 - Q_17*XBH_17
     F[169] = Q_2*XBA_2 + Q_15*XBA_15 - Q_17*XBA_17
     F[170] = Q_2*XP_2 + Q_15*XP_15 - Q_17*XP_17
-    F[171] = Q_2*SO_2 + Q_15*SO_15 - Q_17*SO_17 
+    F[171] = Q_2*SO_2 + Q_15*SO_15 - Q_17*SO_17
     F[172] = Q_2*SNO_2 + Q_15*SNO_15 - Q_17*SNO_17
     F[173] = Q_2*SNH_2 + Q_15*SNH_15 - Q_17*SNH_17
     F[174] = Q_2*SND_2 + Q_15*SND_15 - Q_17*SND_17
@@ -1330,10 +1338,10 @@ def myFunction(x):
     SND_17_temp = SND_17
     XND_17_temp = XND_17
     SALK_17_temp = SALK_17
-    
-    
-    
-    
+   
+   
+   
+   
 
     #Hill function on pH inhibition
     pHLim_aa = (pH_UL_aa + pH_LL_aa)/2.0;
@@ -1346,29 +1354,29 @@ def myFunction(x):
     n_aa = 3.0/(pH_UL_aa - pH_LL_aa)
     n_ac = 3.0/(pH_UL_ac - pH_LL_ac)
     n_h2 = 3.0/(pH_UL_h2 - pH_LL_h2)
-    
+   
     I_pH_aa = (KpH_aa**n_aa)/((KpH_aa**n_aa)+(SH**n_aa));
     I_pH_ac = (KpH_ac**n_ac)/((KpH_ac**n_ac)+(SH**n_ac));
     I_pH_h2 = (KpH_h2**n_h2)/((KpH_h2**n_h2)+(SH**n_h2));
    
-    
+   
     #/* Hill function on SH+ used within BSM2, ADM1 Workshop, Copenhagen 2005. */
-    
-    
-    
+   
+   
+   
     I_IN_lim = 1.0/(1.0+K_S_IN/SIN);
     I_h2_fa = 1.0/(1.0+Sh2/K_Ih2_fa);
     I_h2_c4 = 1.0/(1.0+Sh2/K_Ih2_c4);
     I_h2_pro = 1.0/(1.0+Sh2/K_Ih2_pro);
     I_nh3 = 1.0/(1.0+Snh3/K_I_nh3);
-    
+   
     inhib0 = I_pH_aa*I_IN_lim;
     inhib1 = inhib0*I_h2_fa;
     inhib2 = inhib0*I_h2_c4;
     inhib3 = inhib0*I_h2_pro;
     inhib4 = I_pH_ac*I_IN_lim*I_nh3;
     inhib5 = I_pH_h2*I_IN_lim;
-    
+   
     proc1 = k_dis*Xc;
     proc2 = k_hyd_ch*Xch;
     proc3 = k_hyd_pr*Xpr;
@@ -1388,18 +1396,18 @@ def myFunction(x):
     proc17 = k_dec_Xpro*Xpro;
     proc18 = k_dec_Xac*Xac;
     proc19 = k_dec_Xh2*Xh2;
-    
+   
     procA4 = K_A_Bva*(Svaan*(K_a_va+SH)-K_a_va*Sva);
     procA5 = K_A_Bbu*(Sbuan*(K_a_bu+SH)-K_a_bu*Sbu);
     procA6 = K_A_Bpro*(Sproan*(K_a_pro+SH)-K_a_pro*Spro);
     procA7 = K_A_Bac*(Sacan*(K_a_ac+SH)-K_a_ac*Sac);
     procA10 = K_A_Bco2*(Shco3an*(K_a_co2+SH)-K_a_co2*SIC);
     procA11 = K_A_BIN*(Snh3*(K_a_IN+SH)-K_a_IN*SIN);
-    
+   
     procT8 = kLa*(Sh2-16.0*K_H_h2*p_gas_h2);
     procT9 = kLa*(Sch4-64.0*K_H_ch4*p_gas_ch4);
     procT10 = kLa*((Sco2)-K_H_co2*p_gas_co2);
-    
+   
     stoich1 = -C_xc+f_sI_xc*C_sI+f_ch_xc*C_ch+f_pr_xc*C_pr+f_li_xc*C_li+f_xI_xc*C_xI;
     stoich2 = -C_ch+C_su;
     stoich3 = -C_pr+C_aa;
@@ -1413,7 +1421,7 @@ def myFunction(x):
     stoich11 = -C_ac+(1.0-Y_ac)*C_ch4+Y_ac*C_bac;
     stoich12 = (1.0-Y_h2)*C_ch4+Y_h2*C_bac;
     stoich13 = -C_bac+C_xc;
-    
+   
     reac1 = proc2+(1.0-f_fa_li)*proc4-proc5;
     reac2 = proc3-proc6;
     reac3 = f_fa_li*proc4-proc7;
@@ -1438,16 +1446,16 @@ def myFunction(x):
     reac22 = Y_ac*proc11-proc18;
     reac23 = Y_h2*proc12-proc19;
     reac24 = f_xI_xc*proc1;
-    
+   
     q_gas = k_P*(P_gas-P_atm)*P_gas/P_atm;
-    
+   
     #print(q_gas)
     CODdemand = SO_17 + CODequiv*SNO_17;
     SI_17temp = SI_17
     SS_17temp = SS_17
     XI_17temp = XI_17
-    XS_17temp = XS_17       	
-    XBH_17temp = XBH_17	    
+    XS_17temp = XS_17      
+    XBH_17temp = XBH_17  
     XBA_17temp = XBA_17
     XP_17temp = XP_17
     SO_17temp = SO_17
@@ -1456,26 +1464,26 @@ def myFunction(x):
     SND_17temp = SND_17
     XND_17temp = XND_17
     SALK_17temp = SALK_17
-    
-    
+   
+   
     SO_17_temp = 0;
     SNO_17_temp = 0;
 
-    
+   
     if CODdemand > SS_17: #{ /* check if COD demand can be fulfilled by SS*/
         remaina = CODdemand - SS_17;
         SS_17_temp = 0.0;
-    
+   
         if (remaina > XS_17): #{ /* check if COD demand can be fulfilled by XS*/
             remainb = remaina - XS_17;
             XS_17_temp = 0.0;
-    
+   
             if (remainb > XBH_17): #{ /* check if COD demand can be fulfilled by XBH */
                 remainc = remainb - XBH_17;
                 SNH_17_temp = SNH_17_temp + XBH_17*fnbac;#??????????
     #------------->>>>>>>>>>            SNH_17_temp or SNH_17
                 XBH_17_temp = 0.0;
-    
+   
                 if (remainc > XBA_17): #{ /* check if COD demand can be fulfilled by XBA */
                     remaind = remainc - XBA_17;
                     SNH_17_temp = SNH_17_temp + XBA_17*fnbac;
@@ -1509,7 +1517,7 @@ def myFunction(x):
         S_aa = sorgn; #/* map all SND related COD into Saa */
         SS_17_temp = SS_17_temp - sorgn; #/* excess SS, which will become sugar in ADM1 i.e. no nitrogen association */
         SND_17_temp = 0.0; #/* all SND used */
-    
+   
     #XS becomes part of Xpr (proteins) when transformed into ADM and any remaining XS is mapped to Xch and Xli (no N contents)
     #Enough XND must be available for mapping to Xpr */
     xorgn = XND_17/fnaa; #/* Xpr COD equivalent to XND */
@@ -1519,7 +1527,7 @@ def myFunction(x):
         #------------->>>>>>>>>>            XND_17_temp or SNH_17
         xlitemp = 0.0;
         xchtemp = 0.0;
-    
+   
     else :#{ /* all XND-N fits into Xpr */
         xprtemp = xorgn; #/* map all XND related COD into Xpr */
         xlitemp = frlixs*(XS_17temp - xorgn); #/* part of XS COD not associated with N */
@@ -1527,7 +1535,7 @@ def myFunction(x):
         XS_17_temp = 0.0; #/* all XS used */
         XND_17_temp = 0.0; #/* all XND used */
        
-    
+   
     # /* Biomass becomes part of Xpr and XI when transformed into ADM
     # * and any remaining XBH and XBA is mapped to Xch and Xli (no N contents)
     # * Remaining XND-N can be used as nitrogen source to form Xpr */
@@ -1541,14 +1549,14 @@ def myFunction(x):
     if ((biomass_bioN/fnaa) <= (biomass - biomass_nobio_as)) :
         xprtemp2 = biomass_bioN/fnaa; #/* all biomass N used */
         remainCOD = biomass - biomass_nobio_as - xprtemp2;
-    
+   
         if ((XND_17_temp/fnaa) > remainCOD):# { /* use part of remaining XND-N to form proteins */
             xprtemp2 = xprtemp2 + remainCOD;
             XND_17_temp = XND_17_temp - remainCOD*fnaa;
             remainCOD = 0.0;
             XBH_17_temp = 0.0;
             XBA_17_temp = 0.0;
-        
+       
         else :#{ /* use all remaining XND-N to form proteins */
             xprtemp2 = xprtemp2 + XND_17_temp/fnaa;
             remainCOD = remainCOD - XND_17_temp/fnaa;
@@ -1561,10 +1569,10 @@ def myFunction(x):
 
 
    
-    
+   
     XBH_17_temp = 0.0;
     XBA_17_temp = 0.0;
-    
+   
     #/* direct mapping of XI and XP to ADM1 XI (if fdegrade_ad = 0)
     # * assumption: same N content in both ASM1 and ADM1 particulate inerts */
     inertX = (1-fdegrade_adm)*(XI_17temp + XP_17temp);
@@ -1607,7 +1615,7 @@ def myFunction(x):
                     xc = xc + noninertX;
                     SND_17_temp = SND_17_temp - noninertX*fnxc;
                     noninertX = 0.0;
-    
+   
             else :#{ /* N in XND enough for mapping */
                 xc = xc + noninertX;
                 XND_17_temp = XND_17_temp - noninertX*fnxc;
@@ -1616,8 +1624,8 @@ def myFunction(x):
         noninertX = 0;
         xc = xc + noninertX;
         XND_17_temp= XND_17_temp + noninertX*(fxni-fnxc); #/* put remaining N as XND */
-        
-    
+       
+   
     # /* Mapping of ASM SI to ADM1 SI
     # * N content may be different, take first from SI-N, then SND-N, then XND-N,
     # * then SNH. Similar principle could be used for other states. */
@@ -1643,7 +1651,7 @@ def myFunction(x):
     # Benchmark Simulation Model no. 2 (BSM2)
     # Page 57
                     SI_17temp = 0.0;
-    
+   
                 else :#{ /* N in SNH enough for mapping */
                     inertS = inertS + SI_17temp;
                     SNH_17temp = SNH_17temp - SI_17temp*fsni_adm;
@@ -1660,12 +1668,12 @@ def myFunction(x):
         inertS = inertS + SI_17temp;
         SND_17_temp = SND_17temp + SI_17temp*(fsni-fsni_adm); #/* put remaining N as SND */
         SI_17temp = 0.0;
-    
+   
     R =  0.083145 #bar.M^-1.K^-1
     T_base =  298.15 #K
     P_atm =  1.013 #bar
     T_op =  308.15 #k ##T_ad #=35 C
-    
+   
     ##parameter definition from the Rosen et al (2006) BSM2 report bmadm1_report
     # Stoichiometric parameter
     f_sI_xc =  0.1
@@ -1711,20 +1719,20 @@ def myFunction(x):
     Y_h2 =  0.06
     K_SIN = 0.0001
     K_Spro = 0.1
-    
+   
     #/* Define the outputs including charge balance */
     #print(SS_17_temp)
     Ssu0 = SS_17_temp/1000.0;
     Saa0 = S_aa/1000.0;
     SIN0 = (SNH_17_temp + SND_17_temp + XND_17_temp)/14000.0;
-    
+   
     SI0 = inertS/1000.0;
     Xc0 = xc/1000.0;
     Xch0 = (xchtemp + xchtemp2 + xchtemp3)/1000.0;
     Xpr0 = (xprtemp + xprtemp2)/1000.0;
     Xli0 = (xlitemp + xlitemp2 + xlitemp3)/1000.0;
     XI0 = (biomass_nobio_as + inertX)/1000.0;
-    Sva0 = 0 
+    Sva0 = 0
     Sfa0 = 0
     Sbu0 = 0
     Spro0 = 0
@@ -1747,15 +1755,15 @@ def myFunction(x):
     if (ScatminusSan > 0) :
         Scat0 = ScatminusSan;
         San0 = 0.0;
-    
-    
+   
+   
     else:
         Scat0 = 0.0;
         San0 = -1.0*ScatminusSan;
     eps = 0.0000001
     S_h2delta = (Q_17*(Sh20-Sh2))+V_liq*reac8;
     S_h2gradeq = - 1.0 / V_liq * Q_17 - 3.0 / 10.0 * (1 - Y_fa) * k_m_fa * Sfa / (K_S_fa + Sfa) * Xfa * I_pH_aa / (1 + K_SIN / SIN) / ((1 + Sh2 / K_Ih2_fa) * (1 + Sh2 / K_Ih2_fa)) / K_Ih2_fa - 3.0 / 20.0 * (1 - Y_c4) * k_m_c4 * Sva * Sva / (K_S_c4 + Sva) * Xc4 / (Sbu + Sva + eps) * I_pH_aa / (1 + K_SIN / SIN) / ((1 + Sh2 / K_Ih2_c4 ) * (1 + Sh2 / K_Ih2_c4 )) / K_Ih2_c4 - 1.0 / 5.0 * (1 - Y_c4) * k_m_c4 * Sbu * Sbu / (K_S_c4 + Sbu) * Xc4 / (Sbu + Sva + eps) * I_pH_aa / (1 + K_SIN / SIN) / ((1 + Sh2 / K_Ih2_c4 ) * (1 + Sh2 / K_Ih2_c4 )) / K_Ih2_c4 - 43.0 / 100.0 * (1 - Y_pro) * k_m_pro * Spro / (K_Spro + Spro) * Xpro * I_pH_aa / (1 + K_SIN / SIN) / ((1 + Sh2 / K_Ih2_pro ) * (1 + Sh2 / K_Ih2_pro )) / K_Ih2_pro - k_m_h2 / (K_S_h2 + Sh2) * Xh2 * I_pH_h2 / (1 + K_SIN / SIN) + k_m_h2 * Sh2 / ((K_S_h2 + Sh2) * (K_S_h2 + Sh2)) * Xh2 * I_pH_h2 / (1 + K_SIN / SIN) - kLa
-      
+     
  
     F[178] = (Q_17*(Ssu0-Ssu))+V_liq*reac1;
     F[179] = (Q_17*(Saa0-Saa))+V_liq*reac2;
@@ -1783,9 +1791,9 @@ def myFunction(x):
     F[201] =  (Q_17*(XI0-XI))+V_liq*reac24;  
     F[202] =  (Q_17*(Scat0-Scat)); #/* Scat+ */
     F[203] =  (Q_17*(San0-San)); #/* San- */
-    
+   
     F[204] =  SH - shdelta / shgradeq
-    
+   
     F[205] = K_a_va * Sva / (K_a_va + SH) - Svaan;  #-procA4;  #/* Sva- */
     F[206] = K_a_bu * Sbu / (K_a_bu + SH) - Sbuan;  #-procA5;  #/* Sbu- */
     F[207] = K_a_pro * Spro / (K_a_pro + SH) - Sproan;  #-procA6;  #/* Spro- */
@@ -1795,42 +1803,42 @@ def myFunction(x):
     F[211] = -Sgash2*q_gas/V_gas+procT8*V_liq/V_gas;
     F[212] = -Sgasch4*q_gas/V_gas+procT9*V_liq/V_gas;
     F[213] = -Sgasco2*q_gas/V_gas+procT10*V_liq/V_gas;
-    
-    Ssutemp	=	Ssu 
-    Saatemp	=	 Saa 
-    Sfatemp	=	 Sfa 
-    Svatemp	=	 Sva 
-    Sbutemp	=	 Sbu 
-    Sprotemp	=	 Spro 
-    Sactemp	=	 Sac 
-    Sh2temp	=	 Sh2 
-    Sch4temp	=	 Sch4 
-    SICtemp	=	 SIC 
-    SINtemp	=	 SIN 
-    SItemp	=	 SI 
-    Xctemp	=	 Xc 
-    Xchtemp	=	 Xch 
-    Xprtemp	=	 Xpr 
-    Xlitemp	=	 Xli 
-    Xsutemp	=	 Xsu 
-    Xaatemp	=	 Xaa 
-    Xfatemp	=	 Xfa 
-    Xc4temp	=	 Xc4 
-    Xprotemp	=	 Xpro 
-    Xactemp	=	 Xac 
-    Xh2temp	=	 Xh2 
-    XItemp	=	 XI 
-    Scattemp	=	 Scat 
-    Santemp	=	 San 
-    Svaantemp	=	 Svaan 
-    Sbuantemp	=	 Sbuan 
-    Sproantemp	=	 Sproan 
-    Sacantemp	=	 Sacan 
-    Snh3temp	=	 Snh3 
-    Shco3antemp	=	 Shco3an 
-    Sgash2temp	=	 Sgash2 
-    Sgasch4temp	=	 Sgasch4 
-    Sgasco2temp	=	 Sgasco2 
+   
+    Ssutemp = Ssu
+    Saatemp =  Saa
+    Sfatemp =  Sfa
+    Svatemp =  Sva
+    Sbutemp =  Sbu
+    Sprotemp =  Spro
+    Sactemp =  Sac
+    Sh2temp =  Sh2
+    Sch4temp =  Sch4
+    SICtemp =  SIC
+    SINtemp =  SIN
+    SItemp = SI
+    Xctemp = Xc
+    Xchtemp =  Xch
+    Xprtemp =  Xpr
+    Xlitemp =  Xli
+    Xsutemp =  Xsu
+    Xaatemp =  Xaa
+    Xfatemp =  Xfa
+    Xc4temp =  Xc4
+    Xprotemp =  Xpro
+    Xactemp =  Xac
+    Xh2temp =  Xh2
+    XItemp = XI
+    Scattemp =  Scat
+    Santemp =  San
+    Svaantemp= Svaan
+    Sbuantemp= Sbuan
+    Sproantemp = Sproan
+    Sacantemp= Sacan
+    Snh3temp =  Snh3
+    Shco3antemp = Shco3an
+    Sgash2temp = Sgash2
+    Sgasch4temp = Sgasch4
+    Sgasco2temp = Sgasco2
 
     frxs_as = 0.79;  
     fdegrade_as = 0;
@@ -1844,30 +1852,30 @@ def myFunction(x):
     # /* We map as much as we can, and the remains go to XS! */
         XPtemp = biomassad*fnbac/fxni;
         biomass_nobio = XPtemp;
-    
+   
         biomass_bioNad = 0.0;
-    
+   
     else :
         XPtemp = biomass_nobio;
-    
+   
     if ((biomass_bioNad/fnxc) <= (biomassad - biomass_nobio)):
         XStemp = biomass_bioNad/fnxc; #/* all biomass N used */
         remainCODad = biomassad - biomass_nobio - XStemp;
         if ((SINtemp*14000.0/fnaa) >= remainCODad): #{ /* use part of remaining S_IN to form XS */
             XStemp = XStemp + remainCODad;
-    
+   
         else :
             'not enough nitrogen to map the requested XS part of biomass'
-    
+   
     else :
         XStemp = biomassad - biomass_nobio; #/* all biomass COD used */
-    
-        SINtemp = SINtemp + biomassad*fnbac/14000.0 - XPtemp*fxni/14000.0 - XStemp*fnxc/14000.0; 
+   
+        SINtemp = SINtemp + biomassad*fnbac/14000.0 - XPtemp*fxni/14000.0 - XStemp*fnxc/14000.0;
         #any remaining N in S_IN */
         XS_18 = (Xctemp + Xchtemp + Xprtemp + Xlitemp)*1000.0 + XStemp;  
         #Xs = sum all X except Xi, + biomass as handled above */
-        XP_18 = XPtemp; #/* inert part of biomass 
-    
+        XP_18 = XPtemp; #/* inert part of biomass
+   
     # /* mapping of inert XI in AD into XI and possibly XS in AS
     # * assumption: same N content in both ASM1 and ADM1 particulate inerts
     # * special case: if part of XI in AD can be degraded in AS
@@ -1891,12 +1899,12 @@ def myFunction(x):
     # biodegradable XI' */
     # /* Mapping what we can to XS and putting remaining XI back into XI of ASM */
     # inertXad = inertXad + noninertXad;
-    
+   
             else :#{ /* N in SIN enough for mapping */
                 XStemp2 = XStemp2 + noninertXad;
                 SINtemp = SINtemp - noninertXad*fnxc/14000.0;
                 noninertXad = 0.0;
-    
+   
         else :#{ /* N in XI(AD) enough for mapping */
             XStemp2 = XStemp2 + noninertXad;
             SINtemp = SINtemp + noninertXad*(fxni - fnxc)/14000.0; #/* put remaining N as S_IN */
@@ -1904,7 +1912,7 @@ def myFunction(x):
     else :
         XI_18 = inertXad; #/* Xi = Xi*fdegrade_AS + possibly nonmappable XS */
         XS_18 = XS_18 + XStemp2  #(Xc + Xch + Xpr + Xli)*1000.0 + XStemp + XStemp2; #/* extra added XS (biodegradable XI) */
-        
+       
     # /* Mapping of ADM SI to ASM1 SI
     # * It is assumed that this mapping will be 100% on COD basis
     # * N content may be different, take first from SI-N then from S_IN.
@@ -1919,17 +1927,17 @@ def myFunction(x):
             SINtemp = 0.0;
     # /* Problems: if here we should print 'ERROR: Nitrogen shortage when converting SI' */
     # /* System failure: nowhere to put SI */
-    
+   
         else :#{ /* N in SIN enough for mapping */
             inertSad = inertSad + SItemp;
             SINtemp = SINtemp - SItemp*fsni/14.0;
             SItemp = 0.0;
-    
+   
     else :#{ /* N in SI(AD) enough for mapping */
         inertSad = inertSad + SItemp;
         SINtemp = SINtemp + SItemp*(fsni_adm - fsni)/14.0; #/* put remaining N as SIN */
         SItemp = 0.0;
-    
+   
     SI_18 = inertSad*1000.0; #/* Si = Si ;
     SS_18 = (Ssutemp + Saatemp + Sfatemp + Svatemp + Sbutemp + Sprotemp + Sactemp)*1000.0;
 
@@ -1944,7 +1952,7 @@ def myFunction(x):
     #y[13] = 0.75*(XI_18 + XS_18 + XBH_18 + XBA_18 + XP_18);
     #y[14] = utemp[26]; #/* flow rate */
     #y[15] = u[34]; #/* temperature, degC, should be equal to AS temperature into the AD/AS interface */
-    
+   
     SNO_18 = 0;
     SO_18 = 0;
     XBA_18 = 0;
@@ -1954,17 +1962,17 @@ def myFunction(x):
     SALK_18 = (Sva*alfa_va + Sbu*alfa_bu + Spro*alfa_pro + Sac*alfa_ac + SIC*alfa_co2 + SIN*alfa_IN - SNO_18*alfa_NO - SNH_18*alfa_NH)/alfa_alk;
     TSS_18 = (XI_18 + XS_18)*0.75
 
-    
+   
     ###DEwaterer###
     pdew = 28 # % of suspended solids in underflow of dewckener
     TSSremdew = 98 #% of suspended solids removed in dewckener
     fdew = pdew*10000/(0.75*(XI_18+XS_18+XND_18))
     fqtudew = TSSremdew/(100*fdew)    
     fdewn = (1-(TSSremdew/100))/(1-fqtudew)
-    
+   
 
-    
-    
+   
+   
     SI_19 = SI_18
     SS_19 = SS_18
     XI_19 = XI_18*fdew
@@ -1978,7 +1986,7 @@ def myFunction(x):
     SND_19 = SND_18
     XND_19 = XND_18*fdew
     SALK_19 = SALK_18
-    
+   
     TSS_19 = (XI_19 +XS_19+ XP_19)*0.75
     VSS_18 = (XI_18/1.5686 + XS_18/1.5686 + XBH_18/1.3072 + XBA_18/1.3072 + XP_18/1.9608)
     VSS_19 = (XI_19/1.5686 + XS_19/1.5686 + XBH_19/1.3072 + XBA_19/1.3072 + XP_19/1.9608)
@@ -1987,74 +1995,74 @@ def myFunction(x):
     S18 = kp*VSS_18
     S19 = kp*VSS_19
     XCH_19 = SCH_19*S19
-    
+   
     F[214] = SI_20 - SI_18  
-    F[215] = SS_20 - SS_18 
+    F[215] = SS_20 - SS_18
     F[216] = XI_20 - XI_18*fdewn  
     F[217] = XS_20 - XS_18*fdewn  
     F[218] = XP_20 - XP_18*fdewn
     F[219] = SNH_20 - SNH_18  
-    F[220] = SND_20 - SND_18 
-    F[221] = XND_20 - XND_18*fdewn 
+    F[220] = SND_20 - SND_18
+    F[221] = XND_20 - XND_18*fdewn
     F[222] = SALK_20 - SALK_18
     F[223] = TSS_20 - 0.75*(XI_20 + XS_20 + XBH_20 + XBA_20 + XP_20)
-    
-    F[224]	=	Q_inf*(1+Sinf)*SCH_inf	+	Q_16*(1+S16)*SCH_16	+	Q_20*(1+S20)*SCH_20	-	Q_1*(1+S1)*SCH_1		
-    F[225]	=	Sinf*SCH_inf	-	XCH_1						
-    F[226]	=	Q_1*SCH_1*(1+S1)	-	Q_2*(1+Sw1)*SCH_2	-	Q_3*(1+S3)*SCH_2	-	ks*area_of_pc*SCH_2*fnon		
-    F[227]	=	SCH_2*Sw1	-	XCH_2						
-    F[228]	=	SCH_2*fnon*math.exp(-((0.042*h1**(0.872)*q**(0.509)))*Dc/Doxy*(100*Hc/(100*Hc+1)))	-	SCH_3*fnon						
-    F[229]	=	SCH_3*S3	-	XCH_3						
-    F[230]	=	Q_3*(1+S3)*SCH_2	-	Q_3*(1+S3)*SCH_3	-	Q_3*GCH_3		#ks*area_of_pc*SCH_2*fnon	+	 
-    F[231]	=	(Q_4+2)*(1+S4)*SCH_4	-	Q_3*(1+S3)*SCH_3	-	Q_9*(1+S9)*SCH_9	-	Q_13*(1+S13)*SCH_13		
-    F[232]	=	S4*SCH_4	-	XCH_4						
-    F[233]	=	(Q_5*((1+S4)*SCH_4-(1+S5)*SCH_5))	+	vol*(toxreac1	+	toxreac2)				
-    F[234]	=	SCH_5*S5	-	XCH_5						
-    F[235]	=	(Q_6*((1+S5)*SCH_5-(1+S6)*SCH_6))+vol*(toxreac3	+	toxreac4)						
-    F[236]	=	SCH_6*S6	-	XCH_6						
-    F[237]	=	(Q_7*((1+S6)*SCH_6-(1+S7)*SCH_7))	+	vol2*(toxreac5	+	toxreac6	+	toxreac7)		
-    F[238]	=	SCH_7*S7	-	XCH_7						
-    F[239]	=	(Q_8*((1+S7)*SCH_7-(1+S8)*SCH_8))	+	vol2*(toxreac8	+	toxreac9	+	toxreac10)		
-    F[240]	=	SCH_8*S8	-	XCH_8						
-    F[241]	=	((Q_9+Q_10)*((1+S8)*SCH_8-(1+S10)*SCH_10))	+	vol2*(toxreac11	+	toxreac12	+	toxreac13)		
-    F[242]	=	SCH_10*S10	-	XCH_10						
-    F[243]	=	SCH_9	-	SCH_10						
-    F[244]	=	XCH_9	-	XCH_10						
-    F[245]	=	Q_10*(1+S10)*SCH_10	-	Q_12*(1+S12)*SCH_11	-	(Q_11)*(1+S11)*SCH_11	-	ks*area_of_SC*(SCH_11*fnon)		
-    F[246]	=	SCH_11*S11	-	XCH_11						
-    F[247]	=	((SCH_11*fnon)*math.exp(-A2*(Dc/Doxy)*(100*Hc/(100*Hc+1)))-SCH_12*fnon)								
-    F[248]	=	SCH_12*S12	-	XCH_12						
-    F[249]	=	ks*(area_of_SC)*(SCH_11*fnon)	+	Q_12*SCH_11	-	Q_12*SCH_12	-	Q_12*GCH_12		
-    F[250]	=	SCH_11	-	SCH_13						
-    F[251]	=	XCH_11	-	XCH_13						
-    F[252]	=	SCH_14	-	SCH_13						
-    F[253]	=	SCH_14*S14	-	XCH_14						
-    F[254]	=	SCH_14	-	SCH_15						
-    F[255]	=	SCH_15*S15	-	XCH_15						
-    F[256]	=	SCH_16	-	SCH_15						
-    F[257]	=	SCH_16*S16	-	XCH_16						
-    F[258]	=	Q_2*(1+Sw1)*SCH_2	+	Q_15*(1+S15)*SCH_15	-	Q_17*(1+S17)*SCH_17				
-    F[259]	=	SCH_17*S17	-	XCH_17						
-    F[260]	=	Q_17*(1+S17)*SCH_17	-	Q_18*(1+S18)*SCH_AD	-	q_gas*HcAD*SCH_AD				
-    F[261]	=	SCH_AD*S18-	XCH_AD							
-    F[262]	=	SCH_20	-	SCH_AD						
-    F[263]	=	SCH_20*S20	-	XCH_20						
-    
-    				
+   
+    F[224] =Q_inf*(1+Sinf)*SCH_inf+Q_16*(1+S16)*SCH_16+Q_20*(1+S20)*SCH_20-Q_1*(1+S1)*SCH_1
+    F[225] =Sinf*SCH_inf - XCH_1
+    F[226] =Q_1*SCH_1*(1+S1) - Q_2*(1+Sw1)*SCH_2 - Q_3*(1+S3)*SCH_2 - ks*area_of_pc*SCH_2*fnon
+    F[227] =SCH_2*Sw1- XCH_2
+    F[228] =SCH_2*fnon*math.exp(-((0.042*h1**(0.872)*q**(0.509)))*Dc/Doxy*(100*Hc/(100*Hc+1))) - SCH_3*fnon
+    F[229] =SCH_3*S3 - XCH_3
+    F[230] =ks*area_of_pc*SCH_2*fnon+Q_3*SCH_2- Q_3*SCH_3- Q_4*GCH_3
+    F[231] =Q_4*(1+S4)*SCH_4 - Q_3*(1+S3)*SCH_3 - Q_9*(1+S9)*SCH_9 - Q_13*(1+S13)*SCH_13
+    F[232] =S4*SCH_4 - XCH_4
+    F[233] =(Q_5*((1+S4)*SCH_4-(1+S5)*SCH_5))+vol*(toxreac1+toxreac2)
+    F[234] =SCH_5*S5 - XCH_5
+    F[235] =(Q_6*((1+S5)*SCH_5-(1+S6)*SCH_6))+vol*(toxreac3+toxreac4)
+    F[236] =SCH_6*S6 - XCH_6
+    F[237] =(Q_7*((1+S6)*SCH_6-(1+S7)*SCH_7))+vol2*(toxreac5+toxreac6+toxreac7)
+    F[238] =SCH_7*S7 - XCH_7
+    F[239] =(Q_8*((1+S7)*SCH_7-(1+S8)*SCH_8))+vol2*(toxreac8+toxreac9+toxreac10)
+    F[240] =SCH_8*S8 - XCH_8
+    F[241] =((Q_9+Q_10)*((1+S8)*SCH_8-(1+S10)*SCH_10))+vol2*(toxreac11+toxreac12+toxreac13)
+    F[242] =SCH_10*S10 - XCH_10
+    F[243] =SCH_9 - SCH_10
+    F[244] = XCH_9 - XCH_10
+    F[245] =Q_10*(1+S10)*SCH_10-Q_12*(1+S12)*SCH_11-(Q_11)*(1+S11)*SCH_11- ks*area_of_SC*(SCH_11*fnon)
+    F[246] =SCH_11*S11 - XCH_11
+    F[247] =((SCH_11*fnon)*math.exp(-A2*(Dc/Doxy)*(100*Hc/(100*Hc+1)))-SCH_12*fnon)
+    F[248] =SCH_12*S12 - XCH_12
+    F[249] =ks*(area_of_SC)*(SCH_11*fnon)+Q_12*SCH_11 - Q_12*SCH_12 - Q_12*GCH_12
+    F[250] =SCH_11 - SCH_13
+    F[251] = XCH_11 - XCH_13
+    F[252] =SCH_14 - SCH_13
+    F[253] =SCH_14*S14 - XCH_14
+    F[254] =SCH_14 - SCH_15
+    F[255] =SCH_15*S15 - XCH_15
+    F[256] =SCH_16 - SCH_15
+    F[257] =SCH_16*S16 - XCH_16
+    F[258] =Q_2*(1+Sw1)*SCH_2+Q_15*(1+S15)*SCH_15-Q_17*(1+S17)*SCH_17
+    F[259] =SCH_17*S17 - XCH_17
+    F[260] =Q_17*(1+S17)*SCH_17-Q_18*(1+S18)*SCH_AD-q_gas*HcAD*SCH_AD
+    F[261] =SCH_AD*S18-XCH_AD
+    F[262] =SCH_20 - SCH_AD
+    F[263] =SCH_20*S20 - XCH_20
+   
+   
     SRT = [(TSS_5*vol+TSS_6*vol+TSS_7*vol2+TSS_8*vol2+TSS_9*vol2)+A_sc*zm*(Xsc10+Xsc9+Xsc8+Xsc7+Xsc6+Xsc5+Xsc4+Xsc3+Xsc2+Xsc1)]/(Xsc10*Q_12+Xsc1*Q_14)
     CODe = SI_9 + SS_9 + XS_9*Xsc10/TSS_10 + XI_9*Xsc10/TSS_10 + XBH_9*Xsc10/TSS_10 + XBA_9*Xsc10/TSS_10 + XP_9*Xsc10/TSS_10
-    
+   
     AI = 0.98*TSS_14/70000
-    #Removal_perc = (([vol*kbio*0.6*(SCH_5) + vol*kbio*0.6*(SCH_6) + vol2*kbio*(SCH_7) + vol2*kbio*(SCH_8) + vol2*kbio*(SCH_10)] )+SCH_19*Q_19+ Volat_perc)/(SCH_1*(1+S1)*Q_1) 
+    #Removal_perc = (([vol*kbio*0.6*(SCH_5) + vol*kbio*0.6*(SCH_6) + vol2*kbio*(SCH_7) + vol2*kbio*(SCH_8) + vol2*kbio*(SCH_10)] )+SCH_19*Q_19+ Volat_perc)/(SCH_1*(1+S1)*Q_1)
     Total = (Q_inf*SCH_inf*(1+Sinf))
     Removal_perc = (Q_inf*SCH_inf*(1+Sinf) - Q_12*SCH_12 - Q_19*SCH_19)  #/(Q_inf*SCH_inf*(1+Sinf))
-    
+   
     #Removal_perc = (Q_inf*SCH_inf*(1+Sinf) - Q_12*SCH_12*(1+S12) - Q_19*SCH_19*(1+S19))  #/(Q_inf*SCH_inf*(1+Sinf))
-    Soil_perc = (SCH_19*Q_19*(1+S19))/ Total
-    Pass_perc = (SCH_12*Q_12*(1+S12)) / Total
-    Bio_perc = -(toxreac1*vol + toxreac3*vol + toxreac5*vol2 + toxreac8*vol2 + toxreac11*vol2)/ Total #104855.12892214273 
-    # Soil_perc = (SCH_19*Q_19*(S19)+ Q_19*SCH_19) / Total
-    # Pass_perc = (SCH_12*Q_12 + SCH_12*Q_12*(S12)) / Total
+    # Soil_perc = (SCH_19*Q_19*(1+S19))/ Total
+    # Pass_perc = (SCH_12*Q_12*(1+S12)) / Total
+    Bio_perc = -(toxreac1*vol + toxreac3*vol + toxreac5*vol2 + toxreac8*vol2 + toxreac11*vol2)/ Total #104855.12892214273
+    Soil_perc = (SCH_19*Q_19*(S19) + SCH_12*Q_12*(S12))/ Total
+    Pass_perc = (SCH_12*Q_12 + Q_19*SCH_19) / Total
     Volat_perc = (Removal_perc/Total - Bio_perc - Soil_perc)
     Removal_percent = Removal_perc/Total
     HRT_pc = Vpc/Q_1*24
@@ -2063,95 +2071,34 @@ def myFunction(x):
     TSS_el = TSS_12
     Eff_lim = SNH_12
     SRT_AD = V_liq/Q_17
-    HRT_as = (2*vol + 3*vol2)/Q_inf*24 	
+    HRT_as = (2*vol + 3*vol2)/Q_inf*24
     FtoM = (Q_4*SS_4 + Qex*SSextcarbon)/[0.75*((XBH_5+XBA_5)*vol + (XBH_6+XBA_6)*vol + (XBH_7+XBA_7)*vol2+ (XBH_8 + XBA_8)*vol2 + (XBH_9+XBA_9)*vol2)]#0.05-0.15 for extended units
 
     Mass_Flow_1 = ks*area_of_pc*SCH_2 + Q_3*GCH_3
-    Bio_Flow_1 = vol*-(toxreac1)
-    Mass_Flow_2 = vol*-(toxreac2)
-    Bio_Flow_2 = vol*-(toxreac3)   
+    Mass_Flow_2 = vol*-(toxreac1)
     Mass_Flow_3 = vol*-(toxreac4)
-    Bio_Flow_3 = vol2*-(toxreac5)
     Mass_Flow_4 = vol2*-(toxreac6 + toxreac7)
-    Bio_Flow_4 = vol2*-(toxreac8)
     Mass_Flow_5 = vol2*-(toxreac9 + toxreac10)
-    Bio_Flow_5 = vol2*-(toxreac11)
     Mass_Flow_6 = vol2*-(toxreac12 + toxreac13)
     Mass_Flow_7 = ks*area_of_SC*SCH_12 + Q_12*GCH_12
-    Mass_Flow_8 = q_gas*HcAD*SCH_AD
-    
-    ##Occupational Exposure Estimation ##
-    #Inhlation Mass Balance Model##
-    sigma_y = 2.811056886; # Mean particle displacement, dispersion parameter, in crosswind direction, [m]
-    sigma_z = 2.121272445; # Mean particle displacement, dispersion parameter, in vertical direction, [m]
-    height  = 3.0; # Height above ground at which pollutant is released, [m]
-    b = 1.25# Volumetric inhalation rate [m3/hr]
-    h = 1 # Exposure duration, Defaults specified in Table B-2c, 1-2 [hrs/day]
-    NWexp = 1;
-    NS = 1; 
-    NW = NWexp*NS
-    ED = 250; # Days exposed per year, [days/site-yr]
-    EY = 40; # Years of occupational exposure, [years]
-    BW = 70; # Body weight, [kg]
-    ATc = 70; # Averaging time over a lifetime (chronic), [years]
-    AT = 40; 
-    
-    GCH_Max_1 = 2*Mass_Flow_1/(math.exp(1)*3.14159*U10*3600*24*height**2)*sigma_z/sigma_y; #Max gaseous concentration at (height/sqrt(2), 0, 0) from primary clarifier
-    GCH_Max_2 = 2*Mass_Flow_2/(math.exp(1)*3.14159*U10*3600*24*height**2)*sigma_z/sigma_y; #Max gaseous concentration at (height/sqrt(2), 0, 0) from Activated Sludge Tank 1
-    GCH_Max_3 = 2*Mass_Flow_3/(math.exp(1)*3.14159*U10*3600*24*height**2)*sigma_z/sigma_y; #Max gaseous concentration at (height/sqrt(2), 0, 0) from Activated Sludge Tank 2
-    GCH_Max_4 = 2*Mass_Flow_4/(math.exp(1)*3.14159*U10*3600*24*height**2)*sigma_z/sigma_y; #Max gaseous concentration at (height/sqrt(2), 0, 0) from Activated Sludge Tank 3
-    GCH_Max_5 = 2*Mass_Flow_5/(math.exp(1)*3.14159*U10*3600*24*height**2)*sigma_z/sigma_y; #Max gaseous concentration at (height/sqrt(2), 0, 0) from Activated Sludge Tank 4
-    GCH_Max_6 = 2*Mass_Flow_6/(math.exp(1)*3.14159*U10*3600*24*height**2)*sigma_z/sigma_y; #Max gaseous concentration at (height/sqrt(2), 0, 0) from Activated Sludge Tank 5
-    GCH_Max_7 = 2*Mass_Flow_7/(math.exp(1)*3.14159*U10*3600*24*height**2)*sigma_z/sigma_y; #Max gaseous concentration at (height/sqrt(2), 0, 0) from secondary clarifier
-    GCH_Max_8 = 2*Mass_Flow_8/(math.exp(1)*3.14159*U10*3600*24*height**2)*sigma_z/sigma_y; #Max gaseous concentration at (height/sqrt(2), 0, 0) from secondary clarifier
+    Mass_Flow = Mass_Flow_1 +Mass_Flow_2 + Mass_Flow_3 + Mass_Flow_4 + Mass_Flow_5 + Mass_Flow_6 + Mass_Flow_7
+    # Check = Bio_perc+Volat_perc
+    # print(Check)
+    return F
 
-    
-    GCH_Max_1_ppm = 24.45*1000/Mw*2*Mass_Flow_1/(math.exp(1)*3.14159*U10*3600*24*height**2)*sigma_z/sigma_y; #Max gaseous concentration at (height/sqrt(2), 0, 0) from primary clarifier
-    GCH_Max_2_ppm = 24.45*1000/Mw*2*Mass_Flow_2/(math.exp(1)*3.14159*U10*3600*24*height**2)*sigma_z/sigma_y; #Max gaseous concentration at (height/sqrt(2), 0, 0) from Activated Sludge Tank 1
-    GCH_Max_3_ppm = 24.45*1000/Mw*2*Mass_Flow_3/(math.exp(1)*3.14159*U10*3600*24*height**2)*sigma_z/sigma_y; #Max gaseous concentration at (height/sqrt(2), 0, 0) from Activated Sludge Tank 2
-    GCH_Max_4_ppm = 24.45*1000/Mw*2*Mass_Flow_4/(math.exp(1)*3.14159*U10*3600*24*height**2)*sigma_z/sigma_y; #Max gaseous concentration at (height/sqrt(2), 0, 0) from Activated Sludge Tank 3
-    GCH_Max_5_ppm = 24.45*1000/Mw*2*Mass_Flow_5/(math.exp(1)*3.14159*U10*3600*24*height**2)*sigma_z/sigma_y; #Max gaseous concentration at (height/sqrt(2), 0, 0) from Activated Sludge Tank 4
-    GCH_Max_6_ppm = 24.45*1000/Mw*2*Mass_Flow_6/(math.exp(1)*3.14159*U10*3600*24*height**2)*sigma_z/sigma_y; #Max gaseous concentration at (height/sqrt(2), 0, 0) from Activated Sludge Tank 5
-    GCH_Max_7_ppm = 24.45*1000/Mw*2*Mass_Flow_7/(math.exp(1)*3.14159*U10*3600*24*height**2)*sigma_z/sigma_y; #Max gaseous concentration
-    GCH_Max_8_ppm = 24.45*1000/Mw*2*Mass_Flow_8/(math.exp(1)*3.14159*U10*3600*24*height**2)*sigma_z/sigma_y; #Max gaseous concentration
-
-    IR_1 = GCH_Max_1*b*h; # Inhalation potential dose rate [mg/day]
-    IR_2 = GCH_Max_2*b*h; # Inhalation potential dose rate [mg/day]
-    IR_3 = GCH_Max_3*b*h; # Inhalation potential dose rate [mg/day]
-    IR_4 = GCH_Max_4*b*h; # Inhalation potential dose rate [mg/day]
-    IR_5 = GCH_Max_5*b*h; # Inhalation potential dose rate [mg/day]
-    IR_6 = GCH_Max_6*b*h; # Inhalation potential dose rate [mg/day]
-    IR_7 = GCH_Max_7*b*h; # Inhalation potential dose rate [mg/day]
-    IR_8 = GCH_Max_8*b*h; # Inhalation potential dose rate [mg/day]    
-    
-    DER_1 = SCH_2 * 2.1 * 1 * 1040 / 1000
-    DER_2 = SCH_5 * 2.1 * 1 * 1040 / 1000
-    DER_3 = SCH_6 * 2.1 * 1 * 1040 / 1000
-    DER_4 = SCH_7 * 2.1 * 1 * 1040 / 1000
-    DER_5 = SCH_8 * 2.1 * 1 * 1040 / 1000
-    DER_6 = SCH_9 * 2.1 * 1 * 1040 / 1000
-    DER_7 = SCH_11 * 2.1 * 1 * 1040 / 1000
-    DER_8 = SCH_17 * 2.1 * 1 * 1040 / 1000
-    
-    # LADD = (IR*ED*EY)/(BW*ATc*365)
-    # ADD = (IR*ED*EY)/(BW*AT*365)
-    
-    
-    return F		
-		
-zGuess = array([28.067,	 59.0473, 94.355716, 356.843,  50.894648, 0.094637, 0.653099, 0.017547, 0.11736, 34.9215,  5.5457,15.81316,	7.6965,   377.3443,
-                28.067,  59.0473, 6480.6885, 24509.28, 3495.6259,   6.5001,  44.8572, 0.017547, 0.11736, 34.9215,  5.5457, 1086.11, 7.6965, 25902.7158, 
-                28.067,  59.0473,   49.3363, 186.5845,   26.6115, 0.049484,  0.34149, 0.017547, 0.11736, 34.9215,  5.5457,  8.2683, 7.6965,   197.1925, 
+zGuess = array([28.067,59.0473, 94.355716, 356.843,  50.894648, 0.094637, 0.653099, 0.017547, 0.11736, 34.9215,  5.5457,15.81316, 7.6965,   377.3443,
+                28.067,  59.0473, 6480.6885, 24509.28, 3495.6259,   6.5001,  44.8572, 0.017547, 0.11736, 34.9215,  5.5457, 1086.11, 7.6965, 25902.7158,
+                28.067,  59.0473,   49.3363, 186.5845,   26.6115, 0.049484,  0.34149, 0.017547, 0.11736, 34.9215,  5.5457,  8.2683, 7.6965,   197.1925,
                 28.0648, 12.4793, 1532.2905, 69.4433,  2232.9521, 166.7684, 964.1366,   1.1003,  7.3589, 7.1892,   1.5679,  4.0493,  5.198,  3724.1931,
-                28.0648,  3.0503, 1532.2905, 63.0433,  2245.0634, 166.6699, 964.8992, 0.0093422,  3.935, 6.8924,  0.95797,  3.8453, 5.4213,  3728.9525, 
+                28.0648,  3.0503, 1532.2905, 63.0433,  2245.0634, 166.6699, 964.8992, 0.0093422,  3.935, 6.8924,  0.95797,  3.8453, 5.4213,  3728.9525,
                 28.0648,  1.3412, 1532.2905, 58.8579,  2245.3852, 166.5512, 965.6805, 0.00010907, 2.2207, 7.2028, 0.68624,  3.7424, 5.5659,  3726.5518,
                 28.0648, 0.95531, 1532.2905, 46.2983,  2246.7994, 167.3077, 967.2442, 0.46635,    5.5141, 3.4247, 0.65129,  3.1405, 5.0608,  3719.9329,
-                28.0643, 0.78055, 1532.2609, 37.3881,  2245.6315, 167.8339,	968.8072,  1.4284,	 8.4066, 0.69216, 0.60938,	2.6815,	 4.659,  3713.9412,
-                28.0643, 0.67336, 1532.2609, 31.9144,  2242.1274, 167.8482,	970.3678,  1.3748,	 9.1948, 0.15845, 0.55943,	2.3926,	4.5646,   3708.389,
-                28.0643, 0.67336, 1532.2609, 31.9144,  2242.1274, 167.8482,	970.3678,  1.3748,	 9.1948, 0.15845, 0.55943,	2.3926,	4.5646,   3708.389,
+                28.0643, 0.78055, 1532.2609, 37.3881,  2245.6315, 167.8339,968.8072,  1.4284,8.4066, 0.69216, 0.60938,2.6815, 4.659,  3713.9412,
+                28.0643, 0.67336, 1532.2609, 31.9144,  2242.1274, 167.8482,970.3678,  1.3748,9.1948, 0.15845, 0.55943,2.3926,4.5646,   3708.389,
+                28.0643, 0.67336, 1532.2609, 31.9144,  2242.1274, 167.8482,970.3678,  1.3748,9.1948, 0.15845, 0.55943,2.3926,4.5646,   3708.389,
                 10, 20, 300, 300, 300, 400, 500, 600, 700, 900,
-                28.0880, 0.67336,	67.6878,    1.409,	   99.04,	   7.414,	 42.8661,  1.3748,   9.1948, 0.15845,  0.55943,	0.10569,  4.5646,   163.8185, 
-                28.0643, 48.9526, 10361.7101, 20375.0176, 10210.06, 553.2808,  3204.6601,  0.25225,  1.6871,  28.9098,	4.6834, 906.0933, 7.1549, 33528.5538,
+                28.0880, 0.67336,67.6878,    1.409,  99.04,   7.414, 42.8661,  1.3748,   9.1948, 0.15845,  0.55943, 0.10569,  4.5646,   163.8185,
+                28.0643, 48.9526, 10361.7101, 20375.0176, 10210.06, 553.2808,  3204.6601,  0.25225,  1.6871,  28.9098,4.6834, 906.0933, 7.1549, 33528.5538,
                 0.012,    0.0053,   0.099,    0.012,    0.013,    0.016,      0.089035, 0.00000023,   0.055,     0.15,     0.13,    0.33,    0.31,    0.028,     0.1,    0.029,    0.42,    1.18,    0.24,    0.43,    0.14,    0.76, 0.32,       25.6, 0.04,      0.0052101, 5.4562e-08,    0.011,    0.013,    0.016,      0.2,  0.0041,     0.14,    .0000102,   1.63,    .014,
                 130.867, 258.57, 363.86, 55.19, 13.2316, 1442.7882, 0.54323, 2.1318, 97.8459, 324.2144,
                 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -2159,146 +2106,146 @@ zGuess = array([28.067,	 59.0473, 94.355716, 356.843,  50.894648, 0.094637, 0.65
 z = fsolve(myFunction, zGuess, full_output=True)
 print(z)
 print(    
-        #   ' SI_1  ='	    ,	SI_1	,	"\n",
-        #   '	SS_1	='	    ,	SS_1	,	"\n",
-        #   '	XS_1	='	    ,	XS_1	,	"\n"
-        #   '	XI_1	='	    ,	XI_1	,	"\n",
-        #   '	XBH_1	='		,	XBH_1	,	"\n",
-        #   '	XBA_1	='		,	XBA_1	,	"\n",
-        #   '	XP_1	='		,	XP_1	,	"\n",
-        #   '	SO_1	='		,	SO_1	,	"\n",
-        #   '	SNO_1	='		,	SNO_1	,	"\n",
-        #   '	SNH_1	='		,	SNH_1	,	"\n",
-        #   '	SND_1	='		,	SND_1	,	"\n",
-        #   '	XND_1	='		,	XND_1	,	"\n",
-        #   '	SALK_1	='		,	SALK_1	,	"\n",
-        #   '	TSS_1	='		,	TSS_1	,	"\n", 
-        #   ' SI_2   ='	    ,	SI_2	,	"\n",
-        #   '	SS_2	='	    ,	SS_2	,	"\n",
-        #   '	XS_2	='	    ,	XS_2	,	"\n"
-        #   '	XI_2	='	    ,	XI_2	,	"\n",
-        #   '	XBH_2	='		,	XBH_2	,	"\n",
-        #   '	XBA_2	='		,	XBA_2	,	"\n",
-        #   '	XP_2	='		,	XP_2	,	"\n",
-        #   '	SO_2	='		,	SO_2	,	"\n",
-        #   '	SNO_2	='		,	SNO_2	,	"\n",
-        #   '	SNH_2	='		,	SNH_2	,	"\n",
-        #   '	SND_2	='		,	SND_2	,	"\n",
-        #   '	XND_2	='		,	XND_2	,	"\n",
-        #   '	SALK_2	='		,	SALK_2	,	"\n",
-        #   '	TSS_2	='		,	TSS_2	,	"\n",
-        #   ' SI_3    ='	    ,	SI_3	,	"\n",
-        #   '	SS_3	='	    ,	SS_3	,	"\n",
-        #   '	XS_3	='	    ,	XS_3	,	"\n",
-        #   '	XI_3	='	    ,	XI_3	,	"\n",
-        #   '	XBH_3	='		,	XBH_3	,	"\n",
-        #   '	XBA_3	='		,	XBA_3	,	"\n",
-        #   '	XP_3	='		,	XP_3	,	"\n",
-        #   '	SO_3	='		,	SO_3	,	"\n",
-        #   '	SNO_3	='		,	SNO_3	,	"\n",
-        #   '	SNH_3	='		,	SNH_3	,	"\n",
-        #   '	SND_3	='		,	SND_3	,	"\n",
-        #   '	XND_3	='		,	XND_3	,	"\n",
-        #   '	SALK_3	='		,	SALK_3	,	"\n",
-        #   '	TSS_3	='		,	TSS_3	,	"\n",
-        #   '   SI_4    ='	,	SI_4	,	"\n",
-        #   '	SS_4	='	,	SS_4	,	"\n",
-        #   '	XS_4	='	,	XS_4	,	"\n",
-        #   '	XI_4	='	,	XI_4	,	"\n",
-        #   '	XBH_4	='		,	XBH_4	,	"\n",
-        #   '	XBA_4	='		,	XBA_4	,	"\n",
-        #   '	XP_4	='		,	XP_4	,	"\n",
-        #   '	SO_4	='		,	SO_4	,	"\n",
-        #   '	SNO_4	='		,	SNO_4	,	"\n",
-        #   '	SNH_4	='		,	SNH_4	,	"\n",
-        #   '	SND_4	='		,	SND_4	,	"\n",
-        #   '	XND_4	='		,	XND_4	,	"\n",
-        #   '	SALK_4	='		,	SALK_4	,	"\n",
-        #   '	TSS_4	='		,	TSS_4	,	"\n"
-        #   '	SI_5	        ='		,	SI_5	        ,	"\n",
-        #   '   SS_5         ='	    ,	SS_5	        ,	"\n",
-        #   '	XI_5     	='		,	XI_5	        ,	"\n",
-        #   '	XS_5       	='	    ,	XS_5	        ,	"\n",
-        #   '	XBH_5	    ='	    ,	XBH_5	    ,	"\n"
-        #   '	XBA_5	    ='	    ,	XBA_5	    ,	"\n",
-        #   '	XP_5	        ='		,	XP_5	        ,	"\n",
-        #   '	SO_5	        ='		,	SO_5	        ,	"\n",
-        #   '	SNO_5	    ='		,	SNO_5	    ,	"\n",
-        #   '	SNH_5	    ='		,	SNH_5	    ,	"\n",
-        #   '	SND_5	    ='		,	SND_5	    ,	"\n",
-        #   '	XND_5	    ='		,	XND_5	    ,	"\n",
-        #   '	SALK_5   	='		,	SALK_5	    ,	"\n",
-        #   '	TSS_5	='		,	TSS_5	,	"\n",
-        #   '	SI_6	    ='		,	SI_6        ,	"\n",
-        #   '   SS_6        ='	    ,	SS_6	    ,	"\n",
-        #   '	XI_6     	='		,	XI_6	    ,	"\n",
-        #   '	XS_6       	='	    ,	XS_6	    ,	"\n",
-        #   '	XBH_6	    ='	    ,	XBH_6	    ,	"\n"
-        #   '	XBA_6	    ='	    ,	XBA_6	    ,	"\n",
-        #   '	XP_6	    ='		,	XP_6	    ,	"\n",
-        #   '	SO_6        ='		,	SO_6	    ,	"\n",
-        #   '	SNO_6	    ='		,	SNO_6	    ,	"\n",
-        #   '	SNH_6	    ='		,	SNH_6	    ,	"\n",
-        #   '	SND_6	    ='		,	SND_6	    ,	"\n",
-        #   '	XND_6	    ='		,	XND_6	    ,	"\n",
-        #   '	SALK_6   	='		,	SALK_6	    ,	"\n",
-        #   '	TSS_6	='		,	TSS_6	,	"\n",
-        #   '	SI_7	    ='		,	SI_7        ,	"\n",
-        #   '   SS_7        ='	    ,	SS_7	    ,	"\n",
-        #   '	XI_7     	='		,	XI_7	    ,	"\n",
-        #   '	XS_7       	='	    ,	XS_7	    ,	"\n",
-        #   '	XBH_7	    ='	    ,	XBH_7	    ,	"\n"
-        #   '	XBA_7	    ='	    ,	XBA_7	    ,	"\n",
-        #   '	XP_7	    ='		,	XP_7	    ,	"\n",
-        #   '	SO_7        ='		,	SO_7	    ,	"\n",
-        #   '	SNO_7	    ='		,	SNO_7	    ,	"\n",
-        #   '	SNH_7	    ='		,	SNH_7	    ,	"\n",
-        #   '	SND_7	    ='		,	SND_7	    ,	"\n",
-        #   '	XND_7	    ='		,	XND_7	    ,	"\n",
-        #   '	SALK_7   	='		,	SALK_7	    ,	"\n",
-        #   '	TSS_7	='		,	TSS_7	,	"\n",
-        #   '	SI_8	    ='		,	SI_8        ,	"\n",
-        #   '   SS_8        ='	    ,	SS_8	    ,	"\n",
-        #   '	XI_8     	='		,	XI_8	    ,	"\n",
-        #   '	XS_8       	='	    ,	XS_8	    ,	"\n",
-        #   '	XBH_8	    ='	    ,	XBH_8	    ,	"\n"
-        #   '	XBA_8	    ='	    ,	XBA_8	    ,	"\n",
-        #   '	XP_8	    ='		,	XP_8	    ,	"\n",
-        #   '	SO_8        ='		,	SO_8	    ,	"\n",
-        #   '	SNO_8	    ='		,	SNO_8	    ,	"\n",
-        #   '	SNH_8	    ='		,	SNH_8	    ,	"\n",
-        #   '	SND_8	    ='		,	SND_8	    ,	"\n",
-        #   '	XND_8	    ='		,	XND_8	    ,	"\n",
-        #   '	SALK_8   	='		,	SALK_8	    ,	"\n",
-        #   '	TSS_8	='		,	TSS_8	,	"\n",
-        # '	SI_9	    ='		,	SI_9        ,	"\n",
-        # '   SS_9       ='	    ,	SS_9	    ,	"\n",
-        # '	XI_9     	='		,	XI_9	    ,	"\n",
-        # '	XS_9       	='	    ,	XS_9	    ,	"\n",
-        # '	XBH_9	='	    ,	XBH_9	    ,	"\n"
-        # '	XBA_9	='	    ,	XBA_9	    ,	"\n",
-        # '	XP_9	='		,	XP_9	    ,	"\n",
-        # '	SO_9    ='		,	SO_9	    ,	"\n",
-        # '	SNO_9	='		,	SNO_9	    ,	"\n",
-        # '	SNH_9	='		,	SNH_9	    ,	"\n",
-        # '	SND_9   ='		,	SND_9	    ,	"\n",
-        # '	XND_9   ='		,	XND_9	    ,	"\n",
-        # '	SALK_9  ='		,	SALK_9	    ,	"\n", 
-        #   '	TSS_9	='		,	TSS_9	,	"\n",         
-        #   '	SI_10   ='		,	SI_10        ,	"\n",
-        #   ' SS_10   ='	    ,	SS_10	    ,	"\n",
-        #   '	XI_10   ='		,	XI_10	    ,	"\n",
-        #   '	XS_10   ='	    ,	XS_10	    ,	"\n",
-        #   '	XBH_10  ='	    ,	XBH_10	    ,	"\n"
-        #   '	XBA_10	='	    ,	XBA_10	    ,	"\n",
-        #   '	XP_10	='		,	XP_10	    ,	"\n",
-        #   '	SO_10   ='		,	SO_10	    ,	"\n",
-        #   '	SNO_10	='		,	SNO_10	    ,	"\n",
-        #   '	SNH_10	='		,	SNH_10	    ,	"\n",
-        #   '	SND_10	='		,	SND_10	    ,	"\n",
-        #   '	XND_10	='		,	XND_10	    ,	"\n",
-        #   '	SALK_10 ='		,	SALK_10	    ,	"\n",
-        #   '	TSS_10	='		,	TSS_10	,	"\n",
+        #   ' SI_1  ='    , SI_1,"\n",
+        #   'SS_1 ='    , SS_1,"\n",
+        #   'XS_1 ='    , XS_1,"\n"
+        #   'XI_1 ='    , XI_1,"\n",
+        #   'XBH_1 = ',XBH_1 ,"\n",
+        #   'XBA_1 = ',XBA_1 ,"\n",
+        #   'XP_1 =',XP_1,"\n",
+        #   'SO_1 =',SO_1,"\n",
+        #   'SNO_1 = ',SNO_1 ,"\n",
+        #   'SNH_1 = ',SNH_1 ,"\n",
+        #   'SND_1 = ',SND_1 ,"\n",
+        #   'XND_1 = ',XND_1 ,"\n",
+        #   'SALK_1 = ',SALK_1 ,"\n",
+        #   'TSS_1 = ',TSS_1 ,"\n",
+        #   ' SI_2   ='   , SI_2,"\n",
+        #   'SS_2 ='    , SS_2,"\n",
+        #   'XS_2 ='    , XS_2,"\n"
+        #   'XI_2 ='    , XI_2,"\n",
+        #   'XBH_2 = ',XBH_2 ,"\n",
+        #   'XBA_2 = ',XBA_2 ,"\n",
+        #   'XP_2 =',XP_2,"\n",
+        #   'SO_2 =',SO_2,"\n",
+        #   'SNO_2 = ',SNO_2 ,"\n",
+        #   'SNH_2 = ',SNH_2 ,"\n",
+        #   'SND_2 = ',SND_2 ,"\n",
+        #   'XND_2 = ',XND_2 ,"\n",
+        #   'SALK_2 = ',SALK_2 ,"\n",
+        #   'TSS_2 = ',TSS_2 ,"\n",
+        #   ' SI_3    ='   , SI_3,"\n",
+        #   'SS_3 ='    , SS_3,"\n",
+        #   'XS_3 ='    , XS_3,"\n",
+        #   'XI_3 ='    , XI_3,"\n",
+        #   'XBH_3 = ',XBH_3 ,"\n",
+        #   'XBA_3 = ',XBA_3 ,"\n",
+        #   'XP_3 =',XP_3,"\n",
+        #   'SO_3 =',SO_3,"\n",
+        #   'SNO_3 = ',SNO_3 ,"\n",
+        #   'SNH_3 = ',SNH_3 ,"\n",
+        #   'SND_3 = ',SND_3 ,"\n",
+        #   'XND_3 = ',XND_3 ,"\n",
+        #   'SALK_3 = ',SALK_3 ,"\n",
+        #   'TSS_3 = ',TSS_3 ,"\n",
+        #   '   SI_4    =',SI_4,"\n",
+        #   'SS_4 =',SS_4,"\n",
+        #   'XS_4 =',XS_4,"\n",
+        #   'XI_4 =',XI_4,"\n",
+        #   'XBH_4 = ',XBH_4 ,"\n",
+        #   'XBA_4 = ',XBA_4 ,"\n",
+        #   'XP_4 =',XP_4,"\n",
+        #   'SO_4 =',SO_4,"\n",
+        #   'SNO_4 = ',SNO_4 ,"\n",
+        #   'SNH_4 = ',SNH_4 ,"\n",
+        #   'SND_4 = ',SND_4 ,"\n",
+        #   'XND_4 = ',XND_4 ,"\n",
+        #   'SALK_4 = ',SALK_4 ,"\n",
+        #   'TSS_4 = ',TSS_4 ,"\n"
+        #   'SI_5        =',SI_5        ,"\n",
+        #   '   SS_5         ='    , SS_5        ,"\n",
+        #   'XI_5      =',XI_5        ,"\n",
+        #   'XS_5        = '    , XS_5        ,"\n",
+        #   'XBH_5   ='   , XBH_5   , "\n"
+        #   'XBA_5   ='   , XBA_5   , "\n",
+        #   'XP_5        =',XP_5        ,"\n",
+        #   'SO_5        =',SO_5        ,"\n",
+        #   'SNO_5   =',SNO_5   , "\n",
+        #   'SNH_5   =',SNH_5   , "\n",
+        #   'SND_5   =',SND_5   , "\n",
+        #   'XND_5   =',XND_5   , "\n",
+        #   'SALK_5    =',SALK_5   , "\n",
+        #   'TSS_5 = ',TSS_5 ,"\n",
+        #   'SI_6 =',SI_6        ,"\n",
+        #   '   SS_6        ='   , SS_6    , "\n",
+        #   'XI_6      =',XI_6    , "\n",
+        #   'XS_6        = '    , XS_6    , "\n",
+        #   'XBH_6   ='   , XBH_6   , "\n"
+        #   'XBA_6   ='   , XBA_6   , "\n",
+        #   'XP_6 =',XP_6    , "\n",
+        #   'SO_6        =',SO_6    , "\n",
+        #   'SNO_6   =',SNO_6   , "\n",
+        #   'SNH_6   =',SNH_6   , "\n",
+        #   'SND_6   =',SND_6   , "\n",
+        #   'XND_6   =',XND_6   , "\n",
+        #   'SALK_6    =',SALK_6   , "\n",
+        #   'TSS_6 = ',TSS_6 ,"\n",
+        #   'SI_7 =',SI_7        ,"\n",
+        #   '   SS_7        ='   , SS_7    , "\n",
+        #   'XI_7      =',XI_7    , "\n",
+        #   'XS_7        = '    , XS_7    , "\n",
+        #   'XBH_7   ='   , XBH_7   , "\n"
+        #   'XBA_7   ='   , XBA_7   , "\n",
+        #   'XP_7 =',XP_7    , "\n",
+        #   'SO_7        =',SO_7    , "\n",
+        #   'SNO_7   =',SNO_7   , "\n",
+        #   'SNH_7   =',SNH_7   , "\n",
+        #   'SND_7   =',SND_7   , "\n",
+        #   'XND_7   =',XND_7   , "\n",
+        #   'SALK_7    =',SALK_7   , "\n",
+        #   'TSS_7 = ',TSS_7 ,"\n",
+        #   'SI_8 =',SI_8        ,"\n",
+        #   '   SS_8        ='   , SS_8    , "\n",
+        #   'XI_8      =',XI_8    , "\n",
+        #   'XS_8        = '    , XS_8    , "\n",
+        #   'XBH_8   ='   , XBH_8   , "\n"
+        #   'XBA_8   ='   , XBA_8   , "\n",
+        #   'XP_8 =',XP_8    , "\n",
+        #   'SO_8        =',SO_8    , "\n",
+        #   'SNO_8   =',SNO_8   , "\n",
+        #   'SNH_8   =',SNH_8   , "\n",
+        #   'SND_8   =',SND_8   , "\n",
+        #   'XND_8   =',XND_8   , "\n",
+        #   'SALK_8    =',SALK_8   , "\n",
+        #   'TSS_8 = ',TSS_8 ,"\n",
+        # ' SI_9 =',SI_9        ,"\n",
+        # '   SS_9       ='    , SS_9    , "\n",
+        # ' XI_9      =',XI_9    , "\n",
+        # ' XS_9        = '    , XS_9    , "\n",
+        # ' XBH_9 = '    , XBH_9   , "\n"
+        # ' XBA_9 = '    , XBA_9   , "\n",
+        # ' XP_9 =',XP_9    , "\n",
+        # ' SO_9    =',SO_9    , "\n",
+        # ' SNO_9 = ',SNO_9   , "\n",
+        # ' SNH_9 = ',SNH_9   , "\n",
+        # ' SND_9   =',SND_9   , "\n",
+        # ' XND_9   =',XND_9   , "\n",
+        # ' SALK_9  =',SALK_9   , "\n",
+        #   'TSS_9 = ',TSS_9 ,"\n",        
+        #   'SI_10   =',SI_10        ,"\n",
+        #   ' SS_10   ='   , SS_10   , "\n",
+        #   'XI_10   =',XI_10   , "\n",
+        #   'XS_10   ='    , XS_10   , "\n",
+        #   'XBH_10  ='    , XBH_10   , "\n"
+        #   'XBA_10 = '    , XBA_10   , "\n",
+        #   'XP_10 = ',XP_10   , "\n",
+        #   'SO_10   =',SO_10   , "\n",
+        #   'SNO_10 = ',SNO_10   , "\n",
+        #   'SNH_10 = ',SNH_10   , "\n",
+        #   'SND_10 = ',SND_10   , "\n",
+        #   'XND_10 = ',XND_10   , "\n",
+        #   'SALK_10 =',SALK_10    , "\n",
+        #   'TSS_10 = ',TSS_10 ,"\n",
         #   ' Xsc10   ='      ,   Xsc10  ,   "\n",
         #   ' Xsc9    ='      ,   Xsc9   ,   "\n",
         #   ' Xsc8    ='      ,   Xsc8   ,   "\n",
@@ -2309,90 +2256,90 @@ print(
         #   ' Xsc3    ='      ,   Xsc3   ,   "\n",
         #   ' Xsc2    ='      ,   Xsc2   ,   "\n",
         #   ' Xsc1    ='      ,   Xsc1   ,   "\n",
-        # ' SI_11   ='	    ,	SI_11	,	"\n",
-        #     '	SS_11	='	    ,	SS_11	,	"\n",
-        #     '	XS_11	='	    ,	XS_11	,	"\n"
-        #     '	XI_11	='	    ,	XI_11	,	"\n",
-        #     '	XBH_11	='		,	XBH_11	,	"\n",
-        #     '	XBA_11	='		,	XBA_11	,	"\n",
-        #     '	XP_11	='		,	XP_11	,	"\n",
-        #     '	SO_11	='		,	SO_11	,	"\n",
-        #     '	SNO_11	='		,	SNO_11	,	"\n",
-        #     '	SNH_11	='		,	SNH_11	,	"\n",
-        #     '	SND_11	='		,	SND_11	,	"\n",
-        #     '	XND_11	='		,	XND_11	,	"\n",
-        #     '	SALK_11	='		,	SALK_11	,	"\n",
-        #     '	TSS_11	='		,	TSS_11	,	"\n",
-        #     '	SI_12	    ='		,	SI_12        ,	"\n",
-        #     '   SS_12        ='	    ,	SS_12	    ,	"\n",
-        #     '	XI_12     	='		,	XI_12	    ,	"\n",
-        #     '	XS_12       	='	    ,	XS_12	    ,	"\n",
-        #     '	XBH_12	    ='	    ,	XBH_12	    ,	"\n"
-        #     '	XBA_12	    ='	    ,	XBA_12	    ,	"\n",
-        #     '	XP_12	    ='		,	XP_12	    ,	"\n",
-        #     '	SO_12        ='		,	SO_12	    ,	"\n",
-        #     '	SNO_12	    ='		,	SNO_12	    ,	"\n",
-        #     '	SNH_12	    ='		,	SNH_12	    ,	"\n",
-        #     '	SND_12	    ='		,	SND_12	    ,	"\n",
-        #     '	XND_12	    ='		,	XND_12	    ,	"\n",
-        #     '	SALK_12   	='		,	SALK_12	    ,	"\n",
-        #     '	TSS_12	='		,	TSS_12	,	"\n",
-        #     '	SI_13	    ='		,	SI_13        ,	"\n",
-        #     '   SS_13        ='	    ,	SS_13	    ,	"\n",
-        #     '	XI_13     	='		,	XI_13	    ,	"\n",
-        #     '	XS_13       	='	    ,	XS_13	    ,	"\n",
-        #     '	XBH_13	    ='	    ,	XBH_13	    ,	"\n"
-        #     '	XBA_13	    ='	    ,	XBA_13	    ,	"\n",
-        #     '	XP_13	    ='		,	XP_13	    ,	"\n",
-        #     '	SO_13        ='		,	SO_13	    ,	"\n",
-        #     '	SNO_13	    ='		,	SNO_13	    ,	"\n",
-        #     '	SNH_13	    ='		,	SNH_13	    ,	"\n",
-        #     '	SND_13	    ='		,	SND_13	    ,	"\n",
-        #     '	XND_13	    ='		,	XND_13	    ,	"\n",
-        #     '	SALK_13   	='		,	SALK_13	    ,	"\n",
-        #     '	TSS_13	='		,	TSS_13	,	"\n",    
-        # '	SI_14	    ='		,	SI_14        ,	"\n",
-        # '   SS_14        ='	    ,	SS_14	    ,	"\n",
-        # '	XI_14     	='		,	XI_14	    ,	"\n",
-        # '	XS_14       	='	    ,	XS_14	    ,	"\n",
-        # '	XBH_14	    ='	    ,	XBH_14	    ,	"\n"
-        # '	XBA_14	    ='	    ,	XBA_14	    ,	"\n",
-        # '	XP_14	    ='		,	XP_14	    ,	"\n",
-        # '	SO_14        ='		,	SO_14	    ,	"\n",
-        # '	SNO_14	    ='		,	SNO_14	    ,	"\n",
-        # '	SNH_14	    ='		,	SNH_14	    ,	"\n",
-        # '	SND_14	    ='		,	SND_14	    ,	"\n",
-        # '	XND_14	    ='		,	XND_14	    ,	"\n",
-        # '	SALK_14   	='		,	SALK_14	    ,	"\n",
-        #   '	TSS_14	='		,	TSS_14	,	"\n",
-        # '	SI_15	    ='		,	SI_15        ,	"\n",
-        # '   SS_15        ='	    ,	SS_15	    ,	"\n",
-        # '	XI_15     	='		,	XI_15	    ,	"\n",
-        # '	XS_15       	='	    ,	XS_15	    ,	"\n",
-        # '	XBH_15	    ='	    ,	XBH_15	    ,	"\n"
-        # '	XBA_15	    ='	    ,	XBA_15	    ,	"\n",
-        # '	XP_15	    ='		,	XP_15	    ,	"\n",
-        # '	SO_15        ='		,	SO_15	    ,	"\n",
-        # '	SNO_15	    ='		,	SNO_15	    ,	"\n",
-        # '	SNH_15	    ='		,	SNH_15	    ,	"\n",
-        # '	SND_15	    ='		,	SND_15	    ,	"\n",
-        # '	XND_15	    ='		,	XND_15	    ,	"\n",
-        # '	TSS_15	='		,	TSS_15	,	"\n",
-        # '	SALK_15   	='		,	SALK_15	    ,	"\n",
-        # '	SI_16	    ='		,	SI_16        ,	"\n",
-        # '   SS_16        ='	    ,	SS_16	    ,	"\n",
-        # '	XI_16     	='		,	XI_16	    ,	"\n",
-        # '	XS_16       	='	    ,	XS_16	    ,	"\n",
-        # '	XBH_16	    ='	    ,	XBH_16	    ,	"\n"
-        # '	XBA_16	    ='	    ,	XBA_16	    ,	"\n",
-        # '	XP_16	    ='		,	XP_16	    ,	"\n",
-        # '	SO_16        ='		,	SO_16	    ,	"\n",
-        # '	SNO_16	    ='		,	SNO_16	    ,	"\n",
-        # '	SNH_16	    ='		,	SNH_16	    ,	"\n",
-        # '	SND_16	    ='		,	SND_16	    ,	"\n",
-        # '	XND_16	    ='		,	XND_16	    ,	"\n",
-        # '	SALK_16   	='		,	SALK_16	    ,	"\n",
-        # '	TSS_16	='		,	TSS_16	,	"\n",   
+        # ' SI_11   ='    , SI_11 ,"\n",
+        #     'SS_11 = '    , SS_11 ,"\n",
+        #     'XS_11 = '    , XS_11 ,"\n"
+        #     'XI_11 = '    , XI_11 ,"\n",
+        #     'XBH_11 = ',XBH_11 ,"\n",
+        #     'XBA_11 = ',XBA_11 ,"\n",
+        #     'XP_11 = ',XP_11 ,"\n",
+        #     'SO_11 = ',SO_11 ,"\n",
+        #     'SNO_11 = ',SNO_11 ,"\n",
+        #     'SNH_11 = ',SNH_11 ,"\n",
+        #     'SND_11 = ',SND_11 ,"\n",
+        #     'XND_11 = ',XND_11 ,"\n",
+        #     'SALK_11=',SALK_11,"\n",
+        #     'TSS_11 = ',TSS_11 ,"\n",
+        #     'SI_12   =',SI_12        ,"\n",
+        #     '   SS_12        ='    , SS_12   , "\n",
+        #     'XI_12      =',XI_12   , "\n",
+        #     'XS_12        = '    , XS_12   , "\n",
+        #     'XBH_12   ='   , XBH_12   , "\n"
+        #     'XBA_12   ='   , XBA_12   , "\n",
+        #     'XP_12   =',XP_12   , "\n",
+        #     'SO_12        =',SO_12   , "\n",
+        #     'SNO_12   =',SNO_12   , "\n",
+        #     'SNH_12   =',SNH_12   , "\n",
+        #     'SND_12   =',SND_12   , "\n",
+        #     'XND_12   =',XND_12   , "\n",
+        #     'SALK_12    =',SALK_12    , "\n",
+        #     'TSS_12 = ',TSS_12 ,"\n",
+        #     'SI_13   =',SI_13        ,"\n",
+        #     '   SS_13        ='    , SS_13   , "\n",
+        #     'XI_13      =',XI_13   , "\n",
+        #     'XS_13        = '    , XS_13   , "\n",
+        #     'XBH_13   ='   , XBH_13   , "\n"
+        #     'XBA_13   ='   , XBA_13   , "\n",
+        #     'XP_13   =',XP_13   , "\n",
+        #     'SO_13        =',SO_13   , "\n",
+        #     'SNO_13   =',SNO_13   , "\n",
+        #     'SNH_13   =',SNH_13   , "\n",
+        #     'SND_13   =',SND_13   , "\n",
+        #     'XND_13   =',XND_13   , "\n",
+        #     'SALK_13    =',SALK_13    , "\n",
+        #     'TSS_13 = ',TSS_13 ,"\n",    
+        # ' SI_14   =',SI_14        ,"\n",
+        # '   SS_14        ='   , SS_14   , "\n",
+        # ' XI_14      =',XI_14   , "\n",
+        # ' XS_14        = '    , XS_14   , "\n",
+        # ' XBH_14   ='   , XBH_14   , "\n"
+        # ' XBA_14   ='   , XBA_14   , "\n",
+        # ' XP_14   =',XP_14   , "\n",
+        # ' SO_14        =',SO_14   , "\n",
+        # ' SNO_14   =',SNO_14   , "\n",
+        # ' SNH_14   =',SNH_14   , "\n",
+        # ' SND_14   =',SND_14   , "\n",
+        # ' XND_14   =',XND_14   , "\n",
+        # ' SALK_14    =',SALK_14    , "\n",
+        #   'TSS_14 = ',TSS_14 ,"\n",
+        # ' SI_15   =',SI_15        ,"\n",
+        # '   SS_15        ='   , SS_15   , "\n",
+        # ' XI_15      =',XI_15   , "\n",
+        # ' XS_15        = '    , XS_15   , "\n",
+        # ' XBH_15   ='   , XBH_15   , "\n"
+        # ' XBA_15   ='   , XBA_15   , "\n",
+        # ' XP_15   =',XP_15   , "\n",
+        # ' SO_15        =',SO_15   , "\n",
+        # ' SNO_15   =',SNO_15   , "\n",
+        # ' SNH_15   =',SNH_15   , "\n",
+        # ' SND_15   =',SND_15   , "\n",
+        # ' XND_15   =',XND_15   , "\n",
+        # ' TSS_15 = ',TSS_15 ,"\n",
+        # ' SALK_15    =',SALK_15    , "\n",
+        # ' SI_16   =',SI_16        ,"\n",
+        # '   SS_16        ='   , SS_16   , "\n",
+        # ' XI_16      =',XI_16   , "\n",
+        # ' XS_16        = '    , XS_16   , "\n",
+        # ' XBH_16   ='   , XBH_16   , "\n"
+        # ' XBA_16   ='   , XBA_16   , "\n",
+        # ' XP_16   =',XP_16   , "\n",
+        # ' SO_16        =',SO_16   , "\n",
+        # ' SNO_16   =',SNO_16   , "\n",
+        # ' SNH_16   =',SNH_16   , "\n",
+        # ' SND_16   =',SND_16   , "\n",
+        # ' XND_16   =',XND_16   , "\n",
+        # ' SALK_16    =',SALK_16    , "\n",
+        # ' TSS_16 = ',TSS_16 ,"\n",  
 
 
         #   'Ssu0 =', Ssu0, "\n",
@@ -2418,9 +2365,9 @@ print(
         #   'Xpro0 =', Xpro0, "\n",
         #   'Xac0 =', Xac0, "\n",
         #   'Xh20 =', Xh20, "\n",
-        #   'XI0 =', XI0, "\n", 
+        #   'XI0 =', XI0, "\n",
         #   'Scat0 =', Scat0, "\n",
-        #   'San0 =', San0, "\n",         
+        #   'San0 =', San0, "\n",        
         #   'Ssu =', Ssu, "\n",
         #   'Saa =', Saa, "\n",
         #   'Sfa =', Sfa, "\n",
@@ -2456,107 +2403,107 @@ print(
         #   'Sgash2 =', Sgash2, "\n",
         #   'Sgasch4 =', Sgasch4, "\n",
         #   'Sgasco2 =', Sgasco2, "\n",
-        # ' SI_18   ='	    ,	SI_18	,	"\n",
-        # '	SS_18	='	    ,	SS_18	,	"\n",
-        # '	XS_18	='	    ,	XS_18	,	"\n"
-        # '	XI_18	='	    ,	XI_18	,	"\n",
-        # '	XBH_18	='		,	XBH_18	,	"\n",
-        # '	XBA_18	='		,	XBA_18	,	"\n",
-        # '	XP_18	='		,	XP_18	,	"\n",
-        # '	SO_18	='		,	SO_18	,	"\n",
-        # '	SNO_18	='		,	SNO_18	,	"\n",
-        # '	SNH_18	='		,	SNH_18	,	"\n",
-        # '	SND_18	='		,	SND_18	,	"\n",
-        # '	XND_18	='		,	XND_18	,	"\n",
-        # '	SALK_18	='		,	SALK_18	,	"\n",
-        # '	TSS_18	='		,	TSS_18	,	"\n",
-        #   ' SI_19   ='	    ,	SI_19	,	"\n",
-        #   '	SS_19	='	    ,	SS_19	,	"\n",
-        #   '	XS_19	='	    ,	XS_19	,	"\n"
-        #   '	XI_19	='	    ,	XI_19	,	"\n",
-        #   '	XBH_19	='		,	XBH_19	,	"\n",
-        #   '	XBA_19	='		,	XBA_19	,	"\n",
-        #   '	XP_19	='		,	XP_19	,	"\n",
-        #   '	SO_19	='		,	SO_19	,	"\n",
-        #   '	SNO_19	='		,	SNO_19	,	"\n",
-        #   '	SNH_19	='		,	SNH_19	,	"\n",
-        #   '	SND_19	='		,	SND_19	,	"\n",
-        #   '	XND_19	='		,	XND_19	,	"\n",
-        #   '	SALK_19	='		,	SALK_19	,	"\n",
-        #   '	TSS_19	='		,	TSS_19	,	"\n",
-        #   ' SI_20   ='	    ,	SI_20	,	"\n",
-        #   '	SS_20	='	    ,	SS_20	,	"\n",
-        #   '	XS_20	='	    ,	XS_20	,	"\n"
-        #   '	XI_20	='	    ,	XI_20	,	"\n",
-        #   '	XBH_20	='		,	XBH_20	,	"\n",
-        #   '	XBA_20	='		,	XBA_20	,	"\n",
-        #   '	XP_20	='		,	XP_20	,	"\n",
-        #   '	SO_20	='		,	SO_20	,	"\n",
-        #   '	SNO_20	='		,	SNO_20	,	"\n",
-        #   '	SNH_20	='		,	SNH_20	,	"\n",
-        #   '	SND_20	='		,	SND_20	,	"\n",
-        #   '	XND_20	='		,	XND_20	,	"\n",
-        #   '	SALK_20	='		,	SALK_20	,	"\n",
-        #   '	TSS_20	='		,	TSS_20	,	"\n",
-          '	Q1	    ='		,	Q_1	    ,	"\n", 
-          '	Q2	    ='		,	Q_2   	,	"\n",
-          '	Q3	    ='		,	Q_3  	,	"\n",
-          '	Q4	    ='		,	Q_4  	,	"\n",
-          '	Q5	    ='		,	Q_5	    ,	"\n",
-          '	Q6	    ='		,	Q_6	    ,	"\n",
-          '	Q9	    ='	    ,	Q_9	    ,	"\n",
-          '	Q10   	='	    ,	Q_10    ,	"\n",
-          '	Q11 	='	    ,	Q_12    ,	"\n",
-          '	Q12 	='	    ,	Q_11    ,	"\n",
-          '	Q13 	='		,	Q_13    ,	"\n", 
-          '	Q14 	='		,	Q_14    ,	"\n",
-          '	Q15 	='		,	Q_15    ,	"\n",
-          '	Q16 	='		,	Q_16    ,	"\n",
-          '	Q17 	='		,	Q_17    ,	"\n",
-          '	Q18 	='		,	Q_18    ,	"\n",
-          '	Q19 	='	    ,	Q_19    ,	"\n",
-          '	Q20 	='	    ,	Q_20    ,	"\n",
-        #   '	SH	='		,	SH	,	"\n",
-          '	SCH_1	='		,	SCH_1	,	"\n",
-          '	SCH_2	='		,	SCH_2	,	"\n",
-          '	SCH_3	='		,	SCH_3	,	"\n",
-          '	GCH_3	='		,	GCH_3	,	"\n",
-          '	SCH_4	='		,	SCH_4	,	"\n",
-          '	SCH_5	='		,	SCH_5	,	"\n",
-          '	SCH_6	='		,	SCH_6	,	"\n",
-          '	SCH_7	='	    ,	SCH_7	,	"\n",
-          '	SCH_8	='		,	SCH_8	,	"\n",
-          '	SCH_9	='	    ,	SCH_9	,	"\n",
-          '	SCH_10	='	    ,	SCH_10	,	"\n",
-          '	SCH_11	='		,	SCH_11	,	"\n",
-          '	SCH_12	='		,	SCH_12	,	"\n",
-          '	SCH_13	='		,	SCH_13	,	"\n",
-          '	SCH_14	='		,	SCH_14	,	"\n",
-          '	SCH_15	='		,	SCH_15	,	"\n",
-          '	SCH_16	='		,	SCH_16	,	"\n",
-          '	SCH_17	='		,	SCH_17	,	"\n",
-          '	SCH_AD	='		,	SCH_AD	,	"\n",
-          '	SCH_20	='		,	SCH_20	,	"\n",
-          '	XCH_1	='		,	XCH_1	,	"\n",
-          '	XCH_2	='		,	XCH_2	,	"\n",
-          '	XCH_3	='		,	XCH_3	,	"\n",
-          '	XCH_4	='		,	XCH_4	,	"\n",
-          '	XCH_5	='		,	XCH_5	,	"\n",
-          '	XCH_6	='		,	XCH_6	,	"\n",
-          '	XCH_7	='		,	XCH_7	,	"\n",
-          '	XCH_8	='	    ,	XCH_8	,	"\n",
-          '	XCH_9	='	    ,	XCH_9	,	"\n",
-          '	XCH_10	='	    ,	XCH_10	,	"\n",
-          '	XCH_11	='		,	XCH_11	,	"\n",
-          '	XCH_12	='		,	XCH_12	,	"\n",
-          '	XCH_13	='		,	XCH_13	,	"\n",
-          '	XCH_14	='		,	XCH_14	,	"\n",
-          '	XCH_15	='		,	XCH_15	,	"\n",
-          '	XCH_16	='		,	XCH_16	,	"\n",
-          '	XCH_17	='		,	XCH_17	,	"\n",
-          '	XCH_AD	='		,	XCH_AD	,	"\n",
-          '	XCH_19	='		,	XCH_19	,	"\n",
-          '	XCH_20	='		,	XCH_20	,	"\n",
+        # ' SI_18   ='    , SI_18 ,"\n",
+        # ' SS_18 = '    , SS_18 ,"\n",
+        # ' XS_18 = '    , XS_18 ,"\n"
+        # ' XI_18 = '    , XI_18 ,"\n",
+        # ' XBH_18 = ',XBH_18 ,"\n",
+        # ' XBA_18 = ',XBA_18 ,"\n",
+        # ' XP_18 = ',XP_18 ,"\n",
+        # ' SO_18 = ',SO_18 ,"\n",
+        # ' SNO_18 = ',SNO_18 ,"\n",
+        # ' SNH_18 = ',SNH_18 ,"\n",
+        # ' SND_18 = ',SND_18 ,"\n",
+        # ' XND_18 = ',XND_18 ,"\n",
+        # ' SALK_18=',SALK_18,"\n",
+        # ' TSS_18 = ',TSS_18 ,"\n",
+        #   ' SI_19   ='   , SI_19 ,"\n",
+        #   'SS_19 = '    , SS_19 ,"\n",
+        #   'XS_19 = '    , XS_19 ,"\n"
+        #   'XI_19 = '    , XI_19 ,"\n",
+        #   'XBH_19 = ',XBH_19 ,"\n",
+        #   'XBA_19 = ',XBA_19 ,"\n",
+        #   'XP_19 = ',XP_19 ,"\n",
+        #   'SO_19 = ',SO_19 ,"\n",
+        #   'SNO_19 = ',SNO_19 ,"\n",
+        #   'SNH_19 = ',SNH_19 ,"\n",
+        #   'SND_19 = ',SND_19 ,"\n",
+        #   'XND_19 = ',XND_19 ,"\n",
+        #   'SALK_19=',SALK_19,"\n",
+        #   'TSS_19 = ',TSS_19 ,"\n",
+        #   ' SI_20   ='   , SI_20 ,"\n",
+        #   'SS_20 = '    , SS_20 ,"\n",
+        #   'XS_20 = '    , XS_20 ,"\n"
+        #   'XI_20 = '    , XI_20 ,"\n",
+        #   'XBH_20 = ',XBH_20 ,"\n",
+        #   'XBA_20 = ',XBA_20 ,"\n",
+        #   'XP_20 = ',XP_20 ,"\n",
+        #   'SO_20 = ',SO_20 ,"\n",
+        #   'SNO_20 = ',SNO_20 ,"\n",
+        #   'SNH_20 = ',SNH_20 ,"\n",
+        #   'SND_20 = ',SND_20 ,"\n",
+        #   'XND_20 = ',XND_20 ,"\n",
+        #   'SALK_20=',SALK_20,"\n",
+        #   'TSS_20 = ',TSS_20 ,"\n",
+          ' Q1=',Q_1    , "\n",
+          ' Q2=',Q_2   ,"\n",
+          ' Q3=',Q_3   ,"\n",
+          ' Q4=',Q_4   ,"\n",
+          ' Q5=',Q_5    , "\n",
+          ' Q6=',Q_6    , "\n",
+          ' Q9='   , Q_9    , "\n",
+          ' Q10    = '    , Q_10    ,"\n",
+          ' Q11  ='    , Q_12    ,"\n",
+          ' Q12  ='    , Q_11    ,"\n",
+          ' Q13  =',Q_13    ,"\n",
+          ' Q14  =',Q_14    ,"\n",
+          ' Q15  =',Q_15    ,"\n",
+          ' Q16  =',Q_16    ,"\n",
+          ' Q17  =',Q_17    ,"\n",
+          ' Q18  =',Q_18    ,"\n",
+          ' Q19  ='    , Q_19    ,"\n",
+          ' Q20  ='    , Q_20    ,"\n",
+        #   'SH =',SH,"\n",
+          ' SCH_1 = ',SCH_1 ,"\n",
+          ' SCH_2 = ',SCH_2 ,"\n",
+          ' SCH_3 = ',SCH_3 ,"\n",
+          ' GCH_3 = ',GCH_3 ,"\n",
+          ' SCH_4 = ',SCH_4 ,"\n",
+          ' SCH_5 = ',SCH_5 ,"\n",
+          ' SCH_6 = ',SCH_6 ,"\n",
+          ' SCH_7 = '    , SCH_7 ,"\n",
+          ' SCH_8 = ',SCH_8 ,"\n",
+          ' SCH_9 = '    , SCH_9 ,"\n",
+          ' SCH_10 = '    , SCH_10 ,"\n",
+          ' SCH_11 = ',SCH_11 ,"\n",
+          ' SCH_12 = ',SCH_12 ,"\n",
+          ' SCH_13 = ',SCH_13 ,"\n",
+          ' SCH_14 = ',SCH_14 ,"\n",
+          ' SCH_15 = ',SCH_15 ,"\n",
+          ' SCH_16 = ',SCH_16 ,"\n",
+          ' SCH_17 = ',SCH_17 ,"\n",
+          ' SCH_AD = ',SCH_AD ,"\n",
+          ' SCH_20 = ',SCH_20 ,"\n",
+          ' XCH_1 = ',XCH_1 ,"\n",
+          ' XCH_2 = ',XCH_2 ,"\n",
+          ' XCH_3 = ',XCH_3 ,"\n",
+          ' XCH_4 = ',XCH_4 ,"\n",
+          ' XCH_5 = ',XCH_5 ,"\n",
+          ' XCH_6 = ',XCH_6 ,"\n",
+          ' XCH_7 = ',XCH_7 ,"\n",
+          ' XCH_8 = '    , XCH_8 ,"\n",
+          ' XCH_9 = '    , XCH_9 ,"\n",
+          ' XCH_10 = '    , XCH_10 ,"\n",
+          ' XCH_11 = ',XCH_11 ,"\n",
+          ' XCH_12 = ',XCH_12 ,"\n",
+          ' XCH_13 = ',XCH_13 ,"\n",
+          ' XCH_14 = ',XCH_14 ,"\n",
+          ' XCH_15 = ',XCH_15 ,"\n",
+          ' XCH_16 = ',XCH_16 ,"\n",
+          ' XCH_17 = ',XCH_17 ,"\n",
+          ' XCH_AD = ',XCH_AD ,"\n",
+          ' XCH_19 = ',XCH_19 ,"\n",
+          ' XCH_20 = ',XCH_20 ,"\n",
           ' Biodegraded_Percent  ='   , Bio_perc    ,    "\n",
           '   Soil_Percent         ='   , Soil_perc   ,    "\n",
           '   Volatized_Percent    ='   , Volat_perc  ,    "\n",
@@ -2564,18 +2511,13 @@ print(
           '   Total                ='   , Total       ,    "\n",
           '   Removal_Percent      ='   , Removal_percent, "\n",
           '   Pass_perc            ='   ,   Pass_perc ,    "\n",
-          ' SRT     ='      ,   SRT     ,   "\n",
+          ' HRT_pc     ='      ,   HRT_pc     ,   "\n",
+          ' HRT_pc      ='     ,   HRT_sc     ,   "\n",
+          ' HRT_as     ='      ,   HRT_as     ,   "\n",
+          ' SRT_AD     ='      ,   SRT_AD     ,   "\n",
+          ' FtoM       ='     ,    FtoM       ,   '\n',
           ' CODe    ='      ,   CODe    ,   "\n",
           ' Ntot    ='      , Ntot      ,   "\n",    
-          ' TSS_el  ='     ,  TSS_12      , "\n",
-          ' Eff_SNH_lim ='      ,  SNH_12    ,  "\n",
-          'Ratio	='	    ,	AI	,	"\n",
-          'FtoM	='	    ,FtoM	,	"\n",
-          ' thickratio  ='  ,  thickratio, "\n",
-          ' HRT_pc     ='   ,  HRT_pc, "\n",
-          ' HRT_sc     ='   ,  HRT_sc, "\n",
-          ' SRT_AD    ='      ,   SRT_AD     ,   "\n", 
-          ' HRT_as     ='      ,   HRT_as     ,   "\n",
           ' rt        ='      ,   rt     ,    "\n",
           ' Clarifier volume    ='     , Vpc, "\n",
           ' Clarifier 2 volume    ='     , volK, "\n",
@@ -2585,50 +2527,13 @@ print(
           'Area of SC        ='     , area_of_SC, "\n",
           ' q1       ='      ,    q     ,    "\n",
           ' q2        ='      ,   q2     ,    "\n",
-          'Mass_Flow_1 = '     , Mass_Flow_1   ,  "\n",
-          'Mass_Flow_2 = '     , Mass_Flow_2   ,  "\n",
-          'Mass_Flow_3 = '     , Mass_Flow_3   ,  "\n",
-          'Mass_Flow_4 = '     , Mass_Flow_4   ,  "\n",
-          'Mass_Flow_5 = '     , Mass_Flow_5   ,  "\n",
-          'Mass_Flow_6 = '     , Mass_Flow_6   ,  "\n",
-          'Mass_Flow_7 = '     , Mass_Flow_7   ,  "\n",
-          'Mass_Flow_8 = '     , Mass_Flow_8   ,  "\n",
-          'Bio_Flow_1  = '     , Bio_Flow_1    ,  "\n",
-          'Bio_Flow_2  = '     , Bio_Flow_2    ,  "\n",
-          'Bio_Flow_3  = '     , Bio_Flow_3    ,  "\n",
-          'Bio_Flow_4  = '     , Bio_Flow_4    ,  "\n",
-          'Bio_Flow_5  = '     , Bio_Flow_5    ,  "\n",
-          'GCH_Max_1   = '     , GCH_Max_1     ,  "\n",
-          'GCH_Max_2   = '     , GCH_Max_2     ,  "\n",
-          'GCH_Max_3   = '     , GCH_Max_3     ,  "\n",
-          'GCH_Max_4   = '     , GCH_Max_4     ,  "\n",
-          'GCH_Max_5   = '     , GCH_Max_5     ,  "\n",
-          'GCH_Max_6   = '     , GCH_Max_6     ,  "\n",
-          'GCH_Max_7   = '     , GCH_Max_7     ,  "\n",
-          #'LADD        = '     , LADD          ,  "\n",
-          'IR_1          = '     , IR_1            ,  "\n",
-          'IR_2          = '     , IR_2            ,  "\n",
-          'IR_3          = '     , IR_3            ,  "\n",
-          'IR_4          = '     , IR_4            ,  "\n",
-          'IR_5          = '     , IR_5            ,  "\n",
-          'IR_6          = '     , IR_6            ,  "\n",
-          'IR_7          = '     , IR_7            ,  "\n",
-          'IR_8          = '     , IR_8            ,  "\n",
-          'DER_1          = '     , DER_1            ,  "\n",
-          'DER_2          = '     , DER_2            ,  "\n",
-          'DER_3          = '     , DER_3            ,  "\n",
-          'DER_4          = '     , DER_4            ,  "\n",
-          'DER_5          = '     , DER_5            ,  "\n",
-          'DER_6          = '     , DER_6            ,  "\n",
-          'DER_7          = '     , DER_7            ,  "\n",
-          'DER_8          = '     , DER_8            ,  "\n",
+          'Mass_Flow = '     , Mass_Flow   ,  "\n",
+        #   'Mass_Flow_2 = '     , Mass_Flow_2   ,  "\n",
+        #   'Mass_Flow_3 = '     , Mass_Flow_3   ,  "\n",
+        #   'Mass_Flow_4 = '     , Mass_Flow_4   ,  "\n",
+        #   'Mass_Flow_5 = '     , Mass_Flow_5   ,  "\n",
+        #   'Mass_Flow_6 = '     , Mass_Flow_6   ,  "\n",
+        #   'Mass_Flow_7 = '     , Mass_Flow_7   ,  "\n",
+         
+         
 )
-
-
-
-
-
-
-
-
-
