@@ -26,7 +26,7 @@ plants design has been adopted from the Benchmark Simulation Model (BSM2) (http:
 
 
 ## Output
-After running the Python script you obtain an output text outlining the operating conditiopns of the plant (flow rates [m3/d], retention times [d-1], food-to-mass rations[-], etc.) as well as chemical concentrations, in both liquid and solid forms, of the chemical of interest. An example opf the text is included in the "POTW_dataset.xls" file.
+After running the Python script you obtain an output text outlining the operating conditiopns of the plant (flow rates [m3/d], retention times [d-1], food-to-mass rations[-], etc.) as well as chemical concentrations, in both liquid and solid forms, of the chemical of interest. An example of the text output for the chemcial Toluene is included in the "POTW_dataset.xls" file.
 
 
 ## Disclaimer
