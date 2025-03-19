@@ -15,7 +15,7 @@ This code was written using Python (https://www.python.org/downloads/) and Windo
 
 
 ## Model Use
-The ChemTEAPOTW simulates a chemical partioning through a standard POTW, with a primary clarifier (900m3), five stage nutrient removal aeration tanks in series (2 anoxic @ 1500 m3and 3 aerobic @ 3000 m3), secondary 
+The ChemTEAPOTW simulates a chemical partioning through a standard POTW, with a primary clarifier (900m3), five stage nutrient removal aeration tanks in series (2 anoxic @ 1500 m^3 and 3 aerobic @ 3000 m3), secondary 
 clarifier (1500m3), unitless dewatering and sludge thickening units, and a 3000 m3 anaerobic digester. The plants is run @ steady state with several recylced flows and an approximate input flow rate of 20648 m3/d. The 
 plants design has been adopted from the Benchmark Simulation Model (BSM2) (http://iwa-mia.org/wp-content/uploads/2018/01/BSM_TG_Tech_Report_no_3_BSM2_General_Description.pdf).
 
