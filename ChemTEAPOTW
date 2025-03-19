@@ -377,21 +377,10 @@ def myFunction(x):
 
     ##Chemical Parameters##
     Theta = 1.044; #Henrys Law coefficient temperature correction factor
-   
-   
-    #MMA
-    bio = 1
-    Hc_25 = 3.99E-03
-    Hc = Hc_25*Theta**(Tc-25)
-    Mw = 100.1  #molecular weight of compound, g/mol
-    dc = 0.922 #density of compound at the compound normal boiling point, g/cm3
-    kp = 8.71766E-05 #Soprtion partition coefficient for volatile solids L/mg
-    kbio_20 = 0.010837897#0.077#0.035241024#First order kinetic biodegradation rate, d-1
-    kbio = kbio_20*Theta**(Tc-20)
-    fnon = 1 #pH dependent non-dissociated fraction of a contaminant
-    HcAD = 6.14E-03 #Temperature corrected Henry's constant, @ 35 degrees Celcius, L liq/L gas
+
 
     #carbon tetrachloride
+    # bio = 1
     # Hc_25 = 1.128121788
     # Hc = Hc_25*Theta**(Tc-25)
     # Mw = 153.8 #molecular weight of compound, g/mol
@@ -403,6 +392,7 @@ def myFunction(x):
    
 
     #Vinyl Chloride
+    # bio = 1
     # Hc_25 = 1.066810821
     # Hc = Hc_25*Theta**(Tc-25)
     # Mw = 96.97#molecular weight of compound, g/mol
@@ -413,17 +403,20 @@ def myFunction(x):
     # HcAD =  1.640938856#Temperature corrected Henry's constant, @ 35 degrees Celcius, L liq/L gas
    
     #toluene
-    # Hc_25 = 0.271403213
-    # Hc = Hc_25*Theta**(Tc-25)
-    # Mw = 92.14  #molecular weight of compound, g/mol
-    # dc = 0.867 #density of compound at the compound normal boiling point, g/cm3
-    # kp = 0.000528932192048721 #Soprtion partition coefficient for volatile solids L/mg
-    # kbio_20 = 0.035313845#0.077#0.035241024#First order kinetic biodegradation rate, d-1
-    # kbio = kbio_20*Theta**(Tc-20)
-    # fnon = 1 #pH dependent non-dissociated fraction of a contaminant
-    # HcAD = 0.417464904404533 #Temperature corrected Henry's constant, @ 35 degrees Celcius, L liq/L gas
+    bio = 1
+    Hc_25 = 0.271403213
+    Hc = Hc_25*Theta**(Tc-25)
+    Mw = 92.14  #molecular weight of compound, g/mol
+    dc = 0.867 #density of compound at the compound normal boiling point, g/cm3
+    kp = 0.000528932192048721 #Soprtion partition coefficient for volatile solids L/mg
+    kbio_20 = 0.035313845#0.077#0.035241024#First order kinetic biodegradation rate, d-1
+    kbio = kbio_20*Theta**(Tc-20)
+    fnon = 1 #pH dependent non-dissociated fraction of a contaminant
+    HcAD = 0.417464904404533 #Temperature corrected Henry's constant, @ 35 degrees Celcius, L liq/L gas
    
     #etyhlbenzene
+    # bio = 0
+    # bio = 1
     # Hc_25 = 0.322086945
     # Hc = Hc_25*Theta**(Tc-25)
     # Mw = 106.2  #molecular weight of compound, g/mol
@@ -435,6 +428,7 @@ def myFunction(x):
     # HcAD = 0.495425217877669 #Temperature corrected Henry's constant, @ 35 degrees Celcius, L liq/L gas
    
     #1,1,2-Trichloroethane
+    # bio = 0
     # Hc_25 = 0.033680158
     # Hc = Hc_25*Theta**(Tc-25)
     # Mw = 133.4 #molecular weight of compound, g/mol
@@ -445,6 +439,7 @@ def myFunction(x):
     # HcAD =  0.0518058857273096#Temperature corrected Henry's constant, @ 35 degrees Celcius, L liq/L gas
    
     # #methyl Chloride
+    # bio = 1
     # Hc_25 = 0.132840428
     # Hc = Hc_25*Theta**(Tc-25)
     # Mw = 84.93 #molecular weight of compound, g/mol
@@ -456,6 +451,7 @@ def myFunction(x):
     # HcAD =  0.204331467#Temperature corrected Henry's constant, @ 35 degrees Celcius, L liq/L gas
    
     #Perchloroethylene
+    # bio = 0
     # Hc_25 = 0.723469407
     # Hc = Hc_25*Theta**(Tc-25)
     # Mw = 133.4 #molecular weight of compound, g/mol
@@ -466,6 +462,7 @@ def myFunction(x):
     # HcAD =  1.11282060360847 #Temperature corrected Henry's constant, @ 35 degrees Celcius, L liq/L gas
    
     #Trichloroethylene
+    # bio = 1
     # Hc_25 = 0.402608681
     # Hc = Hc_25*Theta**(Tc-25)
     # Mw = 131.4 #molecular weight of compound, g/mol
@@ -476,6 +473,7 @@ def myFunction(x):
     # HcAD =  0.619281522347087
    
     #1,2-Dichloroethane
+    # bio = 0
     # Hc_25 = 0.048231294
     # Hc = Hc_25*Theta**(Tc-25)
     # Mw = 131.4 #molecular weight of compound, g/mol
@@ -486,6 +484,7 @@ def myFunction(x):
     # HcAD =  0.07418804
    
     #Chlorobenzene
+    # bio = 0
     # Hc_25 = 0.127118071
     # Hc = Hc_25*Theta**(Tc-25)
     # Mw = 112.6 #molecular weight of compound, g/mol
@@ -497,6 +496,7 @@ def myFunction(x):
     # HcAD =  0.195529495888268
    
     # #1,4-dioxane
+    # bio = 1
     # Hc = 1.2755E-04 #0.000128467986848519#0.000147204 #Temperature corrected Henry's constant, L liq/L gas
     # Mw = 88.11  #molecular weight of compound, g/mol
     # dc = 1.03  #density of compound at the compound normal boiling point, g/cm3
