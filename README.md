@@ -25,11 +25,11 @@ plants design has been adopted from the Benchmark Simulation Model (BSM2) (http:
 4. Run the model.
 
 
-##Output
+## Output
 After running the Python script you obtain an output text outlining the operating conditiopns of the plant (flow rates [m3/d], retention times [d-1], food-to-mass rations[-], etc.) as well as chemical concentrations, in both liquid and solid forms, of the chemical of interest.  
 
 
-##Disclaimer
+## Disclaimer
 The views expressed in this article are those of the authors and do not necessarily represent the views or policies of the U.S. Environmental Protection Agency. Any mention of trade names, products, or services does not 
 imply an endorsement by the U.S. Government or the U.S. Environmental Protection Agency. The U.S. Environmental Protection Agency does not endorse any commercial products, service, or enterprises.
 
