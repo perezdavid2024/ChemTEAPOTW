@@ -15,18 +15,18 @@ This code was written using Python (https://www.python.org/downloads/) and Windo
 
 
 ## Model Use
-The ChemTEAPOTW simulates a chemical partioning through a standard POTW, with a primary clarifier (900m3), five stage nutrient removal aeration tanks in series (2 anoxic @ 1500 m3 and 3 aerobic @ 3000 m3), secondary 
-clarifier (1500m3), unitless dewatering and sludge thickening units, and a 3000 m3 anaerobic digester. The plants is run @ steady state with several recylced flows and an approximate input flow rate of 20648 m3/d. The 
+The ChemTEAPOTW simulates chemical partitioning through a standard POTW, with a primary clarifier (900m3), five stage nutrient removal aeration tanks in series (2 anoxic @ 1500 m3 and 3 aerobic @ 3000 m3), secondary 
+clarifier (1500m3), unitless dewatering and sludge thickening units, and a 3000 m3 anaerobic digester. The plants is run @ steady state with several recycled flows and an approximate input flow rate of 20648 m3/d. The 
 plants design has been adopted from the Benchmark Simulation Model (BSM2) (http://iwa-mia.org/wp-content/uploads/2018/01/BSM_TG_Tech_Report_no_3_BSM2_General_Description.pdf).
 
 1. Input chemical concentration (SCH_inf 0 [mg/L]) on Line 30
-2. Remove commented status from chemical list (starting on line 378), or add chemical to list using Comptox info for henry's constant, Octanol Partition Coefficient, Molar Mass, Density.
+2. Remove commented status from chemical list (starting on line 378), or add chemical to list using EPA CompTox chemical library (https://comptox.epa.gov/dashboard/) info for henry's constant, Octanol Partition Coefficient, Molar Mass, Density.
 3. Indicated whether a chemical is biodegradable using bio = 1 for yes or 0 for no.
 4. Run the model.
 
 
 ## Output
-After running the Python script you obtain an output text outlining the operating conditiopns of the plant (flow rates [m3/d], retention times [d-1], food-to-mass rations[-], etc.) as well as chemical concentrations, in both liquid and solid forms, of the chemical of interest. An example of the text output for the chemcial Toluene is included in the "POTW_dataset.xlsx" file.
+After running the Python script you obtain an output text outlining the operating conditions of the plant (flow rates [m3/d], retention times [d-1], food-to-mass ratios[-], etc.) as well as chemical concentrations, in both liquid and solid forms, of the chemical of interest. An example of the data needed to run the model as well as model output is included in the "POTW_dataset.xlsx" file.
 
 
 ## Disclaimer
