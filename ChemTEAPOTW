@@ -375,6 +375,10 @@ def myFunction(x):
     Tc = 15 #temperature, C
     T = Tc + 273.15 #temperature, K
 
+    # This section loads physicochemical properties for the selected Chemicals of Concern (CoCs)
+    # as presented in Table S1 of the Supporting Information document.
+    # Properties include MW, Henry's Constant, LogKow, kbio, biodegradability, and Kd.
+
     ##Chemical Parameters##
     Theta = 1.044; #Henrys Law coefficient temperature correction factor
 
@@ -781,6 +785,9 @@ def myFunction(x):
         toxreac12 = -(ks*a7)*SCH_10 #surface volatization term
         toxreac13 = -Qa3*(Hc*SCH_10*f3)/vol2  #diffu5
 
+    # This section encodes biological reaction kinetics based on Supporting Information S3 and S4.
+    # Includes heterotrophic and autotrophic growth, decay, ammonification, hydrolysis, and rate constants.
+    
     proc1as = mu_H*(SS_5/(K_S+SS_5))*(SO_5/(K_OH+SO_5))*XBH_5;
     proc2as = mu_H*(SS_5/(K_S+SS_5))*(K_OH/(K_OH+SO_5))*(SNO_5/(K_NO+SNO_5))*ny_g*XBH_5;
     proc3as = mu_A*(SNH_5/(K_NH+SNH_5))*(SO_5/(K_OA+SO_5))*XBA_5;
@@ -905,7 +912,7 @@ def myFunction(x):
     reac513 = -i_XB/14.0*proc51+((1.0-Y_H)/(14.0*2.86*Y_H)-(i_XB/14.0))*proc52-((i_XB/14.0)+1.0/(7.0*Y_A))*proc53+proc56/14.0;
    
    
-    #defined parameter
+    #This seion includs secondary clarifier parameters and equations based on Supporting Information S3 and Table S4.
     Xf = TSS_10
     Xt = 3000;  #threshold suspended solid concentration, mg/L
     fns = 0.00228; #non-settleable fraction
@@ -919,7 +926,7 @@ def myFunction(x):
    
 
 
-#Jsc(x) is the solidssolid flux due to gravity (m/d)*mg/L
+    #Jsc(x) is the solidssolid flux due to gravity (m/d)*mg/L
     if Xsc6 > Xt:
         Jsc7 = (custom_min(custom_max(0,custom_min(vmax,v0*(math.exp(-rh*(Xsc7-Xmin))-math.exp(-rp*(Xsc7-Xmin)))))*Xsc7,custom_max(0,custom_min(vmax,v0*(math.exp(-rh*(Xsc6-Xmin))-math.exp(-rp*(Xsc6-Xmin)))))*Xsc6))
     else :
@@ -1123,6 +1130,7 @@ def myFunction(x):
    
    
     F = empty((264))
+    # 
     F[0] = Q_inf*SI_inf + Q_16*SI_16 + Q_21*SI_20 - Q_1*SI_1
     F[1] = Q_inf*SS_inf + Q_16*SS_16 + Q_21*SS_20 - Q_1*SS_1
     F[2] = Q_inf*XI_inf + Q_16*XI_16 + Q_21*XI_20 - Q_1*XI_1
@@ -1284,17 +1292,6 @@ def myFunction(x):
     F[148] =1/zm*(((Q_11)/A_sc)*(Xsc3-Xsc2)+custom_min(((custom_max(0, custom_min(vmax,v0*(math.exp(-rh*(Xsc2-Xmin))-math.exp(-rp*(Xsc2-Xmin))))))*Xsc2),((custom_max(0, custom_min(vmax,v0*(math.exp(-rh*(Xsc3-Xmin))-math.exp(-rp*(Xsc3-Xmin))))))*Xsc3))-custom_min(((custom_max(0, custom_min(vmax,v0*(math.exp(-rh*(Xsc2-Xmin))-math.exp(-rp*(Xsc2-Xmin))))))*Xsc2),((custom_max(0, custom_min(vmax,v0*(math.exp(-rh*(Xsc1-Xmin))-math.exp(-rp*(Xsc1-Xmin))))))*Xsc1)))
     F[149] =1/zm*(((Q_11)/A_sc)*(Xsc2-Xsc1)+custom_min((custom_max(0, custom_min(vmax,v0*(math.exp(-rh*(Xsc1-Xmin))-math.exp(-rp*(Xsc1-Xmin))))))*Xsc1,(custom_max(0, custom_min(vmax,v0*(math.exp(-rh*(Xsc2-Xmin))-math.exp(-rp*(Xsc2-Xmin))))))*Xsc2))
    
-    # F[140] =A_sc*((Q_12/A_sc)*(Xsc9-Xsc10)-Jsc10)
-    # F[141] =A_sc*((Q_12/A_sc)*(Xsc8-Xsc9)+Jsc10-Jsc9)
-    # F[142] =A_sc*((Q_12/A_sc)*(Xsc7-Xsc8)+Jsc9-Jsc8)
-    # F[143] =A_sc*((Q_12/A_sc)*(Xsc6-Xsc7)+Jsc8-Jsc7)
-    # F[144] =A_sc*((Q_10*Xf/A_sc)+(max(0,min(vmax,v0*(math.exp(-rh*(Xsc7-Xmin))-math.exp(-rp*(Xsc7-Xmin))))))*Xsc7-((Q_13+Q_14)/A_sc+Q_12/A_sc)*Xsc6-min(((max(0,min(vmax,v0*(math.exp(-rh*(Xsc6-Xmin))-math.exp(-rp*(Xsc6-Xmin))))))*Xsc6),((max(0,min(vmax,v0*(math.exp(-rh*(Xsc5-Xmin))-math.exp(-rp*(Xsc5-Xmin))))))*Xsc5)))
-    # F[145] =A_sc*(((Q_11)/A_sc)*(Xsc6-Xsc5)+min((max(0,min(vmax,v0*(math.exp(-rh*(Xsc5-Xmin))-math.exp(-rp*(Xsc5-Xmin))))))*Xsc5,(max(0,min(vmax,v0*(math.exp(-rh*(Xsc6-Xmin))-math.exp(-rp*(Xsc6-Xmin))))))*Xsc6)-min((max(0,min(vmax,v0*(math.exp(-rh*(Xsc5-Xmin))-math.exp(-rp*(Xsc5-Xmin))))))*Xsc5,(max(0,min(vmax,v0*(math.exp(-rh*(Xsc4-Xmin))-math.exp(-rp*(Xsc4-Xmin))))))*Xsc4))
-    # F[146] =A_sc*(((Q_11)/A_sc)*(Xsc5-Xsc4)+min(((max(0,min(vmax,v0*(math.exp(-rh*(Xsc4-Xmin))-math.exp(-rp*(Xsc4-Xmin))))))*Xsc4),(max(0,min(vmax,v0*(math.exp(-rh*(Xsc5-Xmin))-math.exp(-rp*(Xsc5-Xmin))))))*Xsc5)-min((max(0,min(vmax,v0*(math.exp(-rh*(Xsc4-Xmin))-math.exp(-rp*(Xsc4-Xmin))))))*Xsc4,(max(0,min(vmax,v0*(math.exp(-rh*(Xsc3-Xmin))-math.exp(-rp*(Xsc3-Xmin))))))*Xsc3))
-    # F[147] =A_sc*(((Q_11)/A_sc)*(Xsc4-Xsc3)+min((max(0,min(vmax,v0*(math.exp(-rh*(Xsc3-Xmin))-math.exp(-rp*(Xsc3-Xmin))))))*Xsc3,(max(0,min(vmax,v0*(math.exp(-rh*(Xsc4-Xmin))-math.exp(-rp*(Xsc4-Xmin))))))*Xsc4)-min((max(0,min(vmax,v0*(math.exp(-rh*(Xsc3-Xmin))-math.exp(-rp*(Xsc3-Xmin))))))*Xsc3,(max(0,min(vmax,v0*(math.exp(-rh*(Xsc2-Xmin))-math.exp(-rp*(Xsc2-Xmin))))))*Xsc2))
-    # F[148] =A_sc*(((Q_11)/A_sc)*(Xsc3-Xsc2)+min(((max(0,min(vmax,v0*(math.exp(-rh*(Xsc2-Xmin))-math.exp(-rp*(Xsc2-Xmin))))))*Xsc2),((max(0,min(vmax,v0*(math.exp(-rh*(Xsc3-Xmin))-math.exp(-rp*(Xsc3-Xmin))))))*Xsc3))-min(((max(0,min(vmax,v0*(math.exp(-rh*(Xsc2-Xmin))-math.exp(-rp*(Xsc2-Xmin))))))*Xsc2),((max(0,min(vmax,v0*(math.exp(-rh*(Xsc1-Xmin))-math.exp(-rp*(Xsc1-Xmin))))))*Xsc1)))
-    # F[149] =A_sc*(((Q_11)/A_sc)*(Xsc2-Xsc1)+min((max(0,min(vmax,v0*(math.exp(-rh*(Xsc1-Xmin))-math.exp(-rp*(Xsc1-Xmin))))))*Xsc1,(max(0,min(vmax,v0*(math.exp(-rh*(Xsc2-Xmin))-math.exp(-rp*(Xsc2-Xmin))))))*Xsc2))
-   
     F[150] = Q_16*SI_16 + Q_15*SI_15 - Q_14*SI_14
     F[151] = Q_16*SS_16 + Q_15*SS_15 - Q_14*SS_14
     F[152] = Q_16*XI_16 + Q_15*XI_15 - Q_14*XI_14
@@ -1324,7 +1321,9 @@ def myFunction(x):
     F[175] = Q_2*XND_2 + Q_15*XND_15 - Q_17*XND_17
     F[176] = Q_2*SALK_2 + Q_15*SALK_15 - Q_17*SALK_17
     F[177] = Q_2*TSS_2 + Q_15*TSS_15 - Q_17*TSS_17
- 
+
+    # Converts ASM outputs into ADM-compatible inputs as described in the SI "ASM-ADM Interface" section.
+    # Maps SS, XS, XP, XI, SNH, and other variables into anaerobic digestion model inputs while conserving mass.
     SI_17_temp = SI_17
     SS_17_temp = SS_17
     XS_17_temp = XS_17
@@ -1343,7 +1342,7 @@ def myFunction(x):
    
    
 
-    #Hill function on pH inhibition
+    # pH inhibition
     pHLim_aa = (pH_UL_aa + pH_LL_aa)/2.0;
     pHLim_ac = (pH_UL_ac + pH_LL_ac)/2.0;
     pHLim_h2 = (pH_UL_h2 + pH_LL_h2)/2.0;
@@ -1357,11 +1356,7 @@ def myFunction(x):
    
     I_pH_aa = (KpH_aa**n_aa)/((KpH_aa**n_aa)+(SH**n_aa));
     I_pH_ac = (KpH_ac**n_ac)/((KpH_ac**n_ac)+(SH**n_ac));
-    I_pH_h2 = (KpH_h2**n_h2)/((KpH_h2**n_h2)+(SH**n_h2));
-   
-   
-    #/* Hill function on SH+ used within BSM2, ADM1 Workshop, Copenhagen 2005. */
-   
+    I_pH_h2 = (KpH_h2**n_h2)/((KpH_h2**n_h2)+(SH**n_h2));   
    
    
     I_IN_lim = 1.0/(1.0+K_S_IN/SIN);
@@ -1448,8 +1443,7 @@ def myFunction(x):
     reac24 = f_xI_xc*proc1;
    
     q_gas = k_P*(P_gas-P_atm)*P_gas/P_atm;
-   
-    #print(q_gas)
+ 
     CODdemand = SO_17 + CODequiv*SNO_17;
     SI_17temp = SI_17
     SS_17temp = SS_17
@@ -1499,13 +1493,8 @@ def myFunction(x):
             XS_17_temp = XS_17 - remaina;
     else:#{ /* reduced all COD demand by use of SS */
         SS_17_temp = SS_17 - CODdemand;
-        # /* if here we are in trouble, carbon shortage: an error printout
-    # should be given */
-    # /* and execution stopped */
+     
 
-    # /* SS becomes part of amino acids when transformed into ADM
-    # * and any remaining SS is mapped to monosacharides (no N contents)
-    # * Enough SND must be available for mapping to amino acids */
     sorgn = SND_17/fnaa; #/* Saa COD equivalent to SND */
 
     if (sorgn >= SS_17_temp) :#{ /* not all SND-N in terms of COD fits into amino acids */
@@ -1518,8 +1507,7 @@ def myFunction(x):
         SS_17_temp = SS_17_temp - sorgn; #/* excess SS, which will become sugar in ADM1 i.e. no nitrogen association */
         SND_17_temp = 0.0; #/* all SND used */
    
-    #XS becomes part of Xpr (proteins) when transformed into ADM and any remaining XS is mapped to Xch and Xli (no N contents)
-    #Enough XND must be available for mapping to Xpr */
+   
     xorgn = XND_17/fnaa; #/* Xpr COD equivalent to XND */
     if (xorgn >= XS_17_temp): #{ /* not all XND-N in terms of COD fits into Xpr */
         xprtemp = XS_17_temp;# /* map all XS COD into Spr */
@@ -1536,16 +1524,7 @@ def myFunction(x):
         XND_17_temp = 0.0; #/* all XND used */
        
    
-    # /* Biomass becomes part of Xpr and XI when transformed into ADM
-    # * and any remaining XBH and XBA is mapped to Xch and Xli (no N contents)
-    # * Remaining XND-N can be used as nitrogen source to form Xpr */
-    biomass = XBH_17temp + XBA_17temp;
-    biomass_nobio_as = biomass*(1.0 - frxs_adm); #/* part which is mapped to XI */
-    biomass_bioN = (biomass*fnbac - biomass_nobio_as*fxni);
-    # if (biomass_bioN < 0.0):
-    #     'ERROR: not enough biomass N to map the requested inert
-    # part and execution stopped */
-    # }
+  
     if ((biomass_bioN/fnaa) <= (biomass - biomass_nobio_as)) :
         xprtemp2 = biomass_bioN/fnaa; #/* all biomass N used */
         remainCOD = biomass - biomass_nobio_as - xprtemp2;
@@ -1573,14 +1552,9 @@ def myFunction(x):
     XBH_17_temp = 0.0;
     XBA_17_temp = 0.0;
    
-    #/* direct mapping of XI and XP to ADM1 XI (if fdegrade_ad = 0)
-    # * assumption: same N content in both ASM1 and ADM1 particulate inerts */
+  
     inertX = (1-fdegrade_adm)*(XI_17temp + XP_17temp);
-    # /* special case: IF part of XI and XP in the ASM can be degraded in the AD
-    # * we have no knowledge about the contents so we put it in as composits (Xc)
-    # * we need to keep track of the associated nitrogen
-    # * N content which may be different, take first from XI&XP-N, then XND-N, then SND-N,
-    # * then SNH. A similar principle could be used for other states. */
+   
     xc = 0.0;
     xlitemp3 = 0.0;
     xchtemp3 = 0.0;
@@ -1608,9 +1582,7 @@ def myFunction(x):
                         xc = xc + noninertX;
                         SNH_17_temp = SNH_17_temp - noninertX*fnxc;
                         noninertX = 0.0;
-    # Should/ *b e a WARNING printout: Nitrogen shortage when converting biodegradable
-    # XI&XP
-    #* Putting remaining XI&XP as lipids (50%) and carbohydrates (50%) */
+   
                 else :# { /* N in SND enough for mapping */
                     xc = xc + noninertX;
                     SND_17_temp = SND_17_temp - noninertX*fnxc;
@@ -1627,8 +1599,7 @@ def myFunction(x):
        
    
     # /* Mapping of ASM SI to ADM1 SI
-    # * N content may be different, take first from SI-N, then SND-N, then XND-N,
-    # * then SNH. Similar principle could be used for other states. */
+   
     inertS = 0.0;
     if (fsni < fsni_adm) :#{ /* N in SI(ASM) not enough */
         inertS = SI_17temp*fsni/fsni_adm;
@@ -1645,11 +1616,9 @@ def myFunction(x):
                     inertS = inertS + SNH_17temp/fsni_adm;
                     SI_17temp = SI_17temp - SNH_17temp/fsni_adm;
                     SNH_17temp = 0.0;
-    # /* Here there shpuld be a warning printout: Nitrogen shortage when converting SI
-    # * Putting remaining SI as monosacharides */
+    
                     SS_17temp = SS_17temp + SI_17temp;
-    # Benchmark Simulation Model no. 2 (BSM2)
-    # Page 57
+    
                     SI_17temp = 0.0;
    
                 else :#{ /* N in SNH enough for mapping */
@@ -1674,7 +1643,7 @@ def myFunction(x):
     P_atm =  1.013 #bar
     T_op =  308.15 #k ##T_ad #=35 C
    
-    ##parameter definition from the Rosen et al (2006) BSM2 report bmadm1_report
+    ##parameter definition from the Rosen et al (2006) BSM2 report 
     # Stoichiometric parameter
     f_sI_xc =  0.1
     f_xI_xc =  0.2
@@ -1721,7 +1690,6 @@ def myFunction(x):
     K_Spro = 0.1
    
     #/* Define the outputs including charge balance */
-    #print(SS_17_temp)
     Ssu0 = SS_17_temp/1000.0;
     Saa0 = S_aa/1000.0;
     SIN0 = (SNH_17_temp + SND_17_temp + XND_17_temp)/14000.0;
@@ -1746,11 +1714,8 @@ def myFunction(x):
     Xpro0 = 0
     Xac0 = 0
     Xh20 = 0
-    #print(alfa_co2)
-    #/* charge balance, output S_IC */
-    #/* charge balance, output S_IC */
+
     SIC0 = ((SNO_17*alfa_NO + SNH_17*alfa_NH + SALK_17*alfa_alk) - (Sva0*alfa_va + Sbu0*alfa_bu + Spro0*alfa_pro + Sac0*alfa_ac + SIN0*alfa_IN))/alfa_co2;
-    #/* calculate anions and cations based on full charge balance including H+ and OH- */
     ScatminusSan = Sva0*alfa_va + Sbu0*alfa_bu + Spro0*alfa_pro + Sac0*alfa_ac + SIN0*alfa_IN + SIC0*alfa_co2 + pow(10, (-pK_w + pH_adm)) - pow(10, -pH_adm);
     if (ScatminusSan > 0) :
         Scat0 = ScatminusSan;
@@ -1847,10 +1812,6 @@ def myFunction(x):
     biomass_bioNad = (biomassad*fnbac - biomass_nobio*fxni);
     remainCODad = 0.0;
     if (biomass_bioNad < 0.0) :
-    # /* Problems: if here we should print 'WARNING: not enough biomass N to map the requested
-    # inert part of biomass' */
-    # /* We map as much as we can, and the remains go to XS! */
-        XPtemp = biomassad*fnbac/fxni;
         biomass_nobio = XPtemp;
    
         biomass_bioNad = 0.0;
@@ -1876,13 +1837,7 @@ def myFunction(x):
         #Xs = sum all X except Xi, + biomass as handled above */
         XP_18 = XPtemp; #/* inert part of biomass
    
-    # /* mapping of inert XI in AD into XI and possibly XS in AS
-    # * assumption: same N content in both ASM1 and ADM1 particulate inerts
-    # * special case: if part of XI in AD can be degraded in AS
-    # * we have no knowledge about the contents so we put it in as part substrate (XS)
-    # * we need to keep track of the associated nitrogen
-    # * N content may be different, take first from XI-N then S_IN,
-    # * Similar principle could be used for other states. */
+  
     inertXad = (1.0-fdegrade_as)*XItemp*1000.0;
     XStemp2 = 0.0;
     noninertXad = 0.0;
@@ -1895,10 +1850,6 @@ def myFunction(x):
                 XStemp2 = XStemp2 + (SINtemp*14000.0)/fnxc;
                 noninertXad = noninertXad - (SINtemp*14000.0)/fnxc;
                 SINtemp = 0.0;
-    # /* Problems: if here we should print 'WARNING: Nitrogen shortage when converting
-    # biodegradable XI' */
-    # /* Mapping what we can to XS and putting remaining XI back into XI of ASM */
-    # inertXad = inertXad + noninertXad;
    
             else :#{ /* N in SIN enough for mapping */
                 XStemp2 = XStemp2 + noninertXad;
@@ -1912,11 +1863,7 @@ def myFunction(x):
     else :
         XI_18 = inertXad; #/* Xi = Xi*fdegrade_AS + possibly nonmappable XS */
         XS_18 = XS_18 + XStemp2  #(Xc + Xch + Xpr + Xli)*1000.0 + XStemp + XStemp2; #/* extra added XS (biodegradable XI) */
-       
-    # /* Mapping of ADM SI to ASM1 SI
-    # * It is assumed that this mapping will be 100% on COD basis
-    # * N content may be different, take first from SI-N then from S_IN.
-    # * Similar principle could be used for other states. */
+    
     inertSad = 0.0;
     if (fsni_adm < fsni):# { /* N in SI(AD) not enough */
         inertSad = SItemp*fsni_adm/fsni;
@@ -1925,8 +1872,7 @@ def myFunction(x):
             inertSad = inertSad + SINtemp*14.0/fsni;
             SItemp = SItemp - SINtemp*14.0/fsni;
             SINtemp = 0.0;
-    # /* Problems: if here we should print 'ERROR: Nitrogen shortage when converting SI' */
-    # /* System failure: nowhere to put SI */
+  
    
         else :#{ /* N in SIN enough for mapping */
             inertSad = inertSad + SItemp;
@@ -1942,28 +1888,21 @@ def myFunction(x):
     SS_18 = (Ssutemp + Saatemp + Sfatemp + Svatemp + Sbutemp + Sprotemp + Sactemp)*1000.0;
 
     XND_18 = fnxc*(XStemp + XStemp2) + fnxc*1000.0*Xctemp + fnaa*1000.0*Xprtemp;
-    # /* Snd is the nitrogen part of Ss in ASM1. Therefore Snd should be based on the
-    # * same variables as constitutes Ss, and we assume there is only nitrogen in the amino acids. The N content of Si is
-    #* not included in Snd in ASM1 and should in my view not be included. */
+   
     SND_18 = fnaa*1000.0*Saatemp;
-    #/* sh2 and sch4 assumed to be stripped upon reentry to ASM side */
-    # = sum all S except Sh2, Sch4, Si, Sic, Sin */
+   
     SNH_18 = SINtemp*14000.0; #/* Snh = SIN including adjustments above */
-    #y[13] = 0.75*(XI_18 + XS_18 + XBH_18 + XBA_18 + XP_18);
-    #y[14] = utemp[26]; #/* flow rate */
-    #y[15] = u[34]; #/* temperature, degC, should be equal to AS temperature into the AD/AS interface */
    
     SNO_18 = 0;
     SO_18 = 0;
     XBA_18 = 0;
     XBH_18 = 0;
     XP_18 = XPtemp
-    #/* charge balance, output S_alk (molHCO3/m3) */
     SALK_18 = (Sva*alfa_va + Sbu*alfa_bu + Spro*alfa_pro + Sac*alfa_ac + SIC*alfa_co2 + SIN*alfa_IN - SNO_18*alfa_NO - SNH_18*alfa_NH)/alfa_alk;
     TSS_18 = (XI_18 + XS_18)*0.75
 
    
-    ###DEwaterer###
+    ###Dewaterer###
     pdew = 28 # % of suspended solids in underflow of dewckener
     TSSremdew = 98 #% of suspended solids removed in dewckener
     fdew = pdew*10000/(0.75*(XI_18+XS_18+XND_18))
@@ -2006,7 +1945,11 @@ def myFunction(x):
     F[221] = XND_20 - XND_18*fdewn
     F[222] = SALK_20 - SALK_18
     F[223] = TSS_20 - 0.75*(XI_20 + XS_20 + XBH_20 + XBA_20 + XP_20)
-   
+
+    # Implement mass balance equations for soluble and particulate species across each unit process.
+    # Equations align with Table S4 of the Supporting Information.
+    # Flow-specific logic accounts for SCH, XCH, and phase-specific concentrations.
+    
     F[224] =Q_inf*(1+Sinf)*SCH_inf+Q_16*(1+S16)*SCH_16+Q_20*(1+S20)*SCH_20-Q_1*(1+S1)*SCH_1
     F[225] =Sinf*SCH_inf - XCH_1
     F[226] =Q_1*SCH_1*(1+S1) - Q_2*(1+Sw1)*SCH_2 - Q_3*(1+S3)*SCH_2 - ks*area_of_pc*SCH_2*fnon
