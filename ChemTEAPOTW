@@ -36,7 +36,6 @@ def myFunction(x):
     Q_20 = x[17]
     Q_21 = x[18]
    
-    
     Q_inf = 20648.3361
     SCH_inf = 0.1
     Qex = 2
@@ -84,7 +83,26 @@ def custom_max(a, b):
     return a if a > b else b
 def myFunction(x):
     global Mass_Flow, GCH_3, GCH_12, Mass_Flow_1, Mass_Flow_2, Mass_Flow_3, Mass_Flow_4, Mass_Flow_5, Mass_Flow_6, Mass_Flow_7, FtoM, q, q2, area_of_pc, area_of_SC, Vpc, volK, vol, vol2, HRT_as, SRT_AD, Ntot, Eff_lim, TSS_el, HRT_pc, HRT_sc, AI, CODe, SRT, toxreac1, toxreac2, toxreac3, toxreac4, toxreac5, toxreac6, toxreac7, toxreac8, toxreac9, toxreac10, toxreac11, toxreac12, toxreac13,  Sinf, Pass_perc, Removal_percent,Total, Removal_perc, Bio_perc, Soil_perc, Volat_perc,  XCH_AD,  XCH_19, XCH_1, XCH_2, XCH_3, XCH_4, XCH_5, XCH_6, XCH_7, XCH_8, XCH_9, XCH_10, XCH_11, XCH_12, XCH_13, XCH_14, XCH_15, XCH_16, XCH_17, XCH_18, XCH_19, XCH_20, SCH_AD, SCH_1, SCH_2, SCH_3, SCH_4, SCH_5, SCH_6, SCH_7, SCH_8, SCH_9, SCH_10, SCH_11, SCH_12, SCH_13, SCH_14, SCH_15, SCH_16, SCH_17, SCH_18, SCH_19, SCH_20, TSS_1, TSS_2, TSS_3, TSS_4, TSS_5, TSS_6, TSS_7, TSS_8, TSS_9, TSS_10, TSS_11, TSS_12, TSS_13, TSS_14, TSS_15, TSS_16, TSS_17, TSS_18, TSS_19, TSS_20, SH, XP_19,XBA_20, XP_18, Ssu0,Saa0,Sfa0, Sva0, Sbu0, Spro0, Sac0, Sh20,  Sch40, SIC0, SIN0, SI0, Xc0, Xch0, Xpr0, Xli0, Xsu0, Xaa0, Xfa0, Xc40, Xpro0, Xac0, Xh20, XI0, Scat0, San0, XBA_17, SI_1, SS_1, XI_1, XS_1, XBH_1, XBA_1, XP_1, SO_1, SNO_1, SNH_1, SND_1, XND_1, SALK_1, SI_9, SS_9, XI_9, XS_9, XBH_9, XBA_9, XP_9, SO_9, SNO_9, SNH_9, SND_9, XND_9, SALK_9, SI_21, SS_21, XI_21, XS_21, XBH_21, XBA_21, XP_21, SO_21, SNO_21, SNH_21, SND_21, XND_21, SALK_21, SI_12, SS_12, XI_12, XS_12, XBH_12, XBA_12, XP_12, SO_12, SNO_12, SNH_12, SND_12, XND_12, SALK_12, SI_13, SS_13, XI_13, XS_13, XBH_13, XBA_13, XP_13, SO_13, SNO_13, SNH_13, SND_13, XND_13, SALK_13, SI_14, SS_14, XI_14, XS_14, XBH_14, XBA_14, XP_14, SO_14, SNO_14, SNH_14, SND_14, XND_14, SALK_14, SI_15, SS_15, XI_15, XS_15, XBH_15, XBA_15, XP_15, SO_15, SNO_15, SNH_15, SND_15, XND_15, SALK_15, SI_16, SS_16, XI_16, XS_16, XBH_16, XBA_16, XP_16, SO_16, SNO_16, SNH_16, SND_16, XND_16, SALK_16, XI_3, XS_3, XBH_3, XBA_3, XP_3, XND_3, XBA_18, SI_16, XS_19, XI_19, XBH_19, XBA_19, XP_19, Q_1, Q_2, Q_3, Q_4, Q_5, Q_6, Q_9, Q_10, Q_11, Q_12, Q_13, Q_14, Q_15, Q_16, Q_17, Q_18, Q_19, Q_20, Q_21,SNO_20, SI_20, SS_20, XI_20, XS_20,  XBH_20,  XP_20,  SO_20, SNH_20, SND_20,  XND_20,  SALK_20,  SI_19, SS_19,  XI_19,  XS_19,  XBH_19,  XP_19,  SO_19,  SNO_19,  SNH_19, SND_19,  XND_19,  SALK_19, SI_18, SS_18,  XI_18,  XS_18, XBH_18,  XP_18, SO_18, SNO_18, SNH_18,  SND_18, XND_18, SALK_18, Ssu,Saa,Sfa, Sva, Sbu, Spro, Sac, Sh2,  Sch4, SIC, SIN, SI, Xc, Xch, Xpr, Xli, Xsu, Xaa, Xfa, Xc4, Xpro, Xac, Xh2, XI, Scat, San,Svaan, Sbuan, Sproan, Sacan, Shco3an, Snh3, Sgash2, Sgasch4, Sgasco2, XND_15, Q_15,Q_17,SI_17, SS_17, XS_17,XI_17,XBH_17, XP_17, SO_17, SNO_17,SNH_17, SND_17, XND_17, SALK_17 , S_su,S_aa,S_fa, S_va, S_bu, S_pro, S_ac, S_h2, S_ch4, S_IC, S_IN, S_I,X_xc, X_ch, X_pr, X_li, X_su, X_aa, X_fa, X_c4, X_pro, X_ac, X_h2, X_I,S_cation,S_anion, X_I, X_xc, SI_2, SS_2, XS_2, XI_2, XBH_2, XBA_2, XP_2,XND_2,XS_3, SO_2, SNH_2, SND_2, SALK_2, SNO_2, SI_3, SS_3, XS_3, XI_3, XBH_3, XBA_3, XP_3,XND_3,XS_3, SO_3, SNH_3, SND_3, SALK_3, SNO_3,SI_4, SS_4, XS_4, XI_4, XBH_4, XBA_4, XP_4,XND_4,XS_4, SO_4, SNH_4, SND_4, SALK_4, SNO_4,Q_12xtcarbon, Q_12xt, Q_3 , Q_2, Q_13, Xf, SI_11,SS_11,XS_11,XI_11,XBH_11,XBA_11,XP_11,SO_11,SNO_11,SNH_11,SND_11,XND_11,SALK_11,SI_2,SS_2,XS_2,XI_2,XBH_2,XBA_2,XP_2,SO_2,SNO_2,SNH_2,SND_2,XND_2,SALK_2,SS_5,XS_5,XBH_5,XBA_5,XP_5,SO_5,SNO_5,SNH_5,SND_5,XND_5,SALK_5,S_I,X_I,SS_6,XS_6,XBH_6,XBA_6,XP_6,SO_6,SNO_6,SNH_6,SND_6,XND_6,SALK_6,SI_6,XI_6,SS_7,XS_7,XBH_7,XBA_7,XP_7,SO_7,SNO_7,SNH_7,SND_7,XND_7,SALK_7,SI_7,XI_7,SS_8,XS_8,XBH_8,XBA_8,XP_8,SO_8,SNO_8,SNH_8,SND_8,XND_8,SALK_8,SI_8,XI_8,SS_10,XS_10,XBH_10,XBA_10,XP_10,SO_10,SNO_10,SNH_10,SND_10,XND_10,SALK_10,SI_10,XI_10,Xsc10,Xsc9,Xsc8,Xsc7,Xsc6,Xsc5,Xsc4,Xsc3,Xsc2,Xsc1,S_su,S_aa, S_fa, S_va, S_bu, S_pro, S_ac, S_h2, S_ch4, S_IC, S_IN, S_I,X_c,X_ch, X_pr, X_li, X_su, X_aa, X_fa, X_c4, X_pro, X_ac, X_h2, X_I,Scat, San, XI_5, SI_5,SI_4, SS_4, XS_4, XI_4, XBH_4, XBA_4, XP_4,XND_4,XS_4, SO_4, SNH_4, SND_4, SALK_4, SNO_4, SS_5,XS_5,XBH_5,XBA_5,XP_5,SO_5,SNO_5,SNH_5,SND_5,XND_5,SALK_5,SI_5,XI_5,SS_6,XS_6,XBH_6,XBA_6,XP_6,SO_6,SNO_6,SNH_6,SND_6,XND_6,SALK_6,SI_6,XI_6,SS_7,XS_7,XBH_7,XBA_7,XP_7,SO_7,SNO_7,SNH_7,SND_7,XND_7,SALK_7,SI_7,XI_7,SS_8,XS_8,XBH_8,XBA_8,XP_8,SO_8,SNO_8,SNH_8,SND_8,XND_8,SALK_8,SI_8,XI_8,SS_10,XS_10,XBH_10,XBA_10,XP_10,SO_10,SNO_10,SNH_10,SND_10,XND_10,SALK_10,SI_10,XI_10, SI_11, SS_11, XS_11, XI_11, XBH_11, XBA_11, XP_11,XND_11,XS_3, SO_11, SNH_11, SND_11, SALK_11, SNO_11, Q_14, Xsc10, Xsc9, Xsc8, Xsc7, Xsc6, Xsc5, Xsc4, Xsc3, Xsc2, Xsc1, Q_inf,Q_1, Q_2, Q_3, Q_4, Q_5, Q_6, Q_9, Q_10, Q_11, Q_12, Q_13, Q_14, Q_15, Q_16, Q_17, Q_18, Q_19, Q_20, Q_21, Qex
-   
+
+    # Variable Index Mapping for Plant-Wide Simulation
+    # 
+    # Variables indexed from 0 to 223 represent conventional BSM2 state variables 
+    # across all unit processes within the plant. These include:
+    #   - Soluble and particulate COD fractions (e.g., SI, SS, XI, XS)
+    #   - Biomass states (e.g., XBH, XBA)
+    #   - Nutrient species (e.g., SNH, SNO, SALK)
+    #   - Inert and nitrogenous fractions 
+    # This mapping structure mirrors the layout used in the Benchmark Simulation Model No. 2 (BSM2) 
+    # and supports mass balance calculations through the plant.
+    #
+    # Variables indexed from 224 to 263 represent the concentrations of the selected 
+    # Chemical(s) of Concern (CoCs) in both the liquid and sorbed (solid) phases at each 
+    # respective unit process. These include:
+    #   - SCH (soluble CoC)
+    #   - XCH (sorbed CoC)
+    # CoC tracking is incorporated into the fate and transport calculations and aligns with 
+    # Table S1 (physicochemical properties) and Section S3/S4 of the Supporting Information.
+ 
     SI_1 = x[0]
     SS_1 = x[1]
     XI_1 = x[2]
