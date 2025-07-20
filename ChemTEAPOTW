@@ -3,6 +3,19 @@ from numpy import *
 from scipy.optimize import *
 def myFunction(x):
     global SCH_inf, HRT_pc, thickratio, rt, Q_inf,Q_1, Q_2, Q_3, Q_4, Q_5, Q_6, Q_7, Q_8, Q_9, Q_10, Q_11, Q_12, Q_13, Q_14, Q_15, Q_16, Q_17, Q_18, Q_19, Q_20, Q_21, Qex, Qch
+    
+    # Flow Rate Calculation – Dependent on Influent Flow (Q_inf)
+    # ------------------------------------------------------------------
+    # This section calculates flow rates between unit processes based on Q_inf,
+    # the influent flow rate to the POTW. These flow relationships are structured
+    # to mirror the Benchmark Simulation Model No. 2 (BSM2) configuration and logic.
+    #
+    # Flow rates (e.g., Q_2, Q_5, Q_6, etc.) are proportionally derived from Q_inf 
+    # or intermediary splits to ensure mass conservation and process realism 
+    # consistent with BSM2 architecture.
+    #
+    # Flow IDs correspond to those shown in Figure S1.
+
     Q_1 = x[0]
     Q_2 = x[1]
     Q_3 = x[2]
@@ -23,11 +36,8 @@ def myFunction(x):
     Q_20 = x[17]
     Q_21 = x[18]
    
-    rt = 1
-   
-    #5#
+    
     Q_inf = 20648.3361
-#
     SCH_inf = 0.1
     Qex = 2
     thickratio = 0.1
@@ -317,7 +327,7 @@ def myFunction(x):
     SCH_1 = x[224]
     XCH_1 = x[225]
     SCH_2 = x[226]
-    XCH_2 = x[227]
+    XCH_2 = x[227] 
     SCH_3 = x[228]
     XCH_3 = x[229]
     GCH_3 = x[230]
