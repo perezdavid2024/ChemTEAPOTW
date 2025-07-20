@@ -1,4 +1,4 @@
-from numpy import zeros
+   from numpy import zeros
 from numpy import *
 from scipy.optimize import *
 def myFunction(x):
@@ -101,7 +101,7 @@ def myFunction(x):
     #   - SCH (soluble CoC)
     #   - XCH (sorbed CoC)
     # CoC tracking is incorporated into the fate and transport calculations and aligns with 
-    # Table S1 (physicochemical properties) and Section S3/S4 of the Supporting Information.
+    # Table S1 (physicochemical properties) and Section S3/S4 of the SI.
  
     SI_1 = x[0]
     SS_1 = x[1]
@@ -341,7 +341,9 @@ def myFunction(x):
     XND_20 = x[221]
     SALK_20 = x[222]
     TSS_20 = x[223]
-   
+
+    
+
     SCH_1 = x[224]
     XCH_1 = x[225]
     SCH_2 = x[226]
@@ -403,7 +405,7 @@ def myFunction(x):
     Tc = 15 #temperature, C
     T = Tc + 273.15 #temperature, K
 
-    # This section loads physicochemical properties for the selected Chemicals of Concern (CoCs)
+    # This section loads physicochemical properties for the selected CoCs
     # as presented in Table S1 of the Supporting Information document.
     # Properties include MW, Henry's Constant, LogKow, kbio, biodegradability, and Kd.
 
@@ -446,7 +448,7 @@ def myFunction(x):
     fnon = 1 #pH dependent non-dissociated fraction of a contaminant
     HcAD = 0.417464904404533 #Temperature corrected Henry's constant, @ 35 degrees Celcius, L liq/L gas
    
-    #etyhlbenzene
+    # Etyhlbenzene
     # bio = 0
     # bio = 1
     # Hc_25 = 0.322086945
@@ -459,7 +461,7 @@ def myFunction(x):
     # fnon = 1 #pH dependent non-dissociated fraction of a contaminant
     # HcAD = 0.495425217877669 #Temperature corrected Henry's constant, @ 35 degrees Celcius, L liq/L gas
    
-    #1,1,2-Trichloroethane
+    # 1,1,2-Trichloroethane
     # bio = 0
     # Hc_25 = 0.033680158
     # Hc = Hc_25*Theta**(Tc-25)
@@ -470,7 +472,7 @@ def myFunction(x):
     # fnon = 1 #pH dependent non-dissociated fraction of a contaminant
     # HcAD =  0.0518058857273096#Temperature corrected Henry's constant, @ 35 degrees Celcius, L liq/L gas
    
-    # #methyl Chloride
+    # Methyl Chloride
     # bio = 1
     # Hc_25 = 0.132840428
     # Hc = Hc_25*Theta**(Tc-25)
@@ -482,7 +484,7 @@ def myFunction(x):
     # fnon = 1 #pH dependent non-dissociated fraction of a contaminant
     # HcAD =  0.204331467#Temperature corrected Henry's constant, @ 35 degrees Celcius, L liq/L gas
    
-    #Perchloroethylene
+    # Perchloroethylene
     # bio = 0
     # Hc_25 = 0.723469407
     # Hc = Hc_25*Theta**(Tc-25)
@@ -493,7 +495,7 @@ def myFunction(x):
     # fnon = 1 #pH dependent non-dissociated fraction of a contaminant
     # HcAD =  1.11282060360847 #Temperature corrected Henry's constant, @ 35 degrees Celcius, L liq/L gas
    
-    #Trichloroethylene
+    # Trichloroethylene
     # bio = 1
     # Hc_25 = 0.402608681
     # Hc = Hc_25*Theta**(Tc-25)
@@ -504,7 +506,7 @@ def myFunction(x):
     # fnon = 1 #pH dependent non-dissociated fraction of a contaminant
     # HcAD =  0.619281522347087
    
-    #1,2-Dichloroethane
+    # 1,2-Dichloroethane
     # bio = 0
     # Hc_25 = 0.048231294
     # Hc = Hc_25*Theta**(Tc-25)
@@ -515,7 +517,7 @@ def myFunction(x):
     # fnon = 1 #pH dependent non-dissociated fraction of a contaminant
     # HcAD =  0.07418804
    
-    #Chlorobenzene
+    # Chlorobenzene
     # bio = 0
     # Hc_25 = 0.127118071
     # Hc = Hc_25*Theta**(Tc-25)
@@ -527,27 +529,15 @@ def myFunction(x):
     # fnon = 1 #pH dependent non-dissociated fraction of a contaminant
     # HcAD =  0.195529495888268
    
-    # #1,4-dioxane
-    # bio = 1
-    # Hc = 1.2755E-04 #0.000128467986848519#0.000147204 #Temperature corrected Henry's constant, L liq/L gas
-    # Mw = 88.11  #molecular weight of compound, g/mol
-    # dc = 1.03  #density of compound at the compound normal boiling point, g/cm3
-    # kp = 9.62498E-06#.0000704392#9.62498E-06 #Soprtion partition coefficient for volatile solids L/mg
-    # kbio_20 = 0.002558262 #First order kinetic biodegradation rate, d-1
-    # kbio = kbio_20*Theta**(Tc-20)
-    # fnon = 1 #pH dependent non-dissociated fraction of a contaminant
-    # HcAD = 3.0178E-04 #0.000345781 #temperature corrected Henry's Law
-    # Theta = 1.044
-   
     ##Non-reacion/change variable relationships for recyle flow##
     SI_11 = SI_10
-    SS_11       = SS_10
-    XI_11      = XI_10*Xsc1/TSS_10
-    XS_11       = XS_10*Xsc1/TSS_10
+    SS_11 = SS_10
+    XI_11 = XI_10*Xsc1/TSS_10
+    XS_11 = XS_10*Xsc1/TSS_10
     XBH_11 = XBH_10*Xsc1/TSS_10
     XBA_11 = XBA_10*Xsc1/TSS_10
     XP_11 = XP_10*Xsc1/TSS_10
-    SO_11       = SO_10
+    SO_11 = SO_10
     SNO_11 = SNO_10
     SNH_11 = SNH_10
     SND_11 = SND_10
@@ -556,51 +546,51 @@ def myFunction(x):
     TSS_11 = Xsc1
 
     SI_12 = SI_10
-    SS_12       = SS_10
-    XI_12      = XI_10*Xsc10/TSS_10
-    XS_12       = XS_10*Xsc10/TSS_10
+    SS_12 = SS_10
+    XI_12 = XI_10*Xsc10/TSS_10
+    XS_12 = XS_10*Xsc10/TSS_10
     XBH_12 = XBH_10*Xsc10/TSS_10
     XBA_12 = XBA_10*Xsc10/TSS_10
     XP_12 = XP_10*Xsc10/TSS_10
-    SO_12       = SO_10
+    SO_12 = SO_10
     SNO_12 = SNO_10
     SNH_12 = SNH_10
     SND_12 = SND_10
     XND_12 = XND_10*Xsc10/TSS_10
-    SALK_12    = SALK_10
+    SALK_12 = SALK_10
     TSS_12 = Xsc10
 
     SI_13 = SI_11
-    SS_13       = SS_11
-    XI_13      = XI_11
-    XS_13       = XS_11
+    SS_13 = SS_11
+    XI_13 = XI_11
+    XS_13 = XS_11
     XBH_13 =  XBH_11
     XBA_13 =  XBA_11
     XP_13 =  XP_11
-    SO_13       =  SO_11
+    SO_13 =  SO_11
     SNO_13 =  SNO_11
     SNH_13 =  SNH_11
     SND_13 =  SND_11
     XND_13 =  XND_11
-    SALK_13    =  SALK_11
+    SALK_13 =  SALK_11
     TSS_13 = TSS_11
    
     SI_14 = SI_13
-    SS_14       = SS_13
-    XI_14      = XI_13
-    XS_14       = XS_13
+    SS_14 = SS_13
+    XI_14 = XI_13
+    XS_14 = XS_13
     XBH_14 =  XBH_13
     XBA_14 =  XBA_13
     XP_14 =  XP_13
-    SO_14       =  SO_13
+    SO_14 =  SO_13
     SNO_14 =  SNO_13
     SNH_14 =  SNH_13
     SND_14 =  SND_13
     XND_14 =  XND_13
-    SALK_14    =  SALK_13
+    SALK_14 =  SALK_13
     TSS_14 = TSS_13
 
-    ##Thickener Parameter##
+    # Thickener Parameter #
     pthi = 7 # % of suspended solids in underflow of thickener
     TSSrem = 98 #% of suspended solids removed in thickener
     fthick = pthi*10000/TSS_14#Xsc1;
@@ -669,7 +659,12 @@ def myFunction(x):
     S17 = kp*VSS_17
     S20 = kp*VSS_20
    
-    ##Primary Clarifier Parameters##
+    # This section defines the parameters and equations governing the 
+    # primary clarifier (V-01), which performs initial solid-liquid separation 
+    # of the influent wastewater.
+    #
+    # Refer to SI Table S4 #
+
     Vpc= rt*900; # Volume of the primary clarifier m3
     fcorr = 0.65;# _Efficiency Correction factor
     fX = 0.85;# CODpart/CODtot ratio (mean value)
@@ -679,7 +674,6 @@ def myFunction(x):
     fk = (1-nCODp/100)
     area_of_pc = 300*rt**0.5
    
-
     ##Activated Sludge Tank Parameters##
     vol2 = rt*3000 #area*dep #volume of aerated tanks, m3
     OTE = 0.1 #Oxygen Transfer efficiency
@@ -940,7 +934,7 @@ def myFunction(x):
     reac513 = -i_XB/14.0*proc51+((1.0-Y_H)/(14.0*2.86*Y_H)-(i_XB/14.0))*proc52-((i_XB/14.0)+1.0/(7.0*Y_A))*proc53+proc56/14.0;
    
    
-    #This seion includs secondary clarifier parameters and equations based on Supporting Information S3 and Table S4.
+    #This section includs secondary clarifier parameters and equations based on Supporting Information S3 and Table S4.
     Xf = TSS_10
     Xt = 3000;  #threshold suspended solid concentration, mg/L
     fns = 0.00228; #non-settleable fraction
@@ -951,8 +945,6 @@ def myFunction(x):
     v0 = 474.0; #maximum theoretical settling velocity m/d
     zm = 0.4#*rt**0.5; #height of each layer, m
     A_sc= 1500*rt**0.5 #area, m2;
-   
-
 
     #Jsc(x) is the solidssolid flux due to gravity (m/d)*mg/L
     if Xsc6 > Xt:
@@ -977,14 +969,17 @@ def myFunction(x):
     else :
         Jsc10 = (custom_max(0, custom_min(vmax,v0*(math.exp(-rh*(Xsc10-Xmin))-math.exp(-rp*(Xsc10-Xmin))))))*Xsc10
    
-    ##Thickener Parameter##
+    # Thickener Parameters #
     pthi = 7 # % of suspended solids in underflow of thickener
     TSSrem = 98 #% of suspended solids removed in thickener
     fthick = pthi*10000/TSS_14#Xsc1;
     fqtu = TSSrem/(100*fthick);
     fthin = (1-TSSrem/100)/(1-fqtu);
+    
+    # This section defines the parameters and modeling equations for the 
+    # anaerobic digestion unit (R-06), which treats sludge from upstream 
+    # clarification and biomass decay processes. Refer to SI for AD equations, parameters, and interface.
 
-    ##Anaerobic Digester Parameters##
     N_xc = 0.0376/14; #nitrogen content of Xc , [kmol N ⋅ (kg COD)−1]
     N_I = 0.06/14; #nitrogen content of inerts, [kmol N ⋅ (kg COD)−1]
     N_aa = 0.007; #nitrogen content of Saa , [kmol N ⋅ (kg COD)−1]
@@ -1075,7 +1070,7 @@ def myFunction(x):
     pH_adm = 7.4655377#-math.log10(SH)#
 
    
-    k_P = 5.0e4; #mxGetPr(PAR(S))[99];
+    k_P = 5.0e4;
    
     pK_w_base = 14.0;
     pK_a_va_base = 4.86;
@@ -1111,8 +1106,6 @@ def myFunction(x):
     frlibac = 0.4;          # lipid fraction of non-nitrogenous biomass in BSM2
     frxs_adm = 0.68;        # anaerobically degradable fraction of AS biomass in BSM2
     fdegrade_adm = 0;   # amount of AS XI and XP degradable in AD, zero in BSM2
-    # frxs_as = 0.79;         # aerobically degradable fraction of AD biomass in BSM2
-    # fdegrade_as = 0;
    
     V_liq = rt*3400; #Anaerobic Digester Volume [m3]
     V_gas = rt*100; #Anaerobic Digester Head Space Volume [m3]
@@ -1144,16 +1137,13 @@ def myFunction(x):
     p_gas_h20 = 0.0557
    
     P_gas = p_gas_h2 + p_gas_ch4 + p_gas_co2 + p_gas_h20
+    
     #pH algebraic equations
     Snh4 = SIN - Snh3;
     Sco2 = SIC - Shco3an;
    
     shdelta = Scat + (Snh4) + SH - Shco3an - Sacan / 64.0 - Sproan / 112.0 - Sbuan / 160.0 - Svaan / 208.0 - K_w / SH - San
     shgradeq = 1 + K_a_IN * SIN / ((K_a_IN + SH) * (K_a_IN + SH)) + K_a_co2 * SIC / ((K_a_co2 + SH) * (K_a_co2 + SH))  + 1 / 64.0 * K_a_ac * Sac / ((K_a_ac + SH) * (K_a_ac + SH)) +1 / 112.0 * K_a_pro * Spro / ((K_a_pro + SH) * (K_a_pro + SH))  + 1 / 160.0 * K_a_bu * Sbu / ((K_a_bu + SH) * (K_a_bu + SH))  + 1 / 208.0 * K_a_va * Sva / ((K_a_va + SH) * (K_a_va + SH))  + K_w / (SH * SH)
-    #Ot = Scat + Snh4 - Shco3an - Sacan/64 - Sproan/112 - Sbuan/160 - Svaan/208 - San ;
-    # SH =5.4562e-08#0.0000000342344#
-    #-Ot/2 + 1/2*math.sqrt(Ot**2 + 4*K_w);
-   
    
    
    
@@ -1492,155 +1482,146 @@ def myFunction(x):
     SNO_17_temp = 0;
 
    
-    if CODdemand > SS_17: #{ /* check if COD demand can be fulfilled by SS*/
+    if CODdemand > SS_17: 
         remaina = CODdemand - SS_17;
         SS_17_temp = 0.0;
    
-        if (remaina > XS_17): #{ /* check if COD demand can be fulfilled by XS*/
+        if (remaina > XS_17): 
             remainb = remaina - XS_17;
             XS_17_temp = 0.0;
    
-            if (remainb > XBH_17): #{ /* check if COD demand can be fulfilled by XBH */
+            if (remainb > XBH_17): 
                 remainc = remainb - XBH_17;
-                SNH_17_temp = SNH_17_temp + XBH_17*fnbac;#??????????
-    #------------->>>>>>>>>>            SNH_17_temp or SNH_17
+                SNH_17_temp = SNH_17_temp + XBH_17*fnbac;
                 XBH_17_temp = 0.0;
    
-                if (remainc > XBA_17): #{ /* check if COD demand can be fulfilled by XBA */
+                if (remainc > XBA_17): 
                     remaind = remainc - XBA_17;
                     SNH_17_temp = SNH_17_temp + XBA_17*fnbac;
                     XBA_17_temp = 0.0;
                     SO_17_temp = remaind;
-                else :#{ /* reduced all COD demand by use of SS, XS, XBH and XBA */
+                else :
                     XBA_17_temp = XBA_17 - remainc;
                     SNH_17_temp = SNH_17_temp + remainc*fnbac;
-            else :# { /* reduced all COD demand by use of SS, XS and XBH */
+            else :
                 XBH_17_temp = XBH_17 - remainb;
                 SNH_17_temp = SNH_17_temp + remainb*fnbac;
-        else :#{ /* reduced all COD demand by use of SS and XS */
+        else :
             XS_17_temp = XS_17 - remaina;
-    else:#{ /* reduced all COD demand by use of SS */
+    else:
         SS_17_temp = SS_17 - CODdemand;
      
 
-    sorgn = SND_17/fnaa; #/* Saa COD equivalent to SND */
+    sorgn = SND_17/fnaa; 
 
-    if (sorgn >= SS_17_temp) :#{ /* not all SND-N in terms of COD fits into amino acids */
-        S_aa = SS_17_temp; #/* map all SS COD into Saa */  
-        SND_17_temp = SND_17_temp - SS_17_temp*fnaa; #/* excess SND */????????
-        #------------->>>>>>>>>>            SND_17_temp or SND_17
-        SS_17_temp = 0.0; #/* all SS used */
-    else :#{ /* all SND-N fits into amino acids */
-        S_aa = sorgn; #/* map all SND related COD into Saa */
-        SS_17_temp = SS_17_temp - sorgn; #/* excess SS, which will become sugar in ADM1 i.e. no nitrogen association */
-        SND_17_temp = 0.0; #/* all SND used */
+    if (sorgn >= SS_17_temp) :
+        S_aa = SS_17_temp; 
+        SND_17_temp = SND_17_temp - SS_17_temp*fnaa; 
+        SS_17_temp = 0.0; 
+    else :
+        S_aa = sorgn; 
+        SS_17_temp = SS_17_temp - sorgn; 
+        SND_17_temp = 0.0;
    
    
-    xorgn = XND_17/fnaa; #/* Xpr COD equivalent to XND */
-    if (xorgn >= XS_17_temp): #{ /* not all XND-N in terms of COD fits into Xpr */
-        xprtemp = XS_17_temp;# /* map all XS COD into Spr */
-        XND_17_temp = XND_17_temp - XS_17_temp*fnaa; #/* excess XND */   ?????
-        #------------->>>>>>>>>>            XND_17_temp or SNH_17
+    xorgn = XND_17/fnaa; 
+    if (xorgn >= XS_17_temp):
+        xprtemp = XS_17_temp
+        XND_17_temp = XND_17_temp - XS_17_temp*fnaa; 
         xlitemp = 0.0;
         xchtemp = 0.0;
    
-    else :#{ /* all XND-N fits into Xpr */
-        xprtemp = xorgn; #/* map all XND related COD into Xpr */
-        xlitemp = frlixs*(XS_17temp - xorgn); #/* part of XS COD not associated with N */
-        xchtemp = (1.0 - frlixs)*(XS_17temp - xorgn); #/* part of XS COD not associated with N */
-        XS_17_temp = 0.0; #/* all XS used */
-        XND_17_temp = 0.0; #/* all XND used */
+    else :
+        xprtemp = xorgn;
+        xlitemp = frlixs*(XS_17temp - xorgn); 
+        xchtemp = (1.0 - frlixs)*(XS_17temp - xorgn); 
+        XS_17_temp = 0.0; 
+        XND_17_temp = 0.0; 
        
    
   
     if ((biomass_bioN/fnaa) <= (biomass - biomass_nobio_as)) :
-        xprtemp2 = biomass_bioN/fnaa; #/* all biomass N used */
+        xprtemp2 = biomass_bioN/fnaa
         remainCOD = biomass - biomass_nobio_as - xprtemp2;
    
-        if ((XND_17_temp/fnaa) > remainCOD):# { /* use part of remaining XND-N to form proteins */
+        if ((XND_17_temp/fnaa) > remainCOD):
             xprtemp2 = xprtemp2 + remainCOD;
             XND_17_temp = XND_17_temp - remainCOD*fnaa;
             remainCOD = 0.0;
             XBH_17_temp = 0.0;
             XBA_17_temp = 0.0;
        
-        else :#{ /* use all remaining XND-N to form proteins */
+        else :
             xprtemp2 = xprtemp2 + XND_17_temp/fnaa;
             remainCOD = remainCOD - XND_17_temp/fnaa;
             XND_17_temp = 0.0;
-        xlitemp2 = frlibac*remainCOD; #/* part of the COD not associated with N */
-        xchtemp2 = (1.0 - frlibac)*remainCOD; #/* part of the COD not associated with N */
+        xlitemp2 = frlibac*remainCOD; 
+        xchtemp2 = (1.0 - frlibac)*remainCOD; 
     else :
-        xprtemp2 = biomass - biomass_nobio_as; #/* all biomass COD used */
-        XND_17_temp = XND_17_temp + biomass*fnbac - biomass_nobio_as*fxni - xprtemp2*fnaa; #/* any remaining N in XND */
+        xprtemp2 = biomass - biomass_nobio_as;
+        XND_17_temp = XND_17_temp + biomass*fnbac - biomass_nobio_as*fxni - xprtemp2*fnaa;
 
-
-   
-   
     XBH_17_temp = 0.0;
     XBA_17_temp = 0.0;
    
-  
     inertX = (1-fdegrade_adm)*(XI_17temp + XP_17temp);
    
     xc = 0.0;
     xlitemp3 = 0.0;
     xchtemp3 = 0.0;
-    if (fdegrade_adm > 0) :#{
+    if (fdegrade_adm > 0) :
         noninertX = fdegrade_adm*(XI_17temp + XP_17temp);
-        if (fxni < fnxc) :#{ /* N in XI&XP(ASM) not enough */
+        if (fxni < fnxc) : 
             xc = noninertX*fxni/fnxc;
             noninertX = noninertX - noninertX*fxni/fnxc;
-            if (XND_17_temp < (noninertX*fnxc)):# { /* N in XND not enough */
+            if (XND_17_temp < (noninertX*fnxc)):
                 xc = xc + XND_17_temp/fnxc;
                 noninertX = noninertX - XND_17_temp/fnxc;
                 XND_17_temp = 0.0;
-                if (SND_17_temp < (noninertX*fnxc)) :#{ /* N in SND not enough */
+                if (SND_17_temp < (noninertX*fnxc)) :
                     xc = xc + SND_17_temp/fnxc;
                     noninertX = noninertX - SND_17_temp/fnxc;
                     SND_17_temp = 0.0;
-                    if (SNH_17_temp < (noninertX*fnxc)) :#{ /* N in SNH not enough */
+                    if (SNH_17_temp < (noninertX*fnxc)) :
                         xc = xc + SNH_17_temp/fnxc;
                         noninertX = noninertX - SNH_17_temp/fnxc;
                         SNH_17_temp = 0.0;
                         xlitemp3 = 0.5*noninertX;
                         xchtemp3 = 0.5*noninertX;
                         noninertX = 0.0;
-                    else :# { /* N in SNH enough for mapping */
+                    else :
                         xc = xc + noninertX;
                         SNH_17_temp = SNH_17_temp - noninertX*fnxc;
                         noninertX = 0.0;
    
-                else :# { /* N in SND enough for mapping */
+                else :
                     xc = xc + noninertX;
                     SND_17_temp = SND_17_temp - noninertX*fnxc;
                     noninertX = 0.0;
    
-            else :#{ /* N in XND enough for mapping */
+            else :
                 xc = xc + noninertX;
                 XND_17_temp = XND_17_temp - noninertX*fnxc;
                 noninertX = 0.0;
-    else :#{ /* N in XI&XP(ASM) enough for mapping */
+    else :
         noninertX = 0;
         xc = xc + noninertX;
-        XND_17_temp= XND_17_temp + noninertX*(fxni-fnxc); #/* put remaining N as XND */
+        XND_17_temp= XND_17_temp + noninertX*(fxni-fnxc); 
        
-   
-    # /* Mapping of ASM SI to ADM1 SI
-   
+  
     inertS = 0.0;
-    if (fsni < fsni_adm) :#{ /* N in SI(ASM) not enough */
+    if (fsni < fsni_adm) :
         inertS = SI_17temp*fsni/fsni_adm;
         SI_17temp = SI_17temp - SI_17temp*fsni/fsni_adm;
-        if (SND_17temp < (SI_17temp*fsni_adm)) :#{ /* N in SND not enough */
+        if (SND_17temp < (SI_17temp*fsni_adm)) :
             inertS = inertS + SND_17temp/fsni_adm;
             SI_17temp = SI_17temp - SND_17temp/fsni_adm;
             SND_17temp = 0.0;
-            if (XND_17temp < (SI_17temp*fsni_adm)) :#{ /* N in XND not enough */
+            if (XND_17temp < (SI_17temp*fsni_adm)) :
                 inertS = inertS + XND_17temp/fsni_adm;
                 SI_17temp = SI_17temp - XND_17temp/fsni_adm;
                 XND_17temp = 0.0;
-                if (SNH_17temp < (SI_17*fsni_adm)) :#{ /* N in SNH not enough */
+                if (SNH_17temp < (SI_17*fsni_adm)) :
                     inertS = inertS + SNH_17temp/fsni_adm;
                     SI_17temp = SI_17temp - SNH_17temp/fsni_adm;
                     SNH_17temp = 0.0;
@@ -1649,11 +1630,11 @@ def myFunction(x):
     
                     SI_17temp = 0.0;
    
-                else :#{ /* N in SNH enough for mapping */
+                else 
                     inertS = inertS + SI_17temp;
                     SNH_17temp = SNH_17temp - SI_17temp*fsni_adm;
                     SI_17temp = 0.0;
-            else:# { /* N in XND enough for mapping */
+            else:
                 inertS = inertS + SI_17temp;
                 XND_17temp = XND_17temp - SI_17temp*fsni_adm;
                 SI_17temp = 0.0;
@@ -1661,9 +1642,9 @@ def myFunction(x):
             inertS = inertS + SI_17temp;
             SND_17temp = SND_17temp - SI_17temp*fsni_adm;
             SI_17temp = 0.0;
-    else :#{ /* N in SI(ASM) enough for mapping */
+    else :
         inertS = inertS + SI_17temp;
-        SND_17_temp = SND_17temp + SI_17temp*(fsni-fsni_adm); #/* put remaining N as SND */
+        SND_17_temp = SND_17temp + SI_17temp*(fsni-fsni_adm); 
         SI_17temp = 0.0;
    
     R =  0.083145 #bar.M^-1.K^-1
@@ -1796,7 +1777,9 @@ def myFunction(x):
     F[211] = -Sgash2*q_gas/V_gas+procT8*V_liq/V_gas;
     F[212] = -Sgasch4*q_gas/V_gas+procT9*V_liq/V_gas;
     F[213] = -Sgasco2*q_gas/V_gas+procT10*V_liq/V_gas;
-   
+
+    # This section handles the conversion of ADM1 outputs back into forms compatible with the ASM framework.
+
     Ssutemp = Ssu
     Saatemp =  Saa
     Sfatemp =  Sfa
@@ -1836,7 +1819,7 @@ def myFunction(x):
     frxs_as = 0.79;  
     fdegrade_as = 0;
     biomassad = 1000.0*(Xsutemp + Xaatemp + Xfatemp + Xc4temp + Xprotemp + Xactemp + Xh2temp);
-    biomass_nobio = biomassad*(1.0 - frxs_as); #/* part which is mapped to XP */
+    biomass_nobio = biomassad*(1.0 - frxs_as); 
     biomass_bioNad = (biomassad*fnbac - biomass_nobio*fxni);
     remainCODad = 0.0;
     if (biomass_bioNad < 0.0) :
@@ -1848,21 +1831,18 @@ def myFunction(x):
         XPtemp = biomass_nobio;
    
     if ((biomass_bioNad/fnxc) <= (biomassad - biomass_nobio)):
-        XStemp = biomass_bioNad/fnxc; #/* all biomass N used */
+        XStemp = biomass_bioNad/fnxc;
         remainCODad = biomassad - biomass_nobio - XStemp;
-        if ((SINtemp*14000.0/fnaa) >= remainCODad): #{ /* use part of remaining S_IN to form XS */
+        if ((SINtemp*14000.0/fnaa) >= remainCODad): 
             XStemp = XStemp + remainCODad;
    
         else :
             'not enough nitrogen to map the requested XS part of biomass'
    
     else :
-        XStemp = biomassad - biomass_nobio; #/* all biomass COD used */
-   
+        XStemp = biomassad - biomass_nobio; 
         SINtemp = SINtemp + biomassad*fnbac/14000.0 - XPtemp*fxni/14000.0 - XStemp*fnxc/14000.0;
-        #any remaining N in S_IN */
         XS_18 = (Xctemp + Xchtemp + Xprtemp + Xlitemp)*1000.0 + XStemp;  
-        #Xs = sum all X except Xi, + biomass as handled above */
         XP_18 = XPtemp; #/* inert part of biomass
    
   
@@ -1871,45 +1851,45 @@ def myFunction(x):
     noninertXad = 0.0;
     if (fdegrade_as > 0.0) :
         noninertXad = fdegrade_as*XItemp*1000.0;
-        if (fxni < fnxc) :#{ /* N in XI(AD) not enough */
+        if (fxni < fnxc) :
             XStemp2 = noninertXad*fxni/fnxc;
             noninertXad = noninertXad - noninertXad*fxni/fnxc;
-            if ((SINtemp*14000.0) < (noninertXad*fnxc)) :#{ /* N in SNH not enough */
+            if ((SINtemp*14000.0) < (noninertXad*fnxc)) :
                 XStemp2 = XStemp2 + (SINtemp*14000.0)/fnxc;
                 noninertXad = noninertXad - (SINtemp*14000.0)/fnxc;
                 SINtemp = 0.0;
    
-            else :#{ /* N in SIN enough for mapping */
+            else :
                 XStemp2 = XStemp2 + noninertXad;
                 SINtemp = SINtemp - noninertXad*fnxc/14000.0;
                 noninertXad = 0.0;
    
-        else :#{ /* N in XI(AD) enough for mapping */
+        else :
             XStemp2 = XStemp2 + noninertXad;
-            SINtemp = SINtemp + noninertXad*(fxni - fnxc)/14000.0; #/* put remaining N as S_IN */
+            SINtemp = SINtemp + noninertXad*(fxni - fnxc)/14000.0; 
             noninertXad = 0;
     else :
-        XI_18 = inertXad; #/* Xi = Xi*fdegrade_AS + possibly nonmappable XS */
-        XS_18 = XS_18 + XStemp2  #(Xc + Xch + Xpr + Xli)*1000.0 + XStemp + XStemp2; #/* extra added XS (biodegradable XI) */
+        XI_18 = inertXad; 
+        XS_18 = XS_18 + XStemp2  
     
     inertSad = 0.0;
-    if (fsni_adm < fsni):# { /* N in SI(AD) not enough */
+    if (fsni_adm < fsni):
         inertSad = SItemp*fsni_adm/fsni;
         SItemp = SItemp - SItemp*fsni_adm/fsni;
-        if ((SINtemp*14.0) < (SItemp*fsni)):# { /* N in SIN not enough */
+        if ((SINtemp*14.0) < (SItemp*fsni)):
             inertSad = inertSad + SINtemp*14.0/fsni;
             SItemp = SItemp - SINtemp*14.0/fsni;
             SINtemp = 0.0;
   
    
-        else :#{ /* N in SIN enough for mapping */
+        else :
             inertSad = inertSad + SItemp;
             SINtemp = SINtemp - SItemp*fsni/14.0;
             SItemp = 0.0;
    
-    else :#{ /* N in SI(AD) enough for mapping */
+    else :
         inertSad = inertSad + SItemp;
-        SINtemp = SINtemp + SItemp*(fsni_adm - fsni)/14.0; #/* put remaining N as SIN */
+        SINtemp = SINtemp + SItemp*(fsni_adm - fsni)/14.0; 
         SItemp = 0.0;
    
     SI_18 = inertSad*1000.0; #/* Si = Si ;
@@ -1919,7 +1899,7 @@ def myFunction(x):
    
     SND_18 = fnaa*1000.0*Saatemp;
    
-    SNH_18 = SINtemp*14000.0; #/* Snh = SIN including adjustments above */
+    SNH_18 = SINtemp*14000.0; 
    
     SNO_18 = 0;
     SO_18 = 0;
@@ -1930,7 +1910,7 @@ def myFunction(x):
     TSS_18 = (XI_18 + XS_18)*0.75
 
    
-    ###Dewaterer###
+    # Dewaterer #
     pdew = 28 # % of suspended solids in underflow of dewckener
     TSSremdew = 98 #% of suspended solids removed in dewckener
     fdew = pdew*10000/(0.75*(XI_18+XS_18+XND_18))
